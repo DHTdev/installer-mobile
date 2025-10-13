@@ -87,7 +87,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: GpsWidget.routeName,
           path: GpsWidget.routePath,
-          builder: (context, params) => GpsWidget(),
+          builder: (context, params) => GpsWidget(
+            imei: params.getParam(
+              'imei',
+              ParamType.String,
+            ),
+            simNumber: params.getParam(
+              'simNumber',
+              ParamType.String,
+            ),
+            model: params.getParam(
+              'model',
+              ParamType.String,
+            ),
+            brand: params.getParam(
+              'brand',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: SimWidget.routeName,

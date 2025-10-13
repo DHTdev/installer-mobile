@@ -1,3 +1,4 @@
+import '/components/header_section_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'tacheconfirmer_widget.dart' show TacheconfirmerWidget;
@@ -15,13 +16,19 @@ class TacheconfirmerModel extends FlutterFlowModel<TacheconfirmerWidget> {
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   List<String> simpleSearchResults = [];
+  // Model for headerSection component.
+  late HeaderSectionModel headerSectionModel;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    headerSectionModel = createModel(context, () => HeaderSectionModel());
+  }
 
   @override
   void dispose() {
     textFieldFocusNode?.dispose();
     textController?.dispose();
+
+    headerSectionModel.dispose();
   }
 }

@@ -1,6 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/index.dart';
 import 'tache_terminer_widget.dart' show TacheTerminerWidget;
 import 'package:flutter/material.dart';
 

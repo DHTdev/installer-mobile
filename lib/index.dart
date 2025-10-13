@@ -7,19 +7,19 @@ export '/tache/tcheexceptionnel/tcheexceptionnel_widget.dart'
     show TcheexceptionnelWidget;
 export '/tache/appareils/appareils/appareils_widget.dart' show AppareilsWidget;
 export '/tache/appareils/gps/gps_widget.dart' show GpsWidget;
-export '/tache/sim/sim_widget.dart' show SimWidget;
+export '/tache/appareils/sim/sim_widget.dart' show SimWidget;
 export '/tache/appareils/accessoires/accessoires_widget.dart'
     show AccessoiresWidget;
 export '/appareilsdesintalls/appareilsdesintalls/appareilsdesintalls_widget.dart'
     show AppareilsdesintallsWidget;
-export '/tacheconfirmer/tacheconfirmer/tacheconfirmer_widget.dart'
+export '/appareilsdesintalls/tacheconfirmer/tacheconfirmer/tacheconfirmer_widget.dart'
     show TacheconfirmerWidget;
-export '/tacheconfirmer/nouvelle_taches/nouvelle_taches_widget.dart'
+export '/appareilsdesintalls/tacheconfirmer/nouvelle_taches/nouvelle_taches_widget.dart'
     show NouvelleTachesWidget;
-export '/tache/tache_terminer/tache_terminer_widget.dart'
+export '/tache/appareils/tache_terminer/tache_terminer_widget.dart'
     show TacheTerminerWidget;
 export '/tache/tchesreporte/tchesreporte_widget.dart' show TchesreporteWidget;
-export '/tacheconfirmer/detailstache/detailstache_widget.dart'
+export '/appareilsdesintalls/tacheconfirmer/detailstache/detailstache_widget.dart'
     show DetailstacheWidget;
 export '/pages/dashboard/dashboard_widget.dart' show DashboardWidget;
 export '/taches/tachetech/tachetech_widget.dart' show TachetechWidget;

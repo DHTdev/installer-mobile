@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/compenents/technicien_tasks/technicien_tasks_widget.dart';
+import '/components/header_section_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/index.dart';
@@ -47,11 +48,14 @@ class TachesModel extends FlutterFlowModel<TachesWidget> {
   Completer<ApiCallResponse>? apiRequestCompleter;
   // Models for TechnicienTasks dynamic component.
   late FlutterFlowDynamicModels<TechnicienTasksModel> technicienTasksModels;
+  // Model for headerSection component.
+  late HeaderSectionModel headerSectionModel;
 
   @override
   void initState(BuildContext context) {
     technicienTasksModels =
         FlutterFlowDynamicModels(() => TechnicienTasksModel());
+    headerSectionModel = createModel(context, () => HeaderSectionModel());
   }
 
   @override
@@ -60,6 +64,7 @@ class TachesModel extends FlutterFlowModel<TachesWidget> {
     textController?.dispose();
 
     technicienTasksModels.dispose();
+    headerSectionModel.dispose();
   }
 
   /// Additional helper methods.

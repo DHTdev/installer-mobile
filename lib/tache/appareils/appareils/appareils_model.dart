@@ -1,7 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/header_section_widget.dart';
 import '/components/number_device_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'appareils_widget.dart' show AppareilsWidget;
 import 'package:flutter/material.dart';
 
@@ -10,17 +12,10 @@ class AppareilsModel extends FlutterFlowModel<AppareilsWidget> {
 
   bool isShowFullList = true;
 
-  List<DeviceStruct> technicianDevices = [];
-  void addToTechnicianDevices(DeviceStruct item) => technicianDevices.add(item);
-  void removeFromTechnicianDevices(DeviceStruct item) =>
-      technicianDevices.remove(item);
-  void removeAtIndexFromTechnicianDevices(int index) =>
-      technicianDevices.removeAt(index);
-  void insertAtIndexInTechnicianDevices(int index, DeviceStruct item) =>
-      technicianDevices.insert(index, item);
-  void updateTechnicianDevicesAtIndex(
-          int index, Function(DeviceStruct) updateFn) =>
-      technicianDevices[index] = updateFn(technicianDevices[index]);
+  DeviceStruct? technicianDevices;
+  void updateTechnicianDevicesStruct(Function(DeviceStruct) updateFn) {
+    updateFn(technicianDevices ??= DeviceStruct());
+  }
 
   ///  State fields for stateful widgets in this page.
 
@@ -32,12 +27,15 @@ class AppareilsModel extends FlutterFlowModel<AppareilsWidget> {
   late NumberDeviceModel numberDeviceModel2;
   // Model for NumberDevice component.
   late NumberDeviceModel numberDeviceModel3;
+  // Model for headerSection component.
+  late HeaderSectionModel headerSectionModel;
 
   @override
   void initState(BuildContext context) {
     numberDeviceModel1 = createModel(context, () => NumberDeviceModel());
     numberDeviceModel2 = createModel(context, () => NumberDeviceModel());
     numberDeviceModel3 = createModel(context, () => NumberDeviceModel());
+    headerSectionModel = createModel(context, () => HeaderSectionModel());
   }
 
   @override
@@ -45,5 +43,6 @@ class AppareilsModel extends FlutterFlowModel<AppareilsWidget> {
     numberDeviceModel1.dispose();
     numberDeviceModel2.dispose();
     numberDeviceModel3.dispose();
+    headerSectionModel.dispose();
   }
 }

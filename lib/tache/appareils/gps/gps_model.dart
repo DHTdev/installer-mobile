@@ -1,5 +1,5 @@
+import '/components/gps_device_item_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/index.dart';
 import 'gps_widget.dart' show GpsWidget;
 import 'package:flutter/material.dart';
 
@@ -15,13 +15,19 @@ class GpsModel extends FlutterFlowModel<GpsWidget> {
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   List<String> simpleSearchResults = [];
+  // Model for gpsDeviceItem component.
+  late GpsDeviceItemModel gpsDeviceItemModel;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    gpsDeviceItemModel = createModel(context, () => GpsDeviceItemModel());
+  }
 
   @override
   void dispose() {
     textFieldFocusNode?.dispose();
     textController?.dispose();
+
+    gpsDeviceItemModel.dispose();
   }
 }
