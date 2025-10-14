@@ -1,10 +1,9 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
-import 'appareilsdesintalls_widget.dart' show AppareilsdesintallsWidget;
+import 'gps_widget.dart' show GpsWidget;
 import 'package:flutter/material.dart';
 
-class AppareilsdesintallsModel
-    extends FlutterFlowModel<AppareilsdesintallsWidget> {
+class GpsModel extends FlutterFlowModel<GpsWidget> {
   ///  Local state fields for this page.
 
   bool isShowFullList = true;

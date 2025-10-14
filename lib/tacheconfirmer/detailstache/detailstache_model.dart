@@ -1,10 +1,9 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/index.dart';
-import 'tcheexceptionnel_widget.dart' show TcheexceptionnelWidget;
+import 'detailstache_widget.dart' show DetailstacheWidget;
 import 'package:flutter/material.dart';
 
-class TcheexceptionnelModel extends FlutterFlowModel<TcheexceptionnelWidget> {
+class DetailstacheModel extends FlutterFlowModel<DetailstacheWidget> {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
@@ -28,13 +27,6 @@ class TcheexceptionnelModel extends FlutterFlowModel<TcheexceptionnelWidget> {
   FocusNode? textFieldFocusNode5;
   TextEditingController? textController5;
   String? Function(BuildContext, String?)? textController5Validator;
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode6;
-  TextEditingController? textController6;
-  String? Function(BuildContext, String?)? textController6Validator;
 
   @override
   void initState(BuildContext context) {}
@@ -55,8 +47,5 @@ class TcheexceptionnelModel extends FlutterFlowModel<TcheexceptionnelWidget> {
 
     textFieldFocusNode5?.dispose();
     textController5?.dispose();
-
-    textFieldFocusNode6?.dispose();
-    textController6?.dispose();
   }
 }

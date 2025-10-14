@@ -1,10 +1,10 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/index.dart';
-import 'tcheexceptionnel_widget.dart' show TcheexceptionnelWidget;
+import 'nouvelle_taches_widget.dart' show NouvelleTachesWidget;
 import 'package:flutter/material.dart';
 
-class TcheexceptionnelModel extends FlutterFlowModel<TcheexceptionnelWidget> {
+class NouvelleTachesModel extends FlutterFlowModel<NouvelleTachesWidget> {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
@@ -35,6 +35,10 @@ class TcheexceptionnelModel extends FlutterFlowModel<TcheexceptionnelWidget> {
   FocusNode? textFieldFocusNode6;
   TextEditingController? textController6;
   String? Function(BuildContext, String?)? textController6Validator;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode7;
+  TextEditingController? textController7;
+  String? Function(BuildContext, String?)? textController7Validator;
 
   @override
   void initState(BuildContext context) {}
@@ -58,5 +62,8 @@ class TcheexceptionnelModel extends FlutterFlowModel<TcheexceptionnelWidget> {
 
     textFieldFocusNode6?.dispose();
     textController6?.dispose();
+
+    textFieldFocusNode7?.dispose();
+    textController7?.dispose();
   }
 }

@@ -36,12 +36,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) => NavBarPage(),
+      errorBuilder: (context, state) => HomePageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => NavBarPage(),
+          builder: (context, _) => HomePageWidget(),
+        ),
+        FFRoute(
+          name: HomePageWidget.routeName,
+          path: HomePageWidget.routePath,
+          builder: (context, params) => HomePageWidget(),
         ),
         FFRoute(
           name: TachesWidget.routeName,
@@ -54,10 +59,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: AuthentificationWidget.routeName,
           path: AuthentificationWidget.routePath,
           builder: (context, params) => AuthentificationWidget(
-            token: params.getParam(
-              'token',
-              ParamType.String,
-            ),
+            x_xsrf_token: params.getParam('x_xsrf_token', ParamType.String),
           ),
         ),
         FFRoute(
@@ -75,36 +77,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: AppareilsWidget.routePath,
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'Appareils')
-              : AppareilsWidget(
-                  technicianDevices: params.getParam(
-                    'technicianDevices',
-                    ParamType.DataStruct,
-                    isList: false,
-                    structBuilder: DeviceStruct.fromSerializableMap,
-                  ),
-                ),
+              : AppareilsWidget(),
         ),
         FFRoute(
           name: GpsWidget.routeName,
           path: GpsWidget.routePath,
-          builder: (context, params) => GpsWidget(
-            imei: params.getParam(
-              'imei',
-              ParamType.String,
-            ),
-            simNumber: params.getParam(
-              'simNumber',
-              ParamType.String,
-            ),
-            model: params.getParam(
-              'model',
-              ParamType.String,
-            ),
-            brand: params.getParam(
-              'brand',
-              ParamType.String,
-            ),
-          ),
+          builder: (context, params) => GpsWidget(),
         ),
         FFRoute(
           name: SimWidget.routeName,

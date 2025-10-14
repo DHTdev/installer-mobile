@@ -1,25 +1,25 @@
 // Export pages
+export '/home_page/home_page_widget.dart' show HomePageWidget;
 export '/tache/taches/taches_widget.dart' show TachesWidget;
 export '/authentification/authentification_widget.dart'
     show AuthentificationWidget;
 export '/tache/edit_taches/edit_taches_widget.dart' show EditTachesWidget;
 export '/tache/tcheexceptionnel/tcheexceptionnel_widget.dart'
     show TcheexceptionnelWidget;
-export '/tache/appareils/appareils/appareils_widget.dart' show AppareilsWidget;
-export '/tache/appareils/gps/gps_widget.dart' show GpsWidget;
-export '/tache/appareils/sim/sim_widget.dart' show SimWidget;
-export '/tache/appareils/accessoires/accessoires_widget.dart'
-    show AccessoiresWidget;
+export '/appareils/appareils/appareils_widget.dart' show AppareilsWidget;
+export '/appareils/gps/gps_widget.dart' show GpsWidget;
+export '/appareils/sim/sim_widget.dart' show SimWidget;
+export '/appareils/accessoires/accessoires_widget.dart' show AccessoiresWidget;
 export '/appareilsdesintalls/appareilsdesintalls/appareilsdesintalls_widget.dart'
     show AppareilsdesintallsWidget;
-export '/appareilsdesintalls/tacheconfirmer/tacheconfirmer/tacheconfirmer_widget.dart'
+export '/tacheconfirmer/tacheconfirmer/tacheconfirmer_widget.dart'
     show TacheconfirmerWidget;
-export '/appareilsdesintalls/tacheconfirmer/nouvelle_taches/nouvelle_taches_widget.dart'
+export '/tacheconfirmer/nouvelle_taches/nouvelle_taches_widget.dart'
     show NouvelleTachesWidget;
-export '/tache/appareils/tache_terminer/tache_terminer_widget.dart'
+export '/tache/tache_terminer/tache_terminer_widget.dart'
     show TacheTerminerWidget;
 export '/tache/tchesreporte/tchesreporte_widget.dart' show TchesreporteWidget;
-export '/appareilsdesintalls/tacheconfirmer/detailstache/detailstache_widget.dart'
+export '/tacheconfirmer/detailstache/detailstache_widget.dart'
     show DetailstacheWidget;
 export '/pages/dashboard/dashboard_widget.dart' show DashboardWidget;
 export '/taches/tachetech/tachetech_widget.dart' show TachetechWidget;

@@ -1,14 +1,18 @@
 // ignore_for_file: unnecessary_getters_setters
 
 
+import 'package:mobile_installer/backend/schema/structs/accessory_struct.dart';
+import 'package:mobile_installer/backend/schema/structs/gps_struct.dart';
+import 'package:mobile_installer/backend/schema/structs/sim_struct.dart';
+
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class DeviceStruct extends BaseStruct {
   DeviceStruct({
-    String? numberGps,
-    String? numberSim,
-    String? numberAccessory,
+    int? numberGps,
+    int? numberSim,
+    int? numberAccessory,
     List<GpsStruct>? gps,
     List<SimStruct>? sim,
     List<AccessoryStruct>? accessory,
@@ -20,23 +24,23 @@ class DeviceStruct extends BaseStruct {
         _accessory = accessory;
 
   // "NumberGps" field.
-  String? _numberGps;
-  String get numberGps => _numberGps ?? '';
-  set numberGps(String? val) => _numberGps = val;
+  int? _numberGps;
+  int get numberGps => _numberGps ?? 0;
+  set numberGps(int? val) => _numberGps = val;
 
   bool hasNumberGps() => _numberGps != null;
 
   // "NumberSim" field.
-  String? _numberSim;
-  String get numberSim => _numberSim ?? '';
-  set numberSim(String? val) => _numberSim = val;
+  int? _numberSim;
+  int get numberSim => _numberSim ?? 0;
+  set numberSim(int? val) => _numberSim = val;
 
   bool hasNumberSim() => _numberSim != null;
 
   // "numberAccessory" field.
-  String? _numberAccessory;
-  String get numberAccessory => _numberAccessory ?? '';
-  set numberAccessory(String? val) => _numberAccessory = val;
+  int? _numberAccessory;
+  int get numberAccessory => _numberAccessory ?? 0;
+  set numberAccessory(int? val) => _numberAccessory = val;
 
   bool hasNumberAccessory() => _numberAccessory != null;
 
@@ -74,9 +78,9 @@ class DeviceStruct extends BaseStruct {
   bool hasAccessory() => _accessory != null;
 
   static DeviceStruct fromMap(Map<String, dynamic> data) => DeviceStruct(
-        numberGps: data['NumberGps'] as String?,
-        numberSim: data['NumberSim'] as String?,
-        numberAccessory: data['numberAccessory'] as String?,
+        numberGps: data['NumberGps'],
+        numberSim: data['NumberSim'],
+        numberAccessory: data['numberAccessory'],
         gps: getStructList(
           data['GPS'],
           GpsStruct.fromMap,
@@ -192,9 +196,9 @@ class DeviceStruct extends BaseStruct {
 }
 
 DeviceStruct createDeviceStruct({
-  String? numberGps,
-  String? numberSim,
-  String? numberAccessory,
+  int? numberGps,
+  int? numberSim,
+  int? numberAccessory,
 }) =>
     DeviceStruct(
       numberGps: numberGps,

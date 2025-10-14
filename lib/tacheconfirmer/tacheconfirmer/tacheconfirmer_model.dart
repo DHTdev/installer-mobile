@@ -1,10 +1,9 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
-import 'appareilsdesintalls_widget.dart' show AppareilsdesintallsWidget;
+import 'tacheconfirmer_widget.dart' show TacheconfirmerWidget;
 import 'package:flutter/material.dart';
 
-class AppareilsdesintallsModel
-    extends FlutterFlowModel<AppareilsdesintallsWidget> {
+class TacheconfirmerModel extends FlutterFlowModel<TacheconfirmerWidget> {
   ///  Local state fields for this page.
 
   bool isShowFullList = true;

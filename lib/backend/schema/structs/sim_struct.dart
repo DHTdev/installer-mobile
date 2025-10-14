@@ -1,6 +1,8 @@
 // ignore_for_file: unnecessary_getters_setters
 
 
+import 'package:mobile_installer/backend/schema/structs/latest_device_relating_struct.dart';
+
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 

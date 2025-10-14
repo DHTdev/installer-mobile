@@ -1,10 +1,9 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
-import 'appareilsdesintalls_widget.dart' show AppareilsdesintallsWidget;
+import 'sim_widget.dart' show SimWidget;
 import 'package:flutter/material.dart';
 
-class AppareilsdesintallsModel
-    extends FlutterFlowModel<AppareilsdesintallsWidget> {
+class SimModel extends FlutterFlowModel<SimWidget> {
   ///  Local state fields for this page.
 
   bool isShowFullList = true;

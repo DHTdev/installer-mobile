@@ -7,28 +7,28 @@ import '/flutter_flow/form_field_controller.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'tcheexceptionnel_model.dart';
-export 'tcheexceptionnel_model.dart';
+import 'nouvelle_taches_model.dart';
+export 'nouvelle_taches_model.dart';
 
-class TcheexceptionnelWidget extends StatefulWidget {
-  const TcheexceptionnelWidget({super.key});
+class NouvelleTachesWidget extends StatefulWidget {
+  const NouvelleTachesWidget({super.key});
 
-  static String routeName = 'Tcheexceptionnel';
-  static String routePath = '/tcheexceptionnel';
+  static String routeName = 'NouvelleTaches';
+  static String routePath = '/nouvelleTaches';
 
   @override
-  State<TcheexceptionnelWidget> createState() => _TcheexceptionnelWidgetState();
+  State<NouvelleTachesWidget> createState() => _NouvelleTachesWidgetState();
 }
 
-class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
-  late TcheexceptionnelModel _model;
+class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
+  late NouvelleTachesModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TcheexceptionnelModel());
+    _model = createModel(context, () => NouvelleTachesModel());
 
     _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode1 ??= FocusNode();
@@ -47,6 +47,9 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
 
     _model.textController6 ??= TextEditingController();
     _model.textFieldFocusNode6 ??= FocusNode();
+
+    _model.textController7 ??= TextEditingController();
+    _model.textFieldFocusNode7 ??= FocusNode();
   }
 
   @override
@@ -109,7 +112,7 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                 ),
                               ),
                               Text(
-                                'Tâche exceptionnel ',
+                                'Nouvelle tâche  ',
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
@@ -1016,6 +1019,149 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                     child: TextFormField(
                                       controller: _model.textController6,
                                       focusNode: _model.textFieldFocusNode6,
+                                      autofocus: true,
+                                      autofillHints: [AutofillHints.email],
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        isDense: true,
+                                        labelStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
+                                        hintText: 'Email',
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.black,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        contentPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                10.0, 20.0, 20.0, 16.0),
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                      keyboardType:
+                                          const TextInputType.numberWithOptions(
+                                              decimal: true),
+                                      cursorColor: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      validator: _model.textController6Validator
+                                          .asValidator(context),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 8.0, 8.0, 0.0),
+                                  child: Container(
+                                    width: 200.0,
+                                    child: TextFormField(
+                                      controller: _model.textController7,
+                                      focusNode: _model.textFieldFocusNode7,
                                       autofocus: false,
                                       obscureText: false,
                                       decoration: InputDecoration(
@@ -1138,7 +1284,7 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                               decimal: true),
                                       cursorColor: FlutterFlowTheme.of(context)
                                           .primaryText,
-                                      validator: _model.textController6Validator
+                                      validator: _model.textController7Validator
                                           .asValidator(context),
                                     ),
                                   ),

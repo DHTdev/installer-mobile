@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:mobile_installer/app_state.dart';
 
-import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -44,6 +44,7 @@ class LoginCall {
   Future<ApiCallResponse> call({
     String? emailAddress = 'hamza.touil@gmail.com',
     String? password = 'elec97',
+    token,
   }) async {
     final baseUrl = AuthentificationGroup.getBaseUrl();
 
@@ -52,13 +53,13 @@ class LoginCall {
   "email": "hamza.touil@gmail.com",
   "password": "elec97"
 }''';
+    print("tpoken:${token}");
     return ApiManager.instance.makeApiCall(
       callName: 'login',
       apiUrl: '${baseUrl}/login',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': '',
       },
       params: {},
       body: ffApiRequestBody,
@@ -334,22 +335,21 @@ class TechnicienGroup {
   static ReinstallationTaskCall reinstallationTaskCall =
       ReinstallationTaskCall();
   static PanneTaskCall panneTaskCall = PanneTaskCall();
+
+  static String authToken = FFAppState().authToken;
 }
 
-class TasksCall {
-  Future<ApiCallResponse> call({
-    String? token = '',
-  }) async {
-    final baseUrl = TechnicienGroup.getBaseUrl();
 
+class TasksCall {
+  Future<ApiCallResponse> call(String authToken) async {
+    final baseUrl = TechnicienGroup.getBaseUrl();
     return ApiManager.instance.makeApiCall(
       callName: 'Tasks',
       apiUrl: '${baseUrl}/tâches',
       callType: ApiCallType.GET,
       headers: {
         'content-type': 'application/json',
-        'Authorization':
-            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+        'Authorization': 'Bearer ${authToken}',
       },
       params: {},
       returnBody: true,
@@ -360,170 +360,6 @@ class TasksCall {
       alwaysAllowBody: false,
     );
   }
-
-  List<int>? id(dynamic response) => (getJsonField(
-        response,
-        r'''$[:].id''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<int>(x))
-          .withoutNulls
-          .toList();
-  List<int>? technician(dynamic response) => (getJsonField(
-        response,
-        r'''$[:].uti_utilsateur_id''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<int>(x))
-          .withoutNulls
-          .toList();
-  List<String>? expectedStartDate(dynamic response) => (getJsonField(
-        response,
-        r'''$[:].date_previsionnelle_debut''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<String>(x))
-          .withoutNulls
-          .toList();
-  List<String>? startDate(dynamic response) => (getJsonField(
-        response,
-        r'''$[:].date_debut_realisation''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<String>(x))
-          .withoutNulls
-          .toList();
-  List<String>? dateAffectation(dynamic response) => (getJsonField(
-        response,
-        r'''$[:].date_affectation''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<String>(x))
-          .withoutNulls
-          .toList();
-  List? car(dynamic response) => getJsonField(
-        response,
-        r'''$[:].vehicules''',
-        true,
-      ) as List?;
-  List? accesoriesModel(dynamic response) => getJsonField(
-        response,
-        r'''$[:].accesoriesModel''',
-        true,
-      ) as List?;
-  List<String>? catache(dynamic response) => (getJsonField(
-        response,
-        r'''$[:].catache''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<String>(x))
-          .withoutNulls
-          .toList();
-  List<String>? cityName(dynamic response) => (getJsonField(
-        response,
-        r'''$[:].cityName''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<String>(x))
-          .withoutNulls
-          .toList();
-  List<String>? clientname(dynamic response) => (getJsonField(
-        response,
-        r'''$[:].client_name''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<String>(x))
-          .withoutNulls
-          .toList();
-  List? simNumber(dynamic response) => getJsonField(
-        response,
-        r'''$[:].SIM''',
-        true,
-      ) as List?;
-  List? mainGPS(dynamic response) => getJsonField(
-        response,
-        r'''$[:].gps_principale''',
-        true,
-      ) as List?;
-  List? owner(dynamic response) => getJsonField(
-        response,
-        r'''$[:].proprietaire''',
-        true,
-      ) as List?;
-  List? garantie(dynamic response) => getJsonField(
-        response,
-        r'''$[:].garantie''',
-        true,
-      ) as List?;
-  List? ownerSIM(dynamic response) => getJsonField(
-        response,
-        r'''$[:].SIM_proprietaire''',
-        true,
-      ) as List?;
-  List<String>? clientPhoneNumber(dynamic response) => (getJsonField(
-        response,
-        r'''$[:].telephone_client''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<String>(x))
-          .withoutNulls
-          .toList();
-  List<String>? sendBy(dynamic response) => (getJsonField(
-        response,
-        r'''$[:].user_name''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<String>(x))
-          .withoutNulls
-          .toList();
-  List? nameModeleGPS(dynamic response) => getJsonField(
-        response,
-        r'''$[:].nameModeleGPS''',
-        true,
-      ) as List?;
-  List? nameModeleSIM(dynamic response) => getJsonField(
-        response,
-        r'''$[:].nameModeleSIM''',
-        true,
-      ) as List?;
-  List? serialNumber(dynamic response) => getJsonField(
-        response,
-        r'''$[:].IMEI''',
-        true,
-      ) as List?;
-  List<int>? stateTask(dynamic response) => (getJsonField(
-        response,
-        r'''$[:].etat_tache''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<int>(x))
-          .withoutNulls
-          .toList();
-  List? matricule(dynamic response) => getJsonField(
-        response,
-        r'''$[:].matricule''',
-        true,
-      ) as List?;
-  List<String>? observation(dynamic response) => (getJsonField(
-        response,
-        r'''$[:].observation''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<String>(x))
-          .withoutNulls
-          .toList();
 }
 
 class AppareilsCall {
@@ -534,10 +370,9 @@ class AppareilsCall {
       callName: 'appareils',
       apiUrl: '${baseUrl}/appareils',
       callType: ApiCallType.GET,
-      headers: {
-        'Authorization':
-            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+            headers: {
         'content-type': 'application/json',
+        'Authorization': 'Bearer ${TechnicienGroup.authToken}',
       },
       params: {},
       returnBody: true,

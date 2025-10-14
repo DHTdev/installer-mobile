@@ -1,17 +1,18 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/compenents/technicien_tasks/technicien_tasks_widget.dart';
-import '/components/header_section_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import 'dart:ui';
 import '/index.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'taches_model.dart';
 export 'taches_model.dart';
 
@@ -27,8 +28,12 @@ class TachesWidget extends StatefulWidget {
 
 class _TachesWidgetState extends State<TachesWidget> {
   late TachesModel _model;
-
+  final ScrollController _scrollController = ScrollController();
+  bool isLoading = false;
+  final FFAppState appState = FFAppState();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final String now = DateFormat.yMMMd().format(DateTime.now()).toString();
+  List<TechnicianTaskStruct> technicianTasks = [];
 
   @override
   void initState() {
@@ -37,7 +42,8 @@ class _TachesWidgetState extends State<TachesWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.apiResultTechnianTasks = await TechnicienGroup.tasksCall.call();
+      _model.apiResultTechnianTasks =
+          await TechnicienGroup.tasksCall.call(appState.authToken);
 
       if ((_model.apiResultTechnianTasks?.succeeded ?? true)) {
         _model.technicianTask = ((_model.apiResultTechnianTasks?.jsonBody ?? '')
@@ -45,14 +51,36 @@ class _TachesWidgetState extends State<TachesWidget> {
                 .map<TechnicianTaskStruct?>(TechnicianTaskStruct.maybeFromMap)
                 .toList() as Iterable<TechnicianTaskStruct?>)
             .withoutNulls
-            .toList()
+            .toList() 
             .cast<TechnicianTaskStruct>();
-        safeSetState(() {});
+        safeSetState(() {
+          technicianTasks = _model.technicianTask.toList();
+          ;
+        });
+      }
+    });
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >=
+              _scrollController.position.maxScrollExtent - 100 &&
+          !isLoading) {
+        _refreshList();
       }
     });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+  }
+
+  Future<void> _refreshList() async {
+    setState(() {
+      isLoading = true;
+    });
+    final loadMore = _model.technicianTask.toList().length;
+    print('loadMore:${loadMore}');
+    setState(() {
+      technicianTasks = technicianTasks;
+    });
   }
 
   @override
@@ -73,21 +101,155 @@ class _TachesWidgetState extends State<TachesWidget> {
         key: scaffoldKey,
         backgroundColor: Color(0xFFEAEDF7),
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100.0),
+          preferredSize: Size.fromHeight(100),
           child: AppBar(
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false,
             actions: [],
             flexibleSpace: FlexibleSpaceBar(
-              title: wrapWithModel(
-                model: _model.headerSectionModel,
-                updateCallback: () => safeSetState(() {}),
-                child: HeaderSectionWidget(),
+              title: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 14),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Bonjour Hamza TOUIL',
+                                style: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      font: GoogleFonts.interTight(
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
+                                      ),
+                                      fontSize: 18,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                              ),
+                              Text(
+                                now.toString(),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Container(
+                                width: 36,
+                                height: 36,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 4,
+                                      color: Color(0x33000000),
+                                      offset: Offset(
+                                        0,
+                                        2,
+                                      ),
+                                      spreadRadius: 2,
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Icon(
+                                  Icons.notifications_active,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 30,
+                                ),
+                              ),
+                              Container(
+                                width: 36,
+                                height: 36,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 4,
+                                      color: Color(0x33000000),
+                                      offset: Offset(
+                                        0,
+                                        2,
+                                      ),
+                                      spreadRadius: 2,
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    context.pushNamed(
+                                      AuthentificationWidget.routeName,
+                                      queryParameters: {
+                                        'token': serializeParam(
+                                          'tesst',
+                                          ParamType.String,
+                                        ),
+                                      }.withoutNulls,
+                                    );
+                                  },
+                                  child: Icon(
+                                    Icons.exit_to_app_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 30,
+                                  ),
+                                ),
+                              ),
+                            ].divide(SizedBox(width: 15)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               centerTitle: true,
               expandedTitleScale: 1.0,
             ),
-            elevation: 2.0,
+            elevation: 2,
           ),
         ),
         body: SafeArea(
@@ -98,10 +260,9 @@ class _TachesWidgetState extends State<TachesWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Align(
-                  alignment: AlignmentDirectional(-1.0, -1.0),
+                  alignment: AlignmentDirectional(-1, -1),
                   child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 0.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 20, 0, 0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         context.pushNamed(TcheexceptionnelWidget.routeName);
@@ -109,11 +270,9 @@ class _TachesWidgetState extends State<TachesWidget> {
                       text: 'Tâche exceptionnel ',
                       options: FFButtonOptions(
                         width: 179.7,
-                        height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        height: 40,
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                        iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                         color: Color(0xFF07C491),
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -134,18 +293,16 @@ class _TachesWidgetState extends State<TachesWidget> {
                                       .titleSmall
                                       .fontStyle,
                                 ),
-                        elevation: 0.0,
-                        borderRadius: BorderRadius.circular(8.0),
+                        elevation: 0,
+                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                   child: Container(
                     width: 379.2,
-                    height: MediaQuery.sizeOf(context).height * 1.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                     ),
@@ -158,7 +315,7 @@ class _TachesWidgetState extends State<TachesWidget> {
                             children: [
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    10.0, 10.0, 0.0, 0.0),
+                                    10, 10, 0, 0),
                                 child: Text(
                                   'List Des Tâches   |  ',
                                   style: FlutterFlowTheme.of(context)
@@ -171,7 +328,7 @@ class _TachesWidgetState extends State<TachesWidget> {
                                                   .bodyMedium
                                                   .fontStyle,
                                         ),
-                                        fontSize: 16.0,
+                                        fontSize: 16,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FlutterFlowTheme.of(context)
@@ -181,10 +338,10 @@ class _TachesWidgetState extends State<TachesWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 10.0, 0.0, 0.0),
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                 child: Text(
-                                  ' 75 tâches',
+                                  '${technicianTasks.length} tâches',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -195,7 +352,7 @@ class _TachesWidgetState extends State<TachesWidget> {
                                                   .bodyMedium
                                                   .fontStyle,
                                         ),
-                                        fontSize: 16.0,
+                                        fontSize: 16,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FlutterFlowTheme.of(context)
@@ -207,8 +364,8 @@ class _TachesWidgetState extends State<TachesWidget> {
                             ],
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 20.0, 0.0, 0.0),
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                             child: FlutterFlowDropDown<String>(
                               controller: _model.dropDownValueController1 ??=
                                   FormFieldController<String>(null),
@@ -216,7 +373,7 @@ class _TachesWidgetState extends State<TachesWidget> {
                               onChanged: (val) => safeSetState(
                                   () => _model.dropDownValue1 = val),
                               width: MediaQuery.sizeOf(context).width * 0.9,
-                              height: 40.0,
+                              height: 40,
                               textStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -241,16 +398,16 @@ class _TachesWidgetState extends State<TachesWidget> {
                                 Icons.keyboard_arrow_down_rounded,
                                 color:
                                     FlutterFlowTheme.of(context).secondaryText,
-                                size: 24.0,
+                                size: 24,
                               ),
                               fillColor: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              elevation: 2.0,
+                              elevation: 2,
                               borderColor: Color(0x4C000000),
-                              borderWidth: 0.0,
-                              borderRadius: 8.0,
-                              margin: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 12.0, 0.0),
+                              borderWidth: 0,
+                              borderRadius: 8,
+                              margin:
+                                  EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
                               hidesUnderline: true,
                               isOverButton: false,
                               isSearchable: false,
@@ -258,8 +415,7 @@ class _TachesWidgetState extends State<TachesWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 8.0, 0.0, 0.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                             child: FlutterFlowDropDown<String>(
                               controller: _model.dropDownValueController2 ??=
                                   FormFieldController<String>(null),
@@ -267,7 +423,7 @@ class _TachesWidgetState extends State<TachesWidget> {
                               onChanged: (val) => safeSetState(
                                   () => _model.dropDownValue2 = val),
                               width: MediaQuery.sizeOf(context).width * 0.9,
-                              height: 40.0,
+                              height: 40,
                               textStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -292,16 +448,16 @@ class _TachesWidgetState extends State<TachesWidget> {
                                 Icons.keyboard_arrow_down_rounded,
                                 color:
                                     FlutterFlowTheme.of(context).secondaryText,
-                                size: 24.0,
+                                size: 24,
                               ),
                               fillColor: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              elevation: 2.0,
+                              elevation: 2,
                               borderColor: Color(0x4C000000),
-                              borderWidth: 0.0,
-                              borderRadius: 8.0,
-                              margin: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 12.0, 0.0),
+                              borderWidth: 0,
+                              borderRadius: 8,
+                              margin:
+                                  EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
                               hidesUnderline: true,
                               isOverButton: false,
                               isSearchable: false,
@@ -309,8 +465,7 @@ class _TachesWidgetState extends State<TachesWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 8.0, 0.0, 0.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                             child: Container(
                               width: MediaQuery.sizeOf(context).width * 0.9,
                               child: TextFormField(
@@ -366,30 +521,30 @@ class _TachesWidgetState extends State<TachesWidget> {
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x4C000000),
-                                      width: 1.0,
+                                      width: 1,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
-                                      width: 1.0,
+                                      width: 1,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
+                                      width: 1,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
+                                      width: 1,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                   filled: true,
                                   fillColor: FlutterFlowTheme.of(context)
@@ -422,21 +577,21 @@ class _TachesWidgetState extends State<TachesWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 10.0, 0.0, 0.0),
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                             child: FutureBuilder<ApiCallResponse>(
                               future: (_model.apiRequestCompleter ??=
                                       Completer<ApiCallResponse>()
-                                        ..complete(
-                                            TechnicienGroup.tasksCall.call()))
+                                        ..complete(TechnicienGroup.tasksCall
+                                            .call(appState.authToken)))
                                   .future,
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
                                   return Center(
                                     child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
+                                      width: 50,
+                                      height: 50,
                                       child: CircularProgressIndicator(
                                         valueColor:
                                             AlwaysStoppedAnimation<Color>(
@@ -450,12 +605,12 @@ class _TachesWidgetState extends State<TachesWidget> {
 
                                 return Builder(
                                   builder: (context) {
-                                    final technicianTasks = _model
-                                        .technicianTask
-                                        .toList()
-                                        .take(10)
-                                        .toList();
-
+                                    // final technicianTasks = _model
+                                    //     .technicianTask
+                                    //     .toList()
+                                    //     .take(10)
+                                    //     .toList();
+                                    print("technicianTasks:${technicianTasks}");
                                     return RefreshIndicator(
                                       onRefresh: () async {
                                         safeSetState(() =>
@@ -463,31 +618,25 @@ class _TachesWidgetState extends State<TachesWidget> {
                                         await _model
                                             .waitForApiRequestCompleted();
                                       },
-                                      child: ListView.separated(
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 5.0),
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.vertical,
-                                        itemCount: technicianTasks.length,
-                                        separatorBuilder: (_, __) =>
-                                            SizedBox(height: 5.0),
-                                        itemBuilder:
-                                            (context, technicianTasksIndex) {
-                                          final technicianTasksItem =
-                                              technicianTasks[
-                                                  technicianTasksIndex];
-                                          return wrapWithModel(
-                                            model: _model.technicienTasksModels
-                                                .getModel(
-                                              technicianTasksItem.id.toString(),
-                                              technicianTasksIndex,
-                                            ),
-                                            updateCallback: () =>
-                                                safeSetState(() {}),
-                                            child: TechnicienTasksWidget(
+                                      child: SingleChildScrollView(
+                                        child: ListView.separated(
+                                          padding:
+                                              EdgeInsets.symmetric(vertical: 5),
+                                          shrinkWrap: true,
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          scrollDirection: Axis.vertical,
+                                          itemCount: technicianTasks.length,
+                                          separatorBuilder: (_, __) =>
+                                              SizedBox(height: 5),
+                                          itemBuilder:
+                                              (context, technicianTasksIndex) {
+                                            final technicianTasksItem =
+                                                technicianTasks[
+                                                    technicianTasksIndex];
+                                            return TechnicienTasksWidget(
                                               key: Key(
-                                                'Keyxum_${technicianTasksItem.id.toString()}',
-                                              ),
+                                                  'Keyxum_${technicianTasksIndex}_of_${technicianTasks.length}'),
                                               clientName: technicianTasksItem
                                                   .clientName,
                                               taskType:
@@ -497,10 +646,10 @@ class _TachesWidgetState extends State<TachesWidget> {
                                               stateTask:
                                                   technicianTasksItem.etatTache,
                                               date: technicianTasksItem
-                                                  .datePrevisionnelleDebut,
-                                            ),
-                                          );
-                                        },
+                                                  .date_previsionnelle_debut,
+                                            );
+                                          },
+                                        ),
                                       ),
                                     );
                                   },
@@ -509,8 +658,8 @@ class _TachesWidgetState extends State<TachesWidget> {
                             ),
                           ),
                         ]
-                            .divide(SizedBox(height: 5.0))
-                            .around(SizedBox(height: 5.0)),
+                            .divide(SizedBox(height: 5))
+                            .around(SizedBox(height: 5)),
                       ),
                     ),
                   ),

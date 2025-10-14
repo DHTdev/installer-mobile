@@ -13,10 +13,17 @@ class AuthentificationModel extends FlutterFlowModel<AuthentificationWidget> {
   // State field(s) for Password widget.
   FocusNode? passwordFocusNode;
   TextEditingController? passwordTextController;
-  late bool passwordVisibility;
   String? Function(BuildContext, String?)? passwordTextControllerValidator;
+  // Stores action output result for [Backend Call - API (XSRF TOKEN)] action in Button widget.
+  ApiCallResponse? apiResult7dx;
   // Stores action output result for [Backend Call - API (login)] action in Button widget.
-  ApiCallResponse? apiResult5ro;
+  ApiCallResponse? apiLoginResponse;
+
+    late bool passwordVisibility;
+
+
+  String? userName;
+  String? password;
 
   @override
   void initState(BuildContext context) {

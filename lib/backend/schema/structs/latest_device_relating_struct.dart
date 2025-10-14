@@ -17,7 +17,6 @@ class LatestDeviceRelatingStruct extends BaseStruct {
     String? updatedAt,
     String? numberBox,
     String? observation,
-    PivotStruct? pivot,
   })  : _id = id,
         _modeleId = modeleId,
         _gpsPrincipale = gpsPrincipale,
@@ -28,8 +27,7 @@ class LatestDeviceRelatingStruct extends BaseStruct {
         _createdAt = createdAt,
         _updatedAt = updatedAt,
         _numberBox = numberBox,
-        _observation = observation,
-        _pivot = pivot;
+        _observation = observation;
 
   // "id" field.
   int? _id;
@@ -122,17 +120,6 @@ class LatestDeviceRelatingStruct extends BaseStruct {
 
   bool hasObservation() => _observation != null;
 
-  // "pivot" field.
-  PivotStruct? _pivot;
-  PivotStruct get pivot => _pivot ?? PivotStruct();
-  set pivot(PivotStruct? val) => _pivot = val;
-
-  void updatePivot(Function(PivotStruct) updateFn) {
-    updateFn(_pivot ??= PivotStruct());
-  }
-
-  bool hasPivot() => _pivot != null;
-
   static LatestDeviceRelatingStruct fromMap(Map<String, dynamic> data) =>
       LatestDeviceRelatingStruct(
         id: castToType<int>(data['id']),
@@ -146,9 +133,6 @@ class LatestDeviceRelatingStruct extends BaseStruct {
         updatedAt: data['updated_at'] as String?,
         numberBox: data['numberBox'] as String?,
         observation: data['observation'] as String?,
-        pivot: data['pivot'] is PivotStruct
-            ? data['pivot']
-            : PivotStruct.maybeFromMap(data['pivot']),
       );
 
   static LatestDeviceRelatingStruct? maybeFromMap(dynamic data) => data is Map
@@ -167,7 +151,6 @@ class LatestDeviceRelatingStruct extends BaseStruct {
         'updated_at': _updatedAt,
         'numberBox': _numberBox,
         'observation': _observation,
-        'pivot': _pivot?.toMap(),
       }.withoutNulls;
 
   @override
@@ -215,10 +198,6 @@ class LatestDeviceRelatingStruct extends BaseStruct {
         'observation': serializeParam(
           _observation,
           ParamType.String,
-        ),
-        'pivot': serializeParam(
-          _pivot,
-          ParamType.DataStruct,
         ),
       }.withoutNulls;
 
@@ -280,12 +259,6 @@ class LatestDeviceRelatingStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
-        pivot: deserializeStructParam(
-          data['pivot'],
-          ParamType.DataStruct,
-          false,
-          structBuilder: PivotStruct.fromSerializableMap,
-        ),
       );
 
   @override
@@ -304,8 +277,7 @@ class LatestDeviceRelatingStruct extends BaseStruct {
         createdAt == other.createdAt &&
         updatedAt == other.updatedAt &&
         numberBox == other.numberBox &&
-        observation == other.observation &&
-        pivot == other.pivot;
+        observation == other.observation;
   }
 
   @override
@@ -321,7 +293,6 @@ class LatestDeviceRelatingStruct extends BaseStruct {
         updatedAt,
         numberBox,
         observation,
-        pivot
       ]);
 }
 
@@ -337,7 +308,6 @@ LatestDeviceRelatingStruct createLatestDeviceRelatingStruct({
   String? updatedAt,
   String? numberBox,
   String? observation,
-  PivotStruct? pivot,
 }) =>
     LatestDeviceRelatingStruct(
       id: id,
@@ -351,5 +321,4 @@ LatestDeviceRelatingStruct createLatestDeviceRelatingStruct({
       updatedAt: updatedAt,
       numberBox: numberBox,
       observation: observation,
-      pivot: pivot ?? PivotStruct(),
     );

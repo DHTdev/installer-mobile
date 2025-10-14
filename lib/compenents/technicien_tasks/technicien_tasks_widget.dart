@@ -1,10 +1,14 @@
 import '/compenents/manage_taches/manage_taches_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
 import 'technicien_tasks_model.dart';
 export 'technicien_tasks_model.dart';
 
@@ -23,7 +27,7 @@ class TechnicienTasksWidget extends StatefulWidget {
 
   final String clientName;
   final String taskType;
-  final String? date;
+  final DateTime? date;
   final String city;
   final int stateTask;
 
@@ -56,29 +60,29 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(-1.0, 0.0),
+      alignment: AlignmentDirectional(-1, 0),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
+        padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
         child: Container(
-          width: MediaQuery.sizeOf(context).width * 1.0,
+          width: MediaQuery.sizeOf(context).width,
           height: 109.9,
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).secondaryBackground,
             boxShadow: [
               BoxShadow(
-                blurRadius: 4.0,
+                blurRadius: 4,
                 color: Color(0x33000000),
                 offset: Offset(
-                  0.0,
-                  2.0,
+                  0,
+                  2,
                 ),
               )
             ],
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(10),
           ),
-          alignment: AlignmentDirectional(0.0, -1.0),
+          alignment: AlignmentDirectional(0, -1),
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,9 +92,9 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(1.0, 0.0),
+                      alignment: AlignmentDirectional(1, 0),
                       child: Text(
-                        widget.clientName,
+                        widget!.clientName,
                         style:
                             FlutterFlowTheme.of(context).headlineSmall.override(
                                   font: GoogleFonts.interTight(
@@ -101,7 +105,6 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                                         .headlineSmall
                                         .fontStyle,
                                   ),
-                                  fontSize: 18.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .headlineSmall
@@ -113,16 +116,15 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                       ),
                     ),
                     Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 0.0, 0.0),
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                             child: Text(
-                              'tâche',
+                              'tÃ¢che',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -145,10 +147,10 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                34.0, 0.0, 0.0, 0.0),
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(34, 0, 0, 0),
                             child: Text(
-                              widget.taskType,
+                              widget!.taskType,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -177,8 +179,7 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 0.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                           child: Text(
                             'Date',
                             style: FlutterFlowTheme.of(context)
@@ -203,13 +204,9 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              38.0, 0.0, 0.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(38, 0, 0, 0),
                           child: Text(
-                            valueOrDefault<String>(
-                              widget.date,
-                              '01/01/2025',
-                            ),
+                            dateTimeFormat("d/M H:mm", widget!.date),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -238,8 +235,7 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 0.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                           child: Text(
                             'Ville',
                             style: FlutterFlowTheme.of(context)
@@ -264,10 +260,9 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              40.0, 0.0, 0.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(40, 0, 0, 0),
                           child: Text(
-                            widget.city,
+                            widget!.city,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -309,9 +304,9 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                             context: context,
                             isGlobal: false,
                             avoidOverflow: false,
-                            targetAnchor: AlignmentDirectional(1.0, 1.0)
+                            targetAnchor: AlignmentDirectional(1, 1)
                                 .resolve(Directionality.of(context)),
-                            followerAnchor: AlignmentDirectional(1.0, -1.0)
+                            followerAnchor: AlignmentDirectional(1, -1)
                                 .resolve(Directionality.of(context)),
                             builder: (dialogContext) {
                               return Material(
@@ -324,22 +319,22 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                         child: FaIcon(
                           FontAwesomeIcons.ellipsisV,
                           color: FlutterFlowTheme.of(context).primaryText,
-                          size: 24.0,
+                          size: 24,
                         ),
                       ),
                     ),
                     Container(
-                      width: 100.0,
+                      width: 100,
                       height: 30.99,
                       decoration: BoxDecoration(
                         color: () {
-                          if (widget.stateTask == 0) {
+                          if (widget!.stateTask == 0) {
                             return FlutterFlowTheme.of(context).alternate;
-                          } else if (widget.stateTask == 1) {
+                          } else if (widget!.stateTask == 1) {
                             return FlutterFlowTheme.of(context).alternate;
-                          } else if (widget.stateTask == 2) {
+                          } else if (widget!.stateTask == 2) {
                             return FlutterFlowTheme.of(context).secondary;
-                          } else if (widget.stateTask == 3) {
+                          } else if (widget!.stateTask == 3) {
                             return FlutterFlowTheme.of(context).error;
                           } else {
                             return FlutterFlowTheme.of(context).error;
@@ -352,13 +347,13 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                         children: [
                           Text(
                             () {
-                              if (widget.stateTask == 0) {
+                              if (widget!.stateTask == 0) {
                                 return 'en attendant';
-                              } else if (widget.stateTask == 1) {
+                              } else if (widget!.stateTask == 1) {
                                 return 'en coure ';
-                              } else if (widget.stateTask == 2) {
-                                return 'terminé';
-                              } else if (widget.stateTask == 3) {
+                              } else if (widget!.stateTask == 2) {
+                                return 'terminÃ©';
+                              } else if (widget!.stateTask == 3) {
                                 return 'reporter';
                               } else {
                                 return 'annuler';
@@ -375,7 +370,7 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                                   ),
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  fontSize: 14.0,
+                                  fontSize: 14,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                   fontStyle: FlutterFlowTheme.of(context)
