@@ -62,6 +62,12 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "cookie_jar",
+      "rootUri": "file:///C:/Users/Dev1/AppData/Local/Pub/Cache/hosted/pub.dev/cookie_jar-4.0.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
       "name": "crypto",
       "rootUri": "file:///C:/Users/Dev1/AppData/Local/Pub/Cache/hosted/pub.dev/crypto-3.0.6",
       "packageUri": "lib/",
@@ -72,6 +78,24 @@
       "rootUri": "file:///C:/Users/Dev1/AppData/Local/Pub/Cache/hosted/pub.dev/cupertino_icons-1.0.8",
       "packageUri": "lib/",
       "languageVersion": "3.1"
+    },
+    {
+      "name": "dio",
+      "rootUri": "file:///C:/Users/Dev1/AppData/Local/Pub/Cache/hosted/pub.dev/dio-5.9.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "dio_cookie_manager",
+      "rootUri": "file:///C:/Users/Dev1/AppData/Local/Pub/Cache/hosted/pub.dev/dio_cookie_manager-3.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "dio_web_adapter",
+      "rootUri": "file:///C:/Users/Dev1/AppData/Local/Pub/Cache/hosted/pub.dev/dio_web_adapter-2.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
     },
     {
       "name": "dropdown_button2",
@@ -270,6 +294,12 @@
       "rootUri": "file:///C:/Users/Dev1/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.16.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "mime",
+      "rootUri": "file:///C:/Users/Dev1/AppData/Local/Pub/Cache/hosted/pub.dev/mime-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
     },
     {
       "name": "mime_type",
@@ -516,6 +546,12 @@
       "rootUri": "file:///C:/Users/Dev1/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.4.0",
       "packageUri": "lib/",
       "languageVersion": "3.5"
+    },
+    {
+      "name": "universal_io",
+      "rootUri": "file:///C:/Users/Dev1/AppData/Local/Pub/Cache/hosted/pub.dev/universal_io-2.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "url_launcher",
