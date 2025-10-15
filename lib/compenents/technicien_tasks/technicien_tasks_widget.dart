@@ -92,22 +92,21 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                       child: Text(
                         widget.clientName,
                         style:
-                            FlutterFlowTheme.of(context).headlineSmall.override(
+                            FlutterFlowTheme.of(context).titleMedium.override(
                                   font: GoogleFonts.interTight(
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .headlineSmall
+                                        .titleMedium
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .headlineSmall
+                                        .titleMedium
                                         .fontStyle,
                                   ),
-                                  fontSize: 18.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
-                                      .headlineSmall
+                                      .titleMedium
                                       .fontWeight,
                                   fontStyle: FlutterFlowTheme.of(context)
-                                      .headlineSmall
+                                      .titleMedium
                                       .fontStyle,
                                 ),
                       ),
