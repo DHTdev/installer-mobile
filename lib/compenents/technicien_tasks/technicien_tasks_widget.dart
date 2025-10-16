@@ -23,7 +23,7 @@ class TechnicienTasksWidget extends StatefulWidget {
 
   final String clientName;
   final String taskType;
-  final String? date;
+  final DateTime? date;
   final String city;
   final int stateTask;
 
@@ -205,10 +205,7 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               38.0, 0.0, 0.0, 0.0),
                           child: Text(
-                            valueOrDefault<String>(
-                              widget.date,
-                              '01/01/2025',
-                            ),
+                            dateTimeFormat("d/M H:mm", widget.date),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

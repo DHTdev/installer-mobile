@@ -29,6 +29,7 @@ class _AppareilsWidgetState extends State<AppareilsWidget> {
   late AppareilsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  DeviceStruct technicianDevices = DeviceStruct();
 
   @override
   void initState() {
@@ -40,9 +41,9 @@ class _AppareilsWidgetState extends State<AppareilsWidget> {
       _model.apiResultwi6 = await TechnicienGroup.appareilsCall.call();
 
       if ((_model.apiResultwi6?.succeeded ?? true)) {
-        _model.technicianDevices =
-            DeviceStruct.maybeFromMap((_model.apiResultwi6?.jsonBody ?? ''));
-        safeSetState(() {});
+            safeSetState(() {
+          technicianDevices = DeviceStruct.maybeFromMap(_model.apiResultwi6?.jsonBody) as DeviceStruct;
+        });
       }
     });
   }
@@ -92,91 +93,56 @@ class _AppareilsWidgetState extends State<AppareilsWidget> {
             elevation: 2.0,
           ),
         ),
-        body: SafeArea(
+      body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      context.pushNamed(
-                        GpsWidget.routeName,
-                        queryParameters: {
-                          'imei': serializeParam(
-                            '',
-                            ParamType.String,
-                          ),
-                        }.withoutNulls,
-                      );
-                    },
-                    child: wrapWithModel(
-                      model: _model.numberDeviceModel1,
-                      updateCallback: () => safeSetState(() {}),
-                      child: NumberDeviceWidget(
-                        typeName: 'GPS',
-                        numberDevices: widget.technicianDevices!.numberGps,
-                        gps: widget.technicianDevices?.gps,
-                      ),
+                  alignment: AlignmentDirectional(0, 0),
+                  child: wrapWithModel(
+                    model: _model.numberDeviceModel1,
+                    updateCallback: () => safeSetState(() {}),
+                    child: NumberDeviceWidget(
+                      typeName: 'GPS',
+                      numberDevices: technicianDevices.numberGps.toString(),
+                      gps: technicianDevices.gps,
                     ),
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(-1.0, 0.0),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      context.pushNamed(SimWidget.routeName);
-                    },
-                    child: wrapWithModel(
-                      model: _model.numberDeviceModel2,
-                      updateCallback: () => safeSetState(() {}),
-                      child: NumberDeviceWidget(
-                        typeName: 'SIM',
-                        numberDevices: widget.technicianDevices!.numberSim,
-                        sim: widget.technicianDevices?.sim,
-                      ),
+                  alignment: AlignmentDirectional(-1, 0),
+                  child: wrapWithModel(
+                    model: _model.numberDeviceModel2,
+                    updateCallback: () => safeSetState(() {}),
+                    child: NumberDeviceWidget(
+                      typeName: 'SIM',
+                      numberDevices: technicianDevices.numberSim.toString(),
+                      sim: technicianDevices.sim,
                     ),
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(-1.0, 0.0),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      context.pushNamed(AccessoiresWidget.routeName);
-                    },
-                    child: wrapWithModel(
-                      model: _model.numberDeviceModel3,
-                      updateCallback: () => safeSetState(() {}),
-                      child: NumberDeviceWidget(
-                        typeName: 'Accessory',
-                        numberDevices:
-                            widget.technicianDevices!.numberAccessory,
-                        accessory: widget.technicianDevices?.accessory,
-                      ),
+                  alignment: AlignmentDirectional(-1, 0),
+                  child: wrapWithModel(
+                    model: _model.numberDeviceModel3,
+                    updateCallback: () => safeSetState(() {}),
+                    child: NumberDeviceWidget(
+                      typeName: 'Accessory',
+                      numberDevices: technicianDevices.numberAccessory.toString(),
+                      accessory: technicianDevices.accessory,
                     ),
                   ),
                 ),
-              ].divide(SizedBox(height: 15.0)).around(SizedBox(height: 15.0)),
+              ].divide(SizedBox(height: 15)).around(SizedBox(height: 15)),
             ),
           ),
         ),
+      
       ),
     );
   }

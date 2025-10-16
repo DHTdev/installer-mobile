@@ -337,19 +337,16 @@ class TechnicienGroup {
 }
 
 class TasksCall {
-  Future<ApiCallResponse> call({
-    String? token = '',
-  }) async {
-    final baseUrl = TechnicienGroup.getBaseUrl();
+  Future<ApiCallResponse> call(String? authToken) async {
+   final baseUrl = TechnicienGroup.getBaseUrl();
 
     return ApiManager.instance.makeApiCall(
       callName: 'Tasks',
       apiUrl: '${baseUrl}/tâches',
       callType: ApiCallType.GET,
-      headers: {
+        headers: {
         'content-type': 'application/json',
-        'Authorization':
-            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+        'Authorization': 'Bearer ${authToken}',
       },
       params: {},
       returnBody: true,
