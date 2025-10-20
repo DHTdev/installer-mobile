@@ -351,6 +351,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       .bodyMedium
                                       .fontStyle,
                                 ),
+                            keyboardType: TextInputType.datetime,
                             cursorColor:
                                 FlutterFlowTheme.of(context).primaryText,
                             validator: _model.textController1Validator
@@ -468,6 +469,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       .bodyMedium
                                       .fontStyle,
                                 ),
+                            keyboardType: TextInputType.datetime,
                             cursorColor:
                                 FlutterFlowTheme.of(context).primaryText,
                             validator: _model.textController2Validator

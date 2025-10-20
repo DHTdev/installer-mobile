@@ -42,7 +42,7 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
       padding: EdgeInsets.all(16.0),
       child: Container(
         width: 300.0,
-        height: 89.99,
+        height: 100.17,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           boxShadow: [
