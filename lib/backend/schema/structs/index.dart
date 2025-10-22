@@ -12,6 +12,7 @@ export 'exception_task_form_struct.dart';
 export 'latest_device_combination_struct.dart';
 export 'latest_task_struct.dart';
 export 'latest_device_relating_struct.dart';
+export 'new_task_info_struct.dart';
 export 'pivot_struct.dart';
 export 'returned_devices_struct.dart';
 export 'task_commercial_struct.dart';
