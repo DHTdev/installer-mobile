@@ -8,6 +8,7 @@ export 'category_of_task_struct.dart';
 export 'city_struct.dart';
 export 'client_struct.dart';
 export 'device_struct.dart';
+export 'exception_task_form_struct.dart';
 export 'latest_device_combination_struct.dart';
 export 'latest_task_struct.dart';
 export 'latest_device_relating_struct.dart';

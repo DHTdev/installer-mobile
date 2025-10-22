@@ -4,6 +4,26 @@ import 'tcheexceptionnel_widget.dart' show TcheexceptionnelWidget;
 import 'package:flutter/material.dart';
 
 class TcheexceptionnelModel extends FlutterFlowModel<TcheexceptionnelWidget> {
+  ///  Local state fields for this page.
+
+  String? nomComplet;
+
+  String? typeTache;
+
+  String? date;
+
+  String? affecte;
+
+  String? typeSim;
+
+  String? description;
+
+  String? telephone;
+
+  int? quantite = 1;
+
+  String? clientCity;
+
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();

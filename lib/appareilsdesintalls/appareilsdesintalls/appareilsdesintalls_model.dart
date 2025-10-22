@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/components/header_section_widget.dart';
 import '/components/returned_devices_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -10,6 +11,19 @@ class AppareilsdesintallsModel
   ///  Local state fields for this page.
 
   bool isShowFullList = true;
+
+  List<ReturnedDevicesStruct> returnedDevices = [];
+  void addToReturnedDevices(ReturnedDevicesStruct item) =>
+      returnedDevices.add(item);
+  void removeFromReturnedDevices(ReturnedDevicesStruct item) =>
+      returnedDevices.remove(item);
+  void removeAtIndexFromReturnedDevices(int index) =>
+      returnedDevices.removeAt(index);
+  void insertAtIndexInReturnedDevices(int index, ReturnedDevicesStruct item) =>
+      returnedDevices.insert(index, item);
+  void updateReturnedDevicesAtIndex(
+          int index, Function(ReturnedDevicesStruct) updateFn) =>
+      returnedDevices[index] = updateFn(returnedDevices[index]);
 
   ///  State fields for stateful widgets in this page.
 

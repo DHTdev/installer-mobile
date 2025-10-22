@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'tcheexceptionnel_model.dart';
@@ -135,6 +136,15 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                     child: TextFormField(
                                       controller: _model.textController1,
                                       focusNode: _model.textFieldFocusNode1,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.textController1',
+                                        Duration(milliseconds: 2000),
+                                        () async {
+                                          _model.nomComplet =
+                                              _model.textController1.text;
+                                          safeSetState(() {});
+                                        },
+                                      ),
                                       autofocus: false,
                                       obscureText: false,
                                       decoration: InputDecoration(
@@ -275,6 +285,15 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                     child: TextFormField(
                                       controller: _model.textController2,
                                       focusNode: _model.textFieldFocusNode2,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.textController2',
+                                        Duration(milliseconds: 2000),
+                                        () async {
+                                          _model.telephone =
+                                              _model.textController2.text;
+                                          safeSetState(() {});
+                                        },
+                                      ),
                                       autofocus: false,
                                       obscureText: false,
                                       decoration: InputDecoration(
@@ -417,6 +436,15 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                     child: TextFormField(
                                       controller: _model.textController3,
                                       focusNode: _model.textFieldFocusNode3,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.textController3',
+                                        Duration(milliseconds: 2000),
+                                        () async {
+                                          _model.typeTache =
+                                              _model.textController3.text;
+                                          safeSetState(() {});
+                                        },
+                                      ),
                                       autofocus: false,
                                       obscureText: false,
                                       decoration: InputDecoration(
@@ -557,6 +585,15 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                     child: TextFormField(
                                       controller: _model.textController4,
                                       focusNode: _model.textFieldFocusNode4,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.textController4',
+                                        Duration(milliseconds: 2000),
+                                        () async {
+                                          _model.date =
+                                              _model.textController4.text;
+                                          safeSetState(() {});
+                                        },
+                                      ),
                                       autofocus: false,
                                       obscureText: false,
                                       decoration: InputDecoration(
@@ -704,6 +741,15 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                       child: TextFormField(
                                         controller: _model.textController5,
                                         focusNode: _model.textFieldFocusNode5,
+                                        onChanged: (_) => EasyDebounce.debounce(
+                                          '_model.textController5',
+                                          Duration(milliseconds: 2000),
+                                          () async {
+                                            _model.quantite = int.tryParse(
+                                                _model.textController5.text);
+                                            safeSetState(() {});
+                                          },
+                                        ),
                                         autofocus: false,
                                         obscureText: false,
                                         decoration: InputDecoration(
@@ -857,8 +903,12 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                   controller: _model.dropDownValueController ??=
                                       FormFieldController<String>(null),
                                   options: ['op1', 'op2'],
-                                  onChanged: (val) => safeSetState(
-                                      () => _model.dropDownValue = val),
+                                  onChanged: (val) async {
+                                    safeSetState(
+                                        () => _model.dropDownValue = val);
+                                    _model.clientCity = _model.dropDownValue;
+                                    safeSetState(() {});
+                                  },
                                   width:
                                       MediaQuery.sizeOf(context).width * 0.87,
                                   height: 41.8,
@@ -921,6 +971,15 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                     child: TextFormField(
                                       controller: _model.textController6,
                                       focusNode: _model.textFieldFocusNode6,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.textController6',
+                                        Duration(milliseconds: 2000),
+                                        () async {
+                                          _model.description =
+                                              _model.textController6.text;
+                                          safeSetState(() {});
+                                        },
+                                      ),
                                       autofocus: false,
                                       obscureText: false,
                                       decoration: InputDecoration(
