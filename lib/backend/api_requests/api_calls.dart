@@ -334,6 +334,7 @@ class TechnicienGroup {
   static ReinstallationTaskCall reinstallationTaskCall =
       ReinstallationTaskCall();
   static PanneTaskCall panneTaskCall = PanneTaskCall();
+  static GetNewTaskInfoCall getNewTaskInfoCall = GetNewTaskInfoCall();
 }
 
 class TasksCall {
@@ -1082,6 +1083,26 @@ class PanneTaskCall {
       headers: {},
       params: {},
       bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetNewTaskInfoCall {
+  Future<ApiCallResponse> call() async {
+    final baseUrl = TechnicienGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getNewTaskInfo',
+      apiUrl: '${baseUrl}/newTask',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

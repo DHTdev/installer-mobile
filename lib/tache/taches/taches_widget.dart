@@ -372,7 +372,8 @@ class _TachesWidgetState extends State<TachesWidget> {
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
