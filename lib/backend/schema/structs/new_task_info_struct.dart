@@ -8,8 +8,10 @@ class NewTaskInfoStruct extends BaseStruct {
   NewTaskInfoStruct({
     List<ClientStruct>? clients,
     List<CategoryOfTaskStruct>? typeTask,
+    List<CityStruct>? clientCity,
   })  : _clients = clients,
-        _typeTask = typeTask;
+        _typeTask = typeTask,
+        _clientCity = clientCity;
 
   // "clients" field.
   List<ClientStruct>? _clients;
@@ -33,6 +35,17 @@ class NewTaskInfoStruct extends BaseStruct {
 
   bool hasTypeTask() => _typeTask != null;
 
+  // "clientCity" field.
+  List<CityStruct>? _clientCity;
+  List<CityStruct> get clientCity => _clientCity ?? const [];
+  set clientCity(List<CityStruct>? val) => _clientCity = val;
+
+  void updateClientCity(Function(List<CityStruct>) updateFn) {
+    updateFn(_clientCity ??= []);
+  }
+
+  bool hasClientCity() => _clientCity != null;
+
   static NewTaskInfoStruct fromMap(Map<String, dynamic> data) =>
       NewTaskInfoStruct(
         clients: getStructList(
@@ -43,6 +56,10 @@ class NewTaskInfoStruct extends BaseStruct {
           data['typeTask'],
           CategoryOfTaskStruct.fromMap,
         ),
+        clientCity: getStructList(
+          data['clientCity'],
+          CityStruct.fromMap,
+        ),
       );
 
   static NewTaskInfoStruct? maybeFromMap(dynamic data) => data is Map
@@ -52,6 +69,7 @@ class NewTaskInfoStruct extends BaseStruct {
   Map<String, dynamic> toMap() => {
         'clients': _clients?.map((e) => e.toMap()).toList(),
         'typeTask': _typeTask?.map((e) => e.toMap()).toList(),
+        'clientCity': _clientCity?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
@@ -63,6 +81,11 @@ class NewTaskInfoStruct extends BaseStruct {
         ),
         'typeTask': serializeParam(
           _typeTask,
+          ParamType.DataStruct,
+          isList: true,
+        ),
+        'clientCity': serializeParam(
+          _clientCity,
           ParamType.DataStruct,
           isList: true,
         ),
@@ -82,6 +105,12 @@ class NewTaskInfoStruct extends BaseStruct {
           true,
           structBuilder: CategoryOfTaskStruct.fromSerializableMap,
         ),
+        clientCity: deserializeStructParam<CityStruct>(
+          data['clientCity'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: CityStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -92,11 +121,13 @@ class NewTaskInfoStruct extends BaseStruct {
     const listEquality = ListEquality();
     return other is NewTaskInfoStruct &&
         listEquality.equals(clients, other.clients) &&
-        listEquality.equals(typeTask, other.typeTask);
+        listEquality.equals(typeTask, other.typeTask) &&
+        listEquality.equals(clientCity, other.clientCity);
   }
 
   @override
-  int get hashCode => const ListEquality().hash([clients, typeTask]);
+  int get hashCode =>
+      const ListEquality().hash([clients, typeTask, clientCity]);
 }
 
 NewTaskInfoStruct createNewTaskInfoStruct() => NewTaskInfoStruct();

@@ -1114,11 +1114,8 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 18.0, 12.0, 18.0, 12.0),
                             child: FFButtonWidget(
-                              onPressed: () async {
-                                if (_model.formKey.currentState == null ||
-                                    !_model.formKey.currentState!.validate()) {
-                                  return;
-                                }
+                              onPressed: () {
+                                print('Button pressed ...');
                               },
                               text: 'Ajouter la tâche',
                               options: FFButtonOptions(

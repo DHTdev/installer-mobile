@@ -8,37 +8,21 @@ import '/flutter_flow/flutter_flow_util.dart';
 class ExceptionTaskFormStruct extends BaseStruct {
   ExceptionTaskFormStruct({
     String? nomComplet,
-    String? typeTache,
-    String? typeAppareil,
-    String? imei,
-    String? siM,
-    DateTime? date,
-    String? accessoire,
-    String? affect,
-    String? typeSIM,
-    String? description,
-    List<String>? images,
-    String? observation,
     String? telephone,
-    String? email,
-    String? typeTask,
+    String? typeTache,
+    DateTime? date,
     String? quantite,
+    String? clientCity,
+    String? affect,
+    String? description,
   })  : _nomComplet = nomComplet,
-        _typeTache = typeTache,
-        _typeAppareil = typeAppareil,
-        _imei = imei,
-        _siM = siM,
-        _date = date,
-        _accessoire = accessoire,
-        _affect = affect,
-        _typeSIM = typeSIM,
-        _description = description,
-        _images = images,
-        _observation = observation,
         _telephone = telephone,
-        _email = email,
-        _typeTask = typeTask,
-        _quantite = quantite;
+        _typeTache = typeTache,
+        _date = date,
+        _quantite = quantite,
+        _clientCity = clientCity,
+        _affect = affect,
+        _description = description;
 
   // "nomComplet" field.
   String? _nomComplet;
@@ -47,33 +31,19 @@ class ExceptionTaskFormStruct extends BaseStruct {
 
   bool hasNomComplet() => _nomComplet != null;
 
+  // "telephone" field.
+  String? _telephone;
+  String get telephone => _telephone ?? '';
+  set telephone(String? val) => _telephone = val;
+
+  bool hasTelephone() => _telephone != null;
+
   // "typeTache" field.
   String? _typeTache;
   String get typeTache => _typeTache ?? '';
   set typeTache(String? val) => _typeTache = val;
 
   bool hasTypeTache() => _typeTache != null;
-
-  // "TypeAppareil" field.
-  String? _typeAppareil;
-  String get typeAppareil => _typeAppareil ?? '';
-  set typeAppareil(String? val) => _typeAppareil = val;
-
-  bool hasTypeAppareil() => _typeAppareil != null;
-
-  // "IMEI" field.
-  String? _imei;
-  String get imei => _imei ?? '';
-  set imei(String? val) => _imei = val;
-
-  bool hasImei() => _imei != null;
-
-  // "SiM" field.
-  String? _siM;
-  String get siM => _siM ?? '';
-  set siM(String? val) => _siM = val;
-
-  bool hasSiM() => _siM != null;
 
   // "Date" field.
   DateTime? _date;
@@ -82,12 +52,19 @@ class ExceptionTaskFormStruct extends BaseStruct {
 
   bool hasDate() => _date != null;
 
-  // "Accessoire" field.
-  String? _accessoire;
-  String get accessoire => _accessoire ?? '';
-  set accessoire(String? val) => _accessoire = val;
+  // "Quantite" field.
+  String? _quantite;
+  String get quantite => _quantite ?? '1';
+  set quantite(String? val) => _quantite = val;
 
-  bool hasAccessoire() => _accessoire != null;
+  bool hasQuantite() => _quantite != null;
+
+  // "clientCity" field.
+  String? _clientCity;
+  String get clientCity => _clientCity ?? '';
+  set clientCity(String? val) => _clientCity = val;
+
+  bool hasClientCity() => _clientCity != null;
 
   // "affect" field.
   String? _affect;
@@ -96,13 +73,6 @@ class ExceptionTaskFormStruct extends BaseStruct {
 
   bool hasAffect() => _affect != null;
 
-  // "TypeSIM" field.
-  String? _typeSIM;
-  String get typeSIM => _typeSIM ?? '';
-  set typeSIM(String? val) => _typeSIM = val;
-
-  bool hasTypeSIM() => _typeSIM != null;
-
   // "Description" field.
   String? _description;
   String get description => _description ?? '';
@@ -110,70 +80,16 @@ class ExceptionTaskFormStruct extends BaseStruct {
 
   bool hasDescription() => _description != null;
 
-  // "images" field.
-  List<String>? _images;
-  List<String> get images => _images ?? const [];
-  set images(List<String>? val) => _images = val;
-
-  void updateImages(Function(List<String>) updateFn) {
-    updateFn(_images ??= []);
-  }
-
-  bool hasImages() => _images != null;
-
-  // "observation" field.
-  String? _observation;
-  String get observation => _observation ?? '';
-  set observation(String? val) => _observation = val;
-
-  bool hasObservation() => _observation != null;
-
-  // "telephone" field.
-  String? _telephone;
-  String get telephone => _telephone ?? '';
-  set telephone(String? val) => _telephone = val;
-
-  bool hasTelephone() => _telephone != null;
-
-  // "email" field.
-  String? _email;
-  String get email => _email ?? '';
-  set email(String? val) => _email = val;
-
-  bool hasEmail() => _email != null;
-
-  // "typeTask" field.
-  String? _typeTask;
-  String get typeTask => _typeTask ?? '';
-  set typeTask(String? val) => _typeTask = val;
-
-  bool hasTypeTask() => _typeTask != null;
-
-  // "Quantite" field.
-  String? _quantite;
-  String get quantite => _quantite ?? '1';
-  set quantite(String? val) => _quantite = val;
-
-  bool hasQuantite() => _quantite != null;
-
   static ExceptionTaskFormStruct fromMap(Map<String, dynamic> data) =>
       ExceptionTaskFormStruct(
         nomComplet: data['nomComplet'] as String?,
-        typeTache: data['typeTache'] as String?,
-        typeAppareil: data['TypeAppareil'] as String?,
-        imei: data['IMEI'] as String?,
-        siM: data['SiM'] as String?,
-        date: data['Date'] as DateTime?,
-        accessoire: data['Accessoire'] as String?,
-        affect: data['affect'] as String?,
-        typeSIM: data['TypeSIM'] as String?,
-        description: data['Description'] as String?,
-        images: getDataList(data['images']),
-        observation: data['observation'] as String?,
         telephone: data['telephone'] as String?,
-        email: data['email'] as String?,
-        typeTask: data['typeTask'] as String?,
+        typeTache: data['typeTache'] as String?,
+        date: data['Date'] as DateTime?,
         quantite: data['Quantite'] as String?,
+        clientCity: data['clientCity'] as String?,
+        affect: data['affect'] as String?,
+        description: data['Description'] as String?,
       );
 
   static ExceptionTaskFormStruct? maybeFromMap(dynamic data) => data is Map
@@ -182,21 +98,13 @@ class ExceptionTaskFormStruct extends BaseStruct {
 
   Map<String, dynamic> toMap() => {
         'nomComplet': _nomComplet,
-        'typeTache': _typeTache,
-        'TypeAppareil': _typeAppareil,
-        'IMEI': _imei,
-        'SiM': _siM,
-        'Date': _date,
-        'Accessoire': _accessoire,
-        'affect': _affect,
-        'TypeSIM': _typeSIM,
-        'Description': _description,
-        'images': _images,
-        'observation': _observation,
         'telephone': _telephone,
-        'email': _email,
-        'typeTask': _typeTask,
+        'typeTache': _typeTache,
+        'Date': _date,
         'Quantite': _quantite,
+        'clientCity': _clientCity,
+        'affect': _affect,
+        'Description': _description,
       }.withoutNulls;
 
   @override
@@ -205,65 +113,32 @@ class ExceptionTaskFormStruct extends BaseStruct {
           _nomComplet,
           ParamType.String,
         ),
+        'telephone': serializeParam(
+          _telephone,
+          ParamType.String,
+        ),
         'typeTache': serializeParam(
           _typeTache,
-          ParamType.String,
-        ),
-        'TypeAppareil': serializeParam(
-          _typeAppareil,
-          ParamType.String,
-        ),
-        'IMEI': serializeParam(
-          _imei,
-          ParamType.String,
-        ),
-        'SiM': serializeParam(
-          _siM,
           ParamType.String,
         ),
         'Date': serializeParam(
           _date,
           ParamType.DateTime,
         ),
-        'Accessoire': serializeParam(
-          _accessoire,
+        'Quantite': serializeParam(
+          _quantite,
+          ParamType.String,
+        ),
+        'clientCity': serializeParam(
+          _clientCity,
           ParamType.String,
         ),
         'affect': serializeParam(
           _affect,
           ParamType.String,
         ),
-        'TypeSIM': serializeParam(
-          _typeSIM,
-          ParamType.String,
-        ),
         'Description': serializeParam(
           _description,
-          ParamType.String,
-        ),
-        'images': serializeParam(
-          _images,
-          ParamType.String,
-          isList: true,
-        ),
-        'observation': serializeParam(
-          _observation,
-          ParamType.String,
-        ),
-        'telephone': serializeParam(
-          _telephone,
-          ParamType.String,
-        ),
-        'email': serializeParam(
-          _email,
-          ParamType.String,
-        ),
-        'typeTask': serializeParam(
-          _typeTask,
-          ParamType.String,
-        ),
-        'Quantite': serializeParam(
-          _quantite,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -276,23 +151,13 @@ class ExceptionTaskFormStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        telephone: deserializeParam(
+          data['telephone'],
+          ParamType.String,
+          false,
+        ),
         typeTache: deserializeParam(
           data['typeTache'],
-          ParamType.String,
-          false,
-        ),
-        typeAppareil: deserializeParam(
-          data['TypeAppareil'],
-          ParamType.String,
-          false,
-        ),
-        imei: deserializeParam(
-          data['IMEI'],
-          ParamType.String,
-          false,
-        ),
-        siM: deserializeParam(
-          data['SiM'],
           ParamType.String,
           false,
         ),
@@ -301,8 +166,13 @@ class ExceptionTaskFormStruct extends BaseStruct {
           ParamType.DateTime,
           false,
         ),
-        accessoire: deserializeParam(
-          data['Accessoire'],
+        quantite: deserializeParam(
+          data['Quantite'],
+          ParamType.String,
+          false,
+        ),
+        clientCity: deserializeParam(
+          data['clientCity'],
           ParamType.String,
           false,
         ),
@@ -311,43 +181,8 @@ class ExceptionTaskFormStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
-        typeSIM: deserializeParam(
-          data['TypeSIM'],
-          ParamType.String,
-          false,
-        ),
         description: deserializeParam(
           data['Description'],
-          ParamType.String,
-          false,
-        ),
-        images: deserializeParam<String>(
-          data['images'],
-          ParamType.String,
-          true,
-        ),
-        observation: deserializeParam(
-          data['observation'],
-          ParamType.String,
-          false,
-        ),
-        telephone: deserializeParam(
-          data['telephone'],
-          ParamType.String,
-          false,
-        ),
-        email: deserializeParam(
-          data['email'],
-          ParamType.String,
-          false,
-        ),
-        typeTask: deserializeParam(
-          data['typeTask'],
-          ParamType.String,
-          false,
-        ),
-        quantite: deserializeParam(
-          data['Quantite'],
           ParamType.String,
           false,
         ),
@@ -358,78 +193,47 @@ class ExceptionTaskFormStruct extends BaseStruct {
 
   @override
   bool operator ==(Object other) {
-    const listEquality = ListEquality();
     return other is ExceptionTaskFormStruct &&
         nomComplet == other.nomComplet &&
-        typeTache == other.typeTache &&
-        typeAppareil == other.typeAppareil &&
-        imei == other.imei &&
-        siM == other.siM &&
-        date == other.date &&
-        accessoire == other.accessoire &&
-        affect == other.affect &&
-        typeSIM == other.typeSIM &&
-        description == other.description &&
-        listEquality.equals(images, other.images) &&
-        observation == other.observation &&
         telephone == other.telephone &&
-        email == other.email &&
-        typeTask == other.typeTask &&
-        quantite == other.quantite;
+        typeTache == other.typeTache &&
+        date == other.date &&
+        quantite == other.quantite &&
+        clientCity == other.clientCity &&
+        affect == other.affect &&
+        description == other.description;
   }
 
   @override
   int get hashCode => const ListEquality().hash([
         nomComplet,
-        typeTache,
-        typeAppareil,
-        imei,
-        siM,
-        date,
-        accessoire,
-        affect,
-        typeSIM,
-        description,
-        images,
-        observation,
         telephone,
-        email,
-        typeTask,
-        quantite
+        typeTache,
+        date,
+        quantite,
+        clientCity,
+        affect,
+        description
       ]);
 }
 
 ExceptionTaskFormStruct createExceptionTaskFormStruct({
   String? nomComplet,
-  String? typeTache,
-  String? typeAppareil,
-  String? imei,
-  String? siM,
-  DateTime? date,
-  String? accessoire,
-  String? affect,
-  String? typeSIM,
-  String? description,
-  String? observation,
   String? telephone,
-  String? email,
-  String? typeTask,
+  String? typeTache,
+  DateTime? date,
   String? quantite,
+  String? clientCity,
+  String? affect,
+  String? description,
 }) =>
     ExceptionTaskFormStruct(
       nomComplet: nomComplet,
-      typeTache: typeTache,
-      typeAppareil: typeAppareil,
-      imei: imei,
-      siM: siM,
-      date: date,
-      accessoire: accessoire,
-      affect: affect,
-      typeSIM: typeSIM,
-      description: description,
-      observation: observation,
       telephone: telephone,
-      email: email,
-      typeTask: typeTask,
+      typeTache: typeTache,
+      date: date,
       quantite: quantite,
+      clientCity: clientCity,
+      affect: affect,
+      description: description,
     );
