@@ -343,7 +343,7 @@ class _AccessoiresWidgetState extends State<AccessoiresWidget> {
                                                   ],
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          2.0),
+                                                          11.0),
                                                 ),
                                                 child: Padding(
                                                   padding: EdgeInsetsDirectional

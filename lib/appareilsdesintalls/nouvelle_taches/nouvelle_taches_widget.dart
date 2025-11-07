@@ -220,8 +220,8 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
             child: Container(
-              width: 370.28,
-              height: 695.5,
+              width: MediaQuery.sizeOf(context).width * 0.95,
+              height: MediaQuery.sizeOf(context).height * 0.85,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
               ),
@@ -243,7 +243,7 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
                               Expanded(
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 8.0, 8.0, 0.0),
+                                      16.0, 8.0, 8.0, 8.0),
                                   child: Container(
                                     width: 200.0,
                                     child: TextFormField(
@@ -302,7 +302,8 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -365,9 +366,7 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              decimal: true),
+                                      keyboardType: TextInputType.name,
                                       cursorColor: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       validator: _model.textController1Validator
@@ -444,7 +443,8 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -507,9 +507,7 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              decimal: true),
+                                      keyboardType: TextInputType.phone,
                                       cursorColor: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       validator: _model.textController2Validator
@@ -648,9 +646,6 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
                                                   .bodyMedium
                                                   .fontStyle,
                                         ),
-                                    keyboardType:
-                                        const TextInputType.numberWithOptions(
-                                            decimal: true),
                                     cursorColor: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     validator: _model.textController3Validator
@@ -1136,9 +1131,7 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              decimal: true),
+                                      keyboardType: TextInputType.emailAddress,
                                       cursorColor: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       validator: _model.textController6Validator
@@ -1279,9 +1272,6 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
                                                     .fontStyle,
                                           ),
                                       maxLines: 4,
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              decimal: true),
                                       cursorColor: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       validator: _model.textController7Validator

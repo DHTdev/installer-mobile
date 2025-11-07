@@ -334,6 +334,7 @@ class TechnicienGroup {
   static ReinstallationTaskCall reinstallationTaskCall =
       ReinstallationTaskCall();
   static PanneTaskCall panneTaskCall = PanneTaskCall();
+  static GetNewTaskInfoCall getNewTaskInfoCall = GetNewTaskInfoCall();
 }
 
 class TasksCall {
@@ -558,7 +559,11 @@ class ReturnedDevicesCall {
       callName: 'ReturnedDevices',
       apiUrl: '${baseUrl}/getAllReturnedDevices',
       callType: ApiCallType.GET,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -568,6 +573,79 @@ class ReturnedDevicesCall {
       alwaysAllowBody: false,
     );
   }
+
+  List<int>? catacheid(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].catache_id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? serialnumber(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].serial_number''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<int>? id(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? nameModele(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].nameModele''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? nomComplet(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].nomComplet''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? endroits(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].endroits''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? dateReturned(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].dataReturned''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? matricule(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].matricule''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
 }
 
 class AffectedDevicesCall {
@@ -1005,6 +1083,26 @@ class PanneTaskCall {
       headers: {},
       params: {},
       bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetNewTaskInfoCall {
+  Future<ApiCallResponse> call() async {
+    final baseUrl = TechnicienGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getNewTaskInfo',
+      apiUrl: '${baseUrl}/newTask',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

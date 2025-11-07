@@ -449,8 +449,6 @@ class _TchesreporteWidgetState extends State<TchesreporteWidget> {
                                                       .fontStyle,
                                             ),
                                         maxLines: 4,
-                                        keyboardType: const TextInputType
-                                            .numberWithOptions(decimal: true),
                                         cursorColor:
                                             FlutterFlowTheme.of(context)
                                                 .primaryText,

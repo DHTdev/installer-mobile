@@ -408,7 +408,7 @@ class _AuthentificationWidgetState extends State<AuthentificationWidget> {
                                                           .fontStyle,
                                                 ),
                                             keyboardType:
-                                                TextInputType.emailAddress,
+                                                TextInputType.visiblePassword,
                                             validator: _model
                                                 .passwordTextControllerValidator
                                                 .asValidator(context),

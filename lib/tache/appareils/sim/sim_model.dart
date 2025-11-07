@@ -1,3 +1,4 @@
+import '/components/sim_device_item_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'sim_widget.dart' show SimWidget;
 import 'package:flutter/material.dart';
@@ -14,13 +15,19 @@ class SimModel extends FlutterFlowModel<SimWidget> {
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   List<String> simpleSearchResults = [];
+  // Model for simDeviceItem component.
+  late SimDeviceItemModel simDeviceItemModel;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    simDeviceItemModel = createModel(context, () => SimDeviceItemModel());
+  }
 
   @override
   void dispose() {
     textFieldFocusNode?.dispose();
     textController?.dispose();
+
+    simDeviceItemModel.dispose();
   }
 }

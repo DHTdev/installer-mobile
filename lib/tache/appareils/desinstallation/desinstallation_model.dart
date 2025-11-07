@@ -1,34 +1,11 @@
-import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/index.dart';
-import 'tcheexceptionnel_widget.dart' show TcheexceptionnelWidget;
+import 'desinstallation_widget.dart' show DesinstallationWidget;
 import 'package:flutter/material.dart';
 
-class TcheexceptionnelModel extends FlutterFlowModel<TcheexceptionnelWidget> {
-  ///  Local state fields for this page.
-
-  String? nomComplet;
-
-  String? typeTache;
-
-  String? date;
-
-  String? affecte;
-
-  String? typeSim;
-
-  String? description;
-
-  String? telephone;
-
-  int? quantite = 1;
-
-  String? clientCity;
-
+class DesinstallationModel extends FlutterFlowModel<DesinstallationWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final formKey = GlobalKey<FormState>();
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode1;
   TextEditingController? textController1;
@@ -41,19 +18,13 @@ class TcheexceptionnelModel extends FlutterFlowModel<TcheexceptionnelWidget> {
   FocusNode? textFieldFocusNode3;
   TextEditingController? textController3;
   String? Function(BuildContext, String?)? textController3Validator;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode4;
-  TextEditingController? textController4;
-  String? Function(BuildContext, String?)? textController4Validator;
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode5;
-  TextEditingController? textController5;
-  String? Function(BuildContext, String?)? textController5Validator;
-  // Stores action output result for [Backend Call - API (appareils)] action in Button widget.
-  ApiCallResponse? apiResultv0r;
+  FocusNode? textFieldFocusNode4;
+  TextEditingController? textController4;
+  String? Function(BuildContext, String?)? textController4Validator;
 
   @override
   void initState(BuildContext context) {}
@@ -71,8 +42,5 @@ class TcheexceptionnelModel extends FlutterFlowModel<TcheexceptionnelWidget> {
 
     textFieldFocusNode4?.dispose();
     textController4?.dispose();
-
-    textFieldFocusNode5?.dispose();
-    textController5?.dispose();
   }
 }

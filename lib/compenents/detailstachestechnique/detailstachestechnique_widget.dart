@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'detailstachestechnique_model.dart';
 export 'detailstachestechnique_model.dart';
@@ -28,6 +29,11 @@ class _DetailstachestechniqueWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => DetailstachestechniqueModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      Navigator.pop(context);
+    });
   }
 
   @override
@@ -121,7 +127,7 @@ class _DetailstachestechniqueWidgetState
                     padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                     child: Container(
                       width: double.infinity,
-                      height: 600.0,
+                      height: 647.72,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                         borderRadius: BorderRadius.circular(8.0),
