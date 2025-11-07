@@ -451,12 +451,6 @@ class _TachesWidgetState extends State<TachesWidget> {
 
                                 return Builder(
                                   builder: (context) {
-                                    // final technicianTasks = _model
-                                    //     .technicianTask
-                                    //     .toList()
-                                    //     .take(10)
-                                    //     .toList();
-                                    print("technicianTasks:${technicianTasks}");
                                     return RefreshIndicator(
                                       onRefresh: () async {
                                         safeSetState(() =>

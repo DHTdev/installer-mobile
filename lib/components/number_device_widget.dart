@@ -21,7 +21,7 @@ class NumberDeviceWidget extends StatefulWidget {
     this.accessory,
   });
 
-  final String? typeName;
+  final String typeName;
   final String? numberDevices;
   final List<GpsStruct>? gps;
   final List<SimStruct>? sim;
@@ -44,18 +44,28 @@ class _NumberDeviceWidgetState extends State<NumberDeviceWidget> {
   @override
   void initState() {
     super.initState();
+    print("number device widget");
     _model = createModel(context, () => NumberDeviceModel());
   }
 
   Future setPath(String? value) async {
     switch (value) {
       case 'GPS':
+      setState(() {
+          FFAppState().devicesGps = widget.gps!;
+        });
         path = GpsWidget.routeName;
         break;
       case 'SIM':
+        setState(() {
+          FFAppState().devicesSim = widget.sim!;
+        });
         path = SimWidget.routeName;
         break;
       case 'Accessoires':
+        setState(() {
+          FFAppState().devicesAccessory = widget.accessory!;
+        });
         path = AccessoiresWidget.routeName;
         break;
     }

@@ -11,9 +11,9 @@ class ClientStruct extends BaseStruct {
     int? cityId,
     String? city,
     String? clientname,
-    int? telephoneClient,
+    String? telephoneClient,
     String? email,
-    DateTime? createdAt,
+    String? createdAt,
   })  : _id = id,
         _cityId = cityId,
         _city = city,
@@ -55,12 +55,12 @@ class ClientStruct extends BaseStruct {
   bool hasClientname() => _clientname != null;
 
   // "telephone_client" field.
-  int? _telephoneClient;
-  int get telephoneClient => _telephoneClient ?? 0;
-  set telephoneClient(int? val) => _telephoneClient = val;
+  String? _telephoneClient;
+  String get telephoneClient => _telephoneClient ?? "";
+  set telephoneClient(String? val) => _telephoneClient = val;
 
-  void incrementTelephoneClient(int amount) =>
-      telephoneClient = telephoneClient + amount;
+  // void incrementTelephoneClient(int amount) =>
+  //     telephoneClient = telephoneClient + amount;
 
   bool hasTelephoneClient() => _telephoneClient != null;
 
@@ -72,20 +72,20 @@ class ClientStruct extends BaseStruct {
   bool hasEmail() => _email != null;
 
   // "created_at" field.
-  DateTime? _createdAt;
-  DateTime? get createdAt => _createdAt;
-  set createdAt(DateTime? val) => _createdAt = val;
+  String? _createdAt;
+  String? get createdAt => _createdAt;
+  set createdAt(String? val) => _createdAt = val;
 
   bool hasCreatedAt() => _createdAt != null;
 
   static ClientStruct fromMap(Map<String, dynamic> data) => ClientStruct(
         id: castToType<int>(data['id']),
         cityId: castToType<int>(data['city_id']),
-        city: data['city'] as String?,
-        clientname: data['clientname'] as String?,
-        telephoneClient: castToType<int>(data['telephone_client']),
+        city: data['city'] != null ? data['city']['cityName'] as String : null,
+        clientname: data['nomComplet'] as String?,
+        telephoneClient: data['telephone_client'],
         email: data['email'] as String?,
-        createdAt: data['created_at'] as DateTime?,
+        createdAt: data['created_at'],
       );
 
   static ClientStruct? maybeFromMap(dynamic data) =>
@@ -129,7 +129,7 @@ class ClientStruct extends BaseStruct {
         ),
         'created_at': serializeParam(
           _createdAt,
-          ParamType.DateTime,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -167,7 +167,7 @@ class ClientStruct extends BaseStruct {
         ),
         createdAt: deserializeParam(
           data['created_at'],
-          ParamType.DateTime,
+          ParamType.String,
           false,
         ),
       );
@@ -197,9 +197,9 @@ ClientStruct createClientStruct({
   int? cityId,
   String? city,
   String? clientname,
-  int? telephoneClient,
+  String? telephoneClient,
   String? email,
-  DateTime? createdAt,
+  String? createdAt,
 }) =>
     ClientStruct(
       id: id,

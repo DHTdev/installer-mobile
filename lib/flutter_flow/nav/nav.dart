@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:mobile_installer/home_page/home_page_widget.dart';
 import 'package:provider/provider.dart';
 
 import '/backend/schema/structs/index.dart';
@@ -41,7 +42,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => NavBarPage(),
+          builder: (context, _) => HomePageWidget (),
         ),
         FFRoute(
           name: TachesWidget.routeName,
@@ -50,14 +51,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ? NavBarPage(initialPage: 'Taches')
               : TachesWidget(),
         ),
-        FFRoute(
+               FFRoute(
           name: AuthentificationWidget.routeName,
           path: AuthentificationWidget.routePath,
           builder: (context, params) => AuthentificationWidget(
-            token: params.getParam(
-              'token',
-              ParamType.String,
-            ),
+            x_xsrf_token: params.getParam('x_xsrf_token', ParamType.String),
           ),
         ),
         FFRoute(

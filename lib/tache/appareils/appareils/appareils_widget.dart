@@ -4,7 +4,6 @@ import '/components/header_section_widget.dart';
 import '/components/number_device_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'appareils_model.dart';
@@ -67,7 +66,8 @@ class _AppareilsWidgetState extends State<AppareilsWidget> {
         backgroundColor: Color(0xFFEAEDF7),
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(100.0),
-          child: AppBar(
+          child: 
+          AppBar(
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
             automaticallyImplyLeading: false,
             actions: [],

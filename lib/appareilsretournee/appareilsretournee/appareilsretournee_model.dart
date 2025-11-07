@@ -1,3 +1,5 @@
+import 'package:mobile_installer/components/header_section_model.dart';
+
 import '/flutter_flow/flutter_flow_util.dart';
 import 'appareilsretournee_widget.dart' show AppareilsretourneeWidget;
 import 'package:flutter/material.dart';
@@ -27,16 +29,21 @@ class AppareilsretourneeModel
   TextEditingController? textController2;
   String? Function(BuildContext, String?)? textController2Validator;
   List<String> simpleSearchResults2 = [];
+    late HeaderSectionModel headerSectionModel;
+
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+        headerSectionModel = createModel(context, () => HeaderSectionModel());
+
+  }
 
   @override
   void dispose() {
     tabBarController?.dispose();
     textFieldFocusNode1?.dispose();
     textController1?.dispose();
-
+    headerSectionModel.dispose();
     textFieldFocusNode2?.dispose();
     textController2?.dispose();
   }

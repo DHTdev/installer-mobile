@@ -31,7 +31,7 @@ class CategoryOfTaskStruct extends BaseStruct {
   static CategoryOfTaskStruct fromMap(Map<String, dynamic> data) =>
       CategoryOfTaskStruct(
         id: castToType<int>(data['id']),
-        taskName: data['taskName'] as String?,
+        taskName: data['catache'] as String?,
       );
 
   static CategoryOfTaskStruct? maybeFromMap(dynamic data) => data is Map
@@ -63,7 +63,7 @@ class CategoryOfTaskStruct extends BaseStruct {
           false,
         ),
         taskName: deserializeParam(
-          data['taskName'],
+          data['catache'],
           ParamType.String,
           false,
         ),

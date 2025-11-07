@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:mobile_installer/backend/schema/structs/exception_task_form_struct.dart';
+import 'package:mobile_installer/backend/schema/structs/new_task_info_struct.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
@@ -306,6 +308,8 @@ class FilterTasksCall {
 
 class TechnicienGroup {
   static String getBaseUrl() => 'https://d3instal.com/api/technicien';
+  final appState = FFAppState();
+
   static Map<String, String> headers = {};
   static TasksCall tasksCall = TasksCall();
   static AppareilsCall appareilsCall = AppareilsCall();
@@ -334,17 +338,18 @@ class TechnicienGroup {
   static ReinstallationTaskCall reinstallationTaskCall =
       ReinstallationTaskCall();
   static PanneTaskCall panneTaskCall = PanneTaskCall();
+  static GetNewTaskInfoCall getNewTaskInfoCall = GetNewTaskInfoCall();
 }
 
 class TasksCall {
   Future<ApiCallResponse> call(String? authToken) async {
-   final baseUrl = TechnicienGroup.getBaseUrl();
+    final baseUrl = TechnicienGroup.getBaseUrl();
 
     return ApiManager.instance.makeApiCall(
       callName: 'Tasks',
       apiUrl: '${baseUrl}/tâches',
       callType: ApiCallType.GET,
-        headers: {
+      headers: {
         'content-type': 'application/json',
         'Authorization': 'Bearer ${authToken}',
       },
@@ -745,15 +750,38 @@ class PostponeTaskCall {
 }
 
 class TaskConfirmedCall {
-  Future<ApiCallResponse> call() async {
+  Future<ApiCallResponse> call(ExceptionTaskFormStruct? task) async {
+    print("send data: ${jsonEncode(task!.toMap())}");
     final baseUrl = TechnicienGroup.getBaseUrl();
-
-    return ApiManager.instance.makeApiCall(
+    
+    // return ApiManager.instance.makeApiCall(
+    //   callName: 'taskConfirmed',
+    //   apiUrl: '${baseUrl}/taskToConfirmed',
+    //   callType: ApiCallType.POST,
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Authorization': 'Bearer ${FFAppState().authToken}',
+    //   },
+    //   params: {},
+    //   body: jsonEncode(task.toMap()),
+    //   bodyType: BodyType.JSON,
+    //   returnBody: true,
+    //   encodeBodyUtf8: false,
+    //   decodeUtf8: false,
+    //   cache: false,
+    //   isStreamingApi: false,
+    //   alwaysAllowBody: false,
+    // );
+    final response = await ApiManager.instance.makeApiCall(
       callName: 'taskConfirmed',
       apiUrl: '${baseUrl}/taskToConfirmed',
       callType: ApiCallType.POST,
-      headers: {},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
+      body: jsonEncode(task.toMap()),
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -762,6 +790,8 @@ class TaskConfirmedCall {
       isStreamingApi: false,
       alwaysAllowBody: false,
     );
+    print("response: ${response.headers}");
+    return response;
   }
 }
 
@@ -1002,6 +1032,29 @@ class PanneTaskCall {
       headers: {},
       params: {},
       bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetNewTaskInfoCall {
+  Future<ApiCallResponse> call() async {
+    final baseUrl = TechnicienGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getNewTaskInfo',
+      apiUrl: 'https://d3instal.com/api/supportTechnique/newTask',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${FFAppState().authToken}',
+      },
+      params: {},
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

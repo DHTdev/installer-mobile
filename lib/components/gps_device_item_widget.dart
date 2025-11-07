@@ -47,31 +47,32 @@ class _GpsDeviceItemWidgetState extends State<GpsDeviceItemWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print("data:${widget.brand}");
     return Align(
-      alignment: AlignmentDirectional(-1.0, 0.0),
+      alignment: AlignmentDirectional(-1, 0),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
         child: Container(
           height: 99.2,
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).secondaryBackground,
             boxShadow: [
               BoxShadow(
-                blurRadius: 4.0,
+                blurRadius: 4,
                 color: Color(0x33000000),
                 offset: Offset(
-                  0.0,
-                  2.0,
+                  0,
+                  2,
                 ),
               )
             ],
           ),
-          alignment: AlignmentDirectional(0.0, -1.0),
+          alignment: AlignmentDirectional(0, -1),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Align(
-                alignment: AlignmentDirectional(-1.0, 0.0),
+                alignment: AlignmentDirectional(-1, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -80,12 +81,11 @@ class _GpsDeviceItemWidgetState extends State<GpsDeviceItemWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(1.0, 0.0),
+                          alignment: AlignmentDirectional(1, 0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                5.0, 0.0, 0.0, 0.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                             child: Text(
-                              '359633101150055',
+                              widget.imei!,
                               style: FlutterFlowTheme.of(context)
                                   .headlineSmall
                                   .override(
@@ -111,15 +111,14 @@ class _GpsDeviceItemWidgetState extends State<GpsDeviceItemWidget> {
                       ],
                     ),
                     Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 0.0, 0.0),
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                             child: Text(
                               'Number SIM',
                               style: FlutterFlowTheme.of(context)
@@ -144,10 +143,10 @@ class _GpsDeviceItemWidgetState extends State<GpsDeviceItemWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 10.0, 0.0),
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                             child: Text(
-                              '2000',
+                              valueOrDefault(widget.simNumber, "null"),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -177,8 +176,7 @@ class _GpsDeviceItemWidgetState extends State<GpsDeviceItemWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 0.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                           child: Text(
                             'Modèle',
                             style: FlutterFlowTheme.of(context)
@@ -203,10 +201,9 @@ class _GpsDeviceItemWidgetState extends State<GpsDeviceItemWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 10.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                           child: Text(
-                            '2022-12-29 11:04:49',
+                            valueOrDefault(widget.deviceModel, "null"),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -235,8 +232,7 @@ class _GpsDeviceItemWidgetState extends State<GpsDeviceItemWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 0.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                           child: Text(
                             'Marque',
                             style: FlutterFlowTheme.of(context)
@@ -261,10 +257,9 @@ class _GpsDeviceItemWidgetState extends State<GpsDeviceItemWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 10.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                           child: Text(
-                            '2022-12-29 11:04:49',
+                            valueOrDefault(widget.brand, "null"),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
