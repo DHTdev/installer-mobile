@@ -1,7 +1,5 @@
-import '/compenents/manage_taches/manage_taches_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -322,36 +320,10 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                       children: [
                         Align(
                           alignment: AlignmentDirectional(1.0, -1.0),
-                          child: Builder(
-                            builder: (context) => InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                await showAlignedDialog(
-                                  context: context,
-                                  isGlobal: false,
-                                  avoidOverflow: false,
-                                  targetAnchor: AlignmentDirectional(1.0, 1.0)
-                                      .resolve(Directionality.of(context)),
-                                  followerAnchor:
-                                      AlignmentDirectional(1.0, -1.0)
-                                          .resolve(Directionality.of(context)),
-                                  builder: (dialogContext) {
-                                    return Material(
-                                      color: Colors.transparent,
-                                      child: ManageTachesWidget(),
-                                    );
-                                  },
-                                );
-                              },
-                              child: FaIcon(
-                                FontAwesomeIcons.ellipsisV,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 24.0,
-                              ),
-                            ),
+                          child: FaIcon(
+                            FontAwesomeIcons.ellipsisV,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 24.0,
                           ),
                         ),
                       ],

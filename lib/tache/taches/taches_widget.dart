@@ -11,6 +11,7 @@ import '/index.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'taches_model.dart';
 export 'taches_model.dart';
@@ -317,6 +318,8 @@ class _TachesWidgetState extends State<TachesWidget> {
                                 controller: _model.textController,
                                 focusNode: _model.textFieldFocusNode,
                                 autofocus: false,
+                                textCapitalization:
+                                    TextCapitalization.sentences,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   isDense: true,
@@ -341,6 +344,7 @@ class _TachesWidgetState extends State<TachesWidget> {
                                             .labelMedium
                                             .fontStyle,
                                       ),
+                                  alignLabelWithHint: false,
                                   hintText: 'Rechercher par Nom Client',
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
@@ -363,34 +367,34 @@ class _TachesWidgetState extends State<TachesWidget> {
                                             .labelMedium
                                             .fontStyle,
                                       ),
-                                  enabledBorder: OutlineInputBorder(
+                                  enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x4C000000),
-                                      width: 1.0,
+                                      width: 2.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.circular(0.0),
                                   ),
-                                  focusedBorder: OutlineInputBorder(
+                                  focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
                                           .alternate,
-                                      width: 1.0,
+                                      width: 2.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.circular(0.0),
                                   ),
-                                  errorBorder: OutlineInputBorder(
+                                  errorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
+                                      width: 2.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.circular(0.0),
                                   ),
-                                  focusedErrorBorder: OutlineInputBorder(
+                                  focusedErrorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
+                                      width: 2.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.circular(0.0),
                                   ),
                                   filled: true,
                                   fillColor: FlutterFlowTheme.of(context)
@@ -419,6 +423,17 @@ class _TachesWidgetState extends State<TachesWidget> {
                                     FlutterFlowTheme.of(context).primaryText,
                                 validator: _model.textControllerValidator
                                     .asValidator(context),
+                                inputFormatters: [
+                                  if (!isAndroid && !isiOS)
+                                    TextInputFormatter.withFunction(
+                                        (oldValue, newValue) {
+                                      return TextEditingValue(
+                                        selection: newValue.selection,
+                                        text: newValue.text.toCapitalization(
+                                            TextCapitalization.sentences),
+                                      );
+                                    }),
+                                ],
                               ),
                             ),
                           ),

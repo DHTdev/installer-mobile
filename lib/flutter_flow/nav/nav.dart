@@ -214,6 +214,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: TacheconfirmerCopyWidget.routeName,
           path: TacheconfirmerCopyWidget.routePath,
           builder: (context, params) => TacheconfirmerCopyWidget(),
+        ),
+        FFRoute(
+          name: FormWidget.routeName,
+          path: FormWidget.routePath,
+          builder: (context, params) => FormWidget(),
+        ),
+        FFRoute(
+          name: DesinstallationWidget.routeName,
+          path: DesinstallationWidget.routePath,
+          builder: (context, params) => DesinstallationWidget(),
+        ),
+        FFRoute(
+          name: PanneWidget.routeName,
+          path: PanneWidget.routePath,
+          builder: (context, params) => PanneWidget(
+            clientName: params.getParam(
+              'clientName',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
