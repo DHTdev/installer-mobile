@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'form_widget.dart' show FormWidget;
+import 'canceled_task_widget.dart' show CanceledTaskWidget;
 import 'package:flutter/material.dart';
 
-class FormModel extends FlutterFlowModel<FormWidget> {
+class CanceledTaskModel extends FlutterFlowModel<CanceledTaskWidget> {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for TextField widget.

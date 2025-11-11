@@ -116,18 +116,31 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      6.0, 12.0, 0.0, 0.0),
-                                  child: Text(
-                                    'A H BETON',
-                                    style: FlutterFlowTheme.of(context)
-                                        .headlineSmall
-                                        .override(
-                                          font: GoogleFonts.interTight(
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10.0, 0.0, 0.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        6.0, 12.0, 0.0, 0.0),
+                                    child: Text(
+                                      'A H BETON',
+                                      style: FlutterFlowTheme.of(context)
+                                          .headlineSmall
+                                          .override(
+                                            font: GoogleFonts.interTight(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineSmall
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineSmall
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .headlineSmall
@@ -137,22 +150,13 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                                     .headlineSmall
                                                     .fontStyle,
                                           ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .headlineSmall
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .headlineSmall
-                                                  .fontStyle,
-                                        ),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                             SizedBox(
-                              width: 360.0,
+                              width: 350.0,
                               child: Divider(
                                 height: 24.0,
                                 thickness: 2.0,
@@ -643,7 +647,8 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                     ],
                                     onChanged: (val) => safeSetState(
                                         () => _model.dropDownValue1 = val),
-                                    width: 345.9,
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.88,
                                     height: 41.8,
                                     textStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -836,10 +841,10 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 8.0, 8.0, 8.0),
+                                      16.0, 8.0, 0.0, 8.0),
                                   child: Container(
                                     width: 345.9,
-                                    height: 41.8,
+                                    height: 49.81,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,

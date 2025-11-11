@@ -1,18 +1,15 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'panne_widget.dart' show PanneWidget;
+import 'reinstallation_widget.dart' show ReinstallationWidget;
 import 'package:flutter/material.dart';
 
-class PanneModel extends FlutterFlowModel<PanneWidget> {
+class ReinstallationModel extends FlutterFlowModel<ReinstallationWidget> {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode1;
   TextEditingController? textController1;
   String? Function(BuildContext, String?)? textController1Validator;
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode2;
   TextEditingController? textController2;
@@ -25,6 +22,13 @@ class PanneModel extends FlutterFlowModel<PanneWidget> {
   FocusNode? textFieldFocusNode4;
   TextEditingController? textController4;
   String? Function(BuildContext, String?)? textController4Validator;
+  // State field(s) for DropDown widget.
+  String? dropDownValue;
+  FormFieldController<String>? dropDownValueController;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode5;
+  TextEditingController? textController5;
+  String? Function(BuildContext, String?)? textController5Validator;
 
   @override
   void initState(BuildContext context) {}
@@ -42,5 +46,8 @@ class PanneModel extends FlutterFlowModel<PanneWidget> {
 
     textFieldFocusNode4?.dispose();
     textController4?.dispose();
+
+    textFieldFocusNode5?.dispose();
+    textController5?.dispose();
   }
 }

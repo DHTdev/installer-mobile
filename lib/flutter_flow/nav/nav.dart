@@ -216,11 +216,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => TacheconfirmerCopyWidget(),
         ),
         FFRoute(
-          name: FormWidget.routeName,
-          path: FormWidget.routePath,
-          builder: (context, params) => FormWidget(),
-        ),
-        FFRoute(
           name: DesinstallationWidget.routeName,
           path: DesinstallationWidget.routePath,
           builder: (context, params) => DesinstallationWidget(),
@@ -229,6 +224,51 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: PanneWidget.routeName,
           path: PanneWidget.routePath,
           builder: (context, params) => PanneWidget(
+            clientName: params.getParam(
+              'clientName',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: PanneGPSWidget.routeName,
+          path: PanneGPSWidget.routePath,
+          builder: (context, params) => PanneGPSWidget(
+            clientName: params.getParam(
+              'clientName',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: PanneRelaisWidget.routeName,
+          path: PanneRelaisWidget.routePath,
+          builder: (context, params) => PanneRelaisWidget(
+            clientName: params.getParam(
+              'clientName',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: PanneSIMWidget.routeName,
+          path: PanneSIMWidget.routePath,
+          builder: (context, params) => PanneSIMWidget(
+            clientName: params.getParam(
+              'clientName',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: ReinstallationWidget.routeName,
+          path: ReinstallationWidget.routePath,
+          builder: (context, params) => ReinstallationWidget(),
+        ),
+        FFRoute(
+          name: CanceledTaskWidget.routeName,
+          path: CanceledTaskWidget.routePath,
+          builder: (context, params) => CanceledTaskWidget(
             clientName: params.getParam(
               'clientName',
               ParamType.String,

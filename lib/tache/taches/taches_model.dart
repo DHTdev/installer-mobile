@@ -35,6 +35,8 @@ class TachesModel extends FlutterFlowModel<TachesWidget> {
 
   // Stores action output result for [Backend Call - API (Tasks)] action in Taches widget.
   ApiCallResponse? apiResultTechnianTasks;
+  // Model for headerSection component.
+  late HeaderSectionModel headerSectionModel;
   // State field(s) for DropDown widget.
   String? dropDownValue1;
   FormFieldController<String>? dropDownValueController1;
@@ -48,23 +50,21 @@ class TachesModel extends FlutterFlowModel<TachesWidget> {
   Completer<ApiCallResponse>? apiRequestCompleter;
   // Models for TechnicienTasks dynamic component.
   late FlutterFlowDynamicModels<TechnicienTasksModel> technicienTasksModels;
-  // Model for headerSection component.
-  late HeaderSectionModel headerSectionModel;
 
   @override
   void initState(BuildContext context) {
+    headerSectionModel = createModel(context, () => HeaderSectionModel());
     technicienTasksModels =
         FlutterFlowDynamicModels(() => TechnicienTasksModel());
-    headerSectionModel = createModel(context, () => HeaderSectionModel());
   }
 
   @override
   void dispose() {
+    headerSectionModel.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
 
     technicienTasksModels.dispose();
-    headerSectionModel.dispose();
   }
 
   /// Additional helper methods.
