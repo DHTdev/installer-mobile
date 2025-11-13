@@ -583,7 +583,8 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
                                           ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: Colors.black,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
                                           width: 1.0,
                                         ),
                                         borderRadius:
@@ -721,7 +722,8 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -865,7 +867,8 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -988,7 +991,8 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
                                   fillColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   elevation: 2.0,
-                                  borderColor: Colors.black,
+                                  borderColor: FlutterFlowTheme.of(context)
+                                      .secondaryText,
                                   borderWidth: 0.0,
                                   borderRadius: 8.0,
                                   margin: EdgeInsetsDirectional.fromSTEB(
@@ -1068,7 +1072,8 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -1208,7 +1213,8 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -1300,7 +1306,7 @@ class _NouvelleTachesWidgetState extends State<NouvelleTachesWidget> {
                                     24.0, 0.0, 24.0, 0.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                color: Color(0xFF07C491),
+                                color: FlutterFlowTheme.of(context).secondary,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(

@@ -28,6 +28,9 @@ class TacheTerminerModel extends FlutterFlowModel<TacheTerminerWidget> {
   // State field(s) for DropDown widget.
   String? dropDownValue3;
   FormFieldController<String>? dropDownValueController3;
+  bool isDataUploading_tacheInstallation = false;
+  List<FFUploadedFile> uploadedLocalFiles_tacheInstallation = [];
+
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode4;
   TextEditingController? textController4;

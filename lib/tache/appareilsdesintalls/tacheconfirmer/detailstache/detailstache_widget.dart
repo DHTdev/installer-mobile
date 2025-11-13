@@ -216,6 +216,7 @@ class _DetailstacheWidgetState extends State<DetailstacheWidget> {
               height: 695.5,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
+                borderRadius: BorderRadius.circular(8.0),
               ),
               child: Form(
                 key: _model.formKey,
@@ -296,7 +297,8 @@ class _DetailstacheWidgetState extends State<DetailstacheWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -349,6 +351,8 @@ class _DetailstacheWidgetState extends State<DetailstacheWidget> {
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
@@ -436,7 +440,8 @@ class _DetailstacheWidgetState extends State<DetailstacheWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -489,6 +494,8 @@ class _DetailstacheWidgetState extends State<DetailstacheWidget> {
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
@@ -578,7 +585,8 @@ class _DetailstacheWidgetState extends State<DetailstacheWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -717,7 +725,8 @@ class _DetailstacheWidgetState extends State<DetailstacheWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -861,7 +870,8 @@ class _DetailstacheWidgetState extends State<DetailstacheWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -945,7 +955,7 @@ class _DetailstacheWidgetState extends State<DetailstacheWidget> {
                                   return;
                                 }
                               },
-                              text: 'Envoyer',
+                              text: 'Enregistrer les modifications',
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 48.0,
@@ -953,7 +963,7 @@ class _DetailstacheWidgetState extends State<DetailstacheWidget> {
                                     24.0, 0.0, 24.0, 0.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                color: Color(0xFF07C491),
+                                color: FlutterFlowTheme.of(context).secondary,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(

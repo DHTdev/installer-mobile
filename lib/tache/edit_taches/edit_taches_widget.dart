@@ -112,6 +112,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
               height: MediaQuery.sizeOf(context).height * 0.98,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
+                borderRadius: BorderRadius.circular(12.0),
               ),
               child: Container(
                 width: MediaQuery.sizeOf(context).width * 0.95,
@@ -1367,7 +1368,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                               Icons.upload_file,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .secondaryText,
                                               size: 32.0,
                                             ),
                                             Padding(
@@ -1603,7 +1604,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                   24.0, 0.0, 24.0, 0.0),
                               iconPadding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: Color(0xFF07C491),
+                              color: FlutterFlowTheme.of(context).secondary,
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(

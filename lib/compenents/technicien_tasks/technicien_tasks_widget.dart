@@ -21,7 +21,7 @@ class TechnicienTasksWidget extends StatefulWidget {
   })  : this.clientName = clientName ?? 'test',
         this.taskType = taskType ?? 'installation ',
         this.city = city ?? 'tanger',
-        this.stateTask = stateTask ?? 1;
+        this.stateTask = stateTask ?? 0;
 
   final String clientName;
   final String taskType;

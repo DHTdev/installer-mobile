@@ -109,6 +109,7 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
               height: 695.5,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
+                borderRadius: BorderRadius.circular(12.0),
               ),
               child: Form(
                 key: _model.formKey,
@@ -197,7 +198,8 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -346,7 +348,8 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -497,7 +500,8 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -586,7 +590,7 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                       border: Border.all(
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                            .secondaryText,
                                         width: 1.0,
                                       ),
                                     ),
@@ -682,7 +686,7 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                               Icons.calendar_month,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                      .secondaryText,
                                               size: 24.0,
                                             ),
                                           ),
@@ -778,7 +782,9 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                               ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Colors.black,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -917,7 +923,8 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                   fillColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   elevation: 2.0,
-                                  borderColor: Colors.black,
+                                  borderColor: FlutterFlowTheme.of(context)
+                                      .secondaryText,
                                   borderWidth: 0.0,
                                   borderRadius: 8.0,
                                   margin: EdgeInsetsDirectional.fromSTEB(
@@ -1006,7 +1013,8 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -1105,7 +1113,7 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                     24.0, 0.0, 24.0, 0.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                color: Color(0xFF07C491),
+                                color: FlutterFlowTheme.of(context).secondary,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(

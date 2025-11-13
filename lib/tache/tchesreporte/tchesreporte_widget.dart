@@ -95,6 +95,7 @@ class _TchesreporteWidgetState extends State<TchesreporteWidget> {
               height: 695.5,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
+                borderRadius: BorderRadius.circular(12.0),
               ),
               child: Form(
                 key: _model.formKey,
@@ -143,12 +144,13 @@ class _TchesreporteWidgetState extends State<TchesreporteWidget> {
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              width: 360.0,
+                            Opacity(
+                              opacity: 0.5,
                               child: Divider(
                                 height: 24.0,
                                 thickness: 2.0,
-                                color: Colors.black,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
                               ),
                             ),
                             Row(
@@ -223,7 +225,9 @@ class _TchesreporteWidgetState extends State<TchesreporteWidget> {
                                               ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Colors.black,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -380,7 +384,9 @@ class _TchesreporteWidgetState extends State<TchesreporteWidget> {
                                               ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Colors.black,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -480,7 +486,7 @@ class _TchesreporteWidgetState extends State<TchesreporteWidget> {
                                       24.0, 0.0, 24.0, 0.0),
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color: Color(0xFF07C491),
+                                  color: FlutterFlowTheme.of(context).secondary,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(

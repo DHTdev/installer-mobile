@@ -432,7 +432,7 @@ class _CommercialWidgetState extends State<CommercialWidget> {
                               16.0, 0.0, 16.0, 0.0),
                           iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          color: Color(0xFF07C491),
+                          color: FlutterFlowTheme.of(context).secondary,
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     font: GoogleFonts.interTight(
@@ -465,7 +465,7 @@ class _CommercialWidgetState extends State<CommercialWidget> {
                     width: 374.8,
                     height: 572.5,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: Color(0x6FFFFFFF),
                     ),
                     child: Padding(
                       padding:
@@ -532,10 +532,7 @@ class _CommercialWidgetState extends State<CommercialWidget> {
                             child: Container(
                               width: 361.44,
                               height: 57.2,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
+                              decoration: BoxDecoration(),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 10.0, 0.0, 0.0),
@@ -620,7 +617,7 @@ class _CommercialWidgetState extends State<CommercialWidget> {
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryText,
+                                              .secondaryText,
                                           width: 1.0,
                                         ),
                                         borderRadius:
@@ -701,7 +698,7 @@ class _CommercialWidgetState extends State<CommercialWidget> {
                                   boxShadow: [
                                     BoxShadow(
                                       blurRadius: 4.0,
-                                      color: Color(0x33000000),
+                                      color: Color(0x4E39D2C0),
                                       offset: Offset(
                                         0.0,
                                         2.0,
@@ -1034,7 +1031,7 @@ class _CommercialWidgetState extends State<CommercialWidget> {
                                   boxShadow: [
                                     BoxShadow(
                                       blurRadius: 4.0,
-                                      color: Color(0x33000000),
+                                      color: Color(0x6539D2C0),
                                       offset: Offset(
                                         0.0,
                                         2.0,
