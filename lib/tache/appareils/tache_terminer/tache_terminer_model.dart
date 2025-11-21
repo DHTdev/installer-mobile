@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:mobile_installer/backend/api_requests/api_manager.dart';
+
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'tache_terminer_widget.dart' show TacheTerminerWidget;
@@ -6,48 +10,57 @@ import 'package:flutter/material.dart';
 class TacheTerminerModel extends FlutterFlowModel<TacheTerminerWidget> {
   ///  State fields for stateful widgets in this page.
 
+  /// api response
+  ApiCallResponse? apiResultGetDevicesByTech;
   final formKey = GlobalKey<FormState>();
+  // API RESPONSE COMPLETER
+  Completer<ApiCallResponse>? apiResponseCompleter;
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode1;
-  TextEditingController? textController1;
-  String? Function(BuildContext, String?)? textController1Validator;
+  FocusNode? textFieldFocusNodeMatricule;
+  TextEditingController? textControllerMatricule;
+  String? Function(BuildContext, String?)? textControllerMatriculeValidator;
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode2;
-  TextEditingController? textController2;
-  String? Function(BuildContext, String?)? textController2Validator;
+  FocusNode? textControllerIMEIFocus;
+  TextEditingController? textControllerIMEI;
+  String? Function(BuildContext, String?)? textControllerIMEIvalidator;
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode3;
-  TextEditingController? textController3;
-  String? Function(BuildContext, String?)? textController3Validator;
+  FocusNode? textFieldFocusNodeSimCombinat;
+  TextEditingController? textControllerSimCombinat;
+  String? Function(BuildContext, String?)? textControllerSimCombinatValidator;
   // State field(s) for DropDown widget.
-  String? dropDownValue1;
-  FormFieldController<String>? dropDownValueController1;
+  bool? dropDownValueGpsPosition;
+  FormFieldController<bool>? dropDownValueControllerGpsPosition;
   // State field(s) for DropDown widget.
-  String? dropDownValue2;
-  FormFieldController<String>? dropDownValueController2;
+  String? dropDownValueTypeReley;
+  FormFieldController<String>? dropDownValueControllerTypeReley;
   // State field(s) for DropDown widget.
-  String? dropDownValue3;
-  FormFieldController<String>? dropDownValueController3;
+  String? dropDownValueAccessories;
+  FormFieldController<String>? dropDownValueControllerAccessories;
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode4;
-  TextEditingController? textController4;
-  String? Function(BuildContext, String?)? textController4Validator;
+  FocusNode? textFieldFocusNodeDescription;
+  TextEditingController? textControllerDescription;
+  String? Function(BuildContext, String?)? textControllerDescriptionValidator;
+  // State field(s) for TextField widget.
+
+  bool isDataUploading_tacheInstallation = false;
+  List<Map<String, dynamic>> uploadedLocalFiles_tacheInstallation = [];
+
 
   @override
   void initState(BuildContext context) {}
 
   @override
   void dispose() {
-    textFieldFocusNode1?.dispose();
-    textController1?.dispose();
+    textFieldFocusNodeMatricule?.dispose();
+    textControllerMatricule?.dispose();
 
-    textFieldFocusNode2?.dispose();
-    textController2?.dispose();
+    textControllerIMEIFocus?.dispose();
+    textControllerIMEI?.dispose();
 
-    textFieldFocusNode3?.dispose();
-    textController3?.dispose();
+    textFieldFocusNodeSimCombinat?.dispose();
+    textControllerSimCombinat?.dispose();
 
-    textFieldFocusNode4?.dispose();
-    textController4?.dispose();
+    textFieldFocusNodeDescription?.dispose();
+    textControllerDescription?.dispose();
   }
 }

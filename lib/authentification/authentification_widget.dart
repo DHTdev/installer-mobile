@@ -1,7 +1,5 @@
-import 'package:flutter/scheduler.dart';
 import 'package:mobile_installer/tache/taches/taches_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';

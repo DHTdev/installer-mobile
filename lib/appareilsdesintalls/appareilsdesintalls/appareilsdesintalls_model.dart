@@ -1,20 +1,15 @@
 import 'package:mobile_installer/backend/schema/structs/reutned_devices_struct.dart';
 
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
+// import '/backend/schema/structs/index.dart';
 import '/components/header_section_widget.dart';
 import '/components/returned_devices_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
-import '/flutter_flow/random_data_util.dart' as random_data;
+import '/flutter_flow/flutter_flow_theme.dart';
+
 import '/index.dart';
 import 'appareilsdesintalls_widget.dart' show AppareilsdesintallsWidget;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:text_search/text_search.dart';
 
 class AppareilsdesintallsModel
     extends FlutterFlowModel<AppareilsdesintallsWidget> {

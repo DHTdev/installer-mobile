@@ -85,7 +85,6 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
   }
 
   Future<void> addNewExceptionTask() async {
-    print("add new task");
         setState(() {
       _isButtonEnabled = !_isButtonEnabled;
     });
@@ -1096,7 +1095,6 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                       16.0, 12.0, 16.0, 12.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      print("Button pressed ... ${_isButtonEnabled}");
                                       _isButtonEnabled ? await addNewExceptionTask() : () {};
                                     },
                                     text: 'Ajouter la tâche',

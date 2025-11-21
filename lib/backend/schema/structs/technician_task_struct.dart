@@ -60,25 +60,24 @@ class TechnicianTaskStruct extends BaseStruct {
 
   // "IMEI" field.
   int? _IMEI;
-  int get IMEI => _IMEI ?? 0;
+  int? get IMEI => _IMEI ?? null;
   set IMEI(int? val) => _IMEI = val;
 
-  void incrementIMEI(int amount) => IMEI = IMEI + amount;
 
   bool hasIMEI() => _IMEI != null;
 
   // "SIM" field.
   int? _SIM;
-  int get SIM => _SIM ?? 0;
+  int?get SIM => _SIM ?? null;
   set SIM(int? val) => _SIM = val;
 
-  void incrementSIM(int amount) => SIM = SIM + amount;
+  // void incrementSIM(int amount) => SIM = SIM + amount;
 
   bool hasSIM() => _SIM != null;
 
   // "SIM_proprietaire" field.
   bool? _SIM_proprietaire;
-  bool get SIM_proprietaire => _SIM_proprietaire ?? false;
+  bool? get SIM_proprietaire => _SIM_proprietaire ?? null;
   set SIM_proprietaire(bool? val) => _SIM_proprietaire = val;
 
   bool hasSIM_proprietaire() => _SIM_proprietaire != null;
@@ -151,7 +150,7 @@ class TechnicianTaskStruct extends BaseStruct {
 
   // "gps_principale" field.
   bool? _gps_principale;
-  bool get gps_principale => _gps_principale ?? false;
+  bool? get gps_principale => _gps_principale ?? null;
   set gps_principale(bool? val) => _gps_principale = val;
 
   bool hasgps_principale() => _gps_principale != null;
@@ -186,7 +185,7 @@ class TechnicianTaskStruct extends BaseStruct {
 
   // "proprietaire" field.
   bool? _proprietaire;
-  bool get proprietaire => _proprietaire ?? false;
+  bool? get proprietaire => _proprietaire ?? null;
   set proprietaire(bool? val) => _proprietaire = val;
 
   bool hasproprietaire() => _proprietaire != null;
@@ -214,8 +213,7 @@ class TechnicianTaskStruct extends BaseStruct {
         date_affectation: DateTime.parse(data['date_affectation']),
         date_debut_realisation: data['date_debut_realisation'] != null ?
             DateTime.parse(data['date_debut_realisation']) : null,
-        date_previsionnelle_debut:
-            DateTime.parse(data['date_previsionnelle_debut']),
+        date_previsionnelle_debut:DateFormat('yyyy-MM-dd').parse(data['date_previsionnelle_debut']),
         etatTache: castToType<int>(data['etatTache']),
         garantie: data['garantie'] as String?,
         gps_principale: data['gps_principale'] as bool?,

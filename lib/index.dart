@@ -14,7 +14,7 @@ export '/appareilsdesintalls/appareilsdesintalls/appareilsdesintalls_widget.dart
     show AppareilsdesintallsWidget;
 export '/appareilsdesintalls/tacheconfirmer/tacheconfirmer/tacheconfirmer_widget.dart'
     show TacheconfirmerWidget;
-export '/appareilsdesintalls/tacheconfirmer/nouvelle_taches/nouvelle_taches_widget.dart'
+export '/appareilsdesintalls/nouvelle_taches/nouvelle_taches_widget.dart'
     show NouvelleTachesWidget;
 export '/tache/appareils/tache_terminer/tache_terminer_widget.dart'
     show TacheTerminerWidget;
@@ -41,3 +41,7 @@ export '/appareilsretournee/appareilsretournee/appareilsretournee_widget.dart'
     show AppareilsretourneeWidget;
 export '/tacheaconfirmer_gerant/tacheconfirmer_copy/tacheconfirmer_copy_widget.dart'
     show TacheconfirmerCopyWidget;
+export '/form/form_widget.dart' show FormWidget;
+export '/tache/appareils/desinstallation/desinstallation_widget.dart'
+    show DesinstallationWidget;
+export '/tache/appareils/panne/panne_widget.dart' show PanneWidget;

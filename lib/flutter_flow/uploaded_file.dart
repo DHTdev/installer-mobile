@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data' show Uint8List;
 
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+
 class FFUploadedFile {
   const FFUploadedFile({
     this.name,
@@ -8,6 +10,7 @@ class FFUploadedFile {
     this.height,
     this.width,
     this.blurHash,
+    this.originalFilename = '',
   });
 
   final String? name;
@@ -15,10 +18,11 @@ class FFUploadedFile {
   final double? height;
   final double? width;
   final String? blurHash;
+  final String originalFilename;
 
   @override
   String toString() =>
-      'FFUploadedFile(name: $name, bytes: ${bytes?.length ?? 0}, height: $height, width: $width, blurHash: $blurHash,)';
+      'FFUploadedFile(name: $name, bytes: ${bytes?.length ?? 0}, height: $height, width: $width, blurHash: $blurHash, originalFilename: $originalFilename,)';
 
   String serialize() => jsonEncode(
         {
@@ -27,6 +31,7 @@ class FFUploadedFile {
           'height': height,
           'width': width,
           'blurHash': blurHash,
+          'originalFilename': originalFilename,
         },
       );
 
@@ -38,6 +43,7 @@ class FFUploadedFile {
       'height': serializedData['height'],
       'width': serializedData['width'],
       'blurHash': serializedData['blurHash'],
+      'originalFilename': serializedData['originalFilename'] ?? '',
     };
     return FFUploadedFile(
       name: data['name'] as String,
@@ -45,7 +51,19 @@ class FFUploadedFile {
       height: data['height'] as double?,
       width: data['width'] as double?,
       blurHash: data['blurHash'] as String?,
+      originalFilename: data['originalFilename'] as String,
     );
+  }
+
+  Future<Uint8List> compressImageBytes(Uint8List data) async {
+    final compressed = await FlutterImageCompress.compressWithList(
+      data,
+      minHeight: 960,
+      minWidth: 1280,
+      quality: 80,
+      format: CompressFormat.jpeg,
+    );
+    return Uint8List.fromList(compressed);
   }
 
   @override
@@ -55,6 +73,7 @@ class FFUploadedFile {
         height,
         width,
         blurHash,
+        originalFilename,
       );
 
   @override
@@ -64,5 +83,6 @@ class FFUploadedFile {
       bytes == other.bytes &&
       height == other.height &&
       width == other.width &&
-      blurHash == other.blurHash;
+      blurHash == other.blurHash &&
+      originalFilename == other.originalFilename;
 }

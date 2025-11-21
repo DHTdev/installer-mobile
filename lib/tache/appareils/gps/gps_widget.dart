@@ -38,7 +38,6 @@ class _GpsWidgetState extends State<GpsWidget> {
   @override
   void initState() {
     super.initState();
-    print("gps device widget");
     _model = createModel(context, () => GpsModel());
 
     _model.textController ??= TextEditingController();
@@ -54,7 +53,6 @@ class _GpsWidgetState extends State<GpsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print("data ${gpsDevices.length}");
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();

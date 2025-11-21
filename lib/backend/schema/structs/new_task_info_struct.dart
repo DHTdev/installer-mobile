@@ -1,8 +1,10 @@
 // ignore_for_file: unnecessary_getters_setters
 
 
+import 'package:mobile_installer/flutter_flow/flutter_flow_util.dart';
+
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 
 class NewTaskInfoStruct extends BaseStruct {
   NewTaskInfoStruct({

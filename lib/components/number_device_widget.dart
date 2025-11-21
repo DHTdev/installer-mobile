@@ -1,6 +1,3 @@
-import 'package:mobile_installer/backend/schema/structs/accessory_struct.dart';
-import 'package:mobile_installer/backend/schema/structs/gps_struct.dart';
-import 'package:mobile_installer/backend/schema/structs/sim_struct.dart';
 
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -44,7 +41,6 @@ class _NumberDeviceWidgetState extends State<NumberDeviceWidget> {
   @override
   void initState() {
     super.initState();
-    print("number device widget");
     _model = createModel(context, () => NumberDeviceModel());
   }
 

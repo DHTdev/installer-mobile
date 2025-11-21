@@ -11,6 +11,7 @@ import '/index.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'taches_model.dart';
 export 'taches_model.dart';
@@ -318,6 +319,8 @@ class _TachesWidgetState extends State<TachesWidget> {
                                 controller: _model.textController,
                                 focusNode: _model.textFieldFocusNode,
                                 autofocus: false,
+                                textCapitalization:
+                                    TextCapitalization.sentences,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   isDense: true,
@@ -342,6 +345,7 @@ class _TachesWidgetState extends State<TachesWidget> {
                                             .labelMedium
                                             .fontStyle,
                                       ),
+                                  alignLabelWithHint: false,
                                   hintText: 'Rechercher par Nom Client',
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
@@ -364,28 +368,28 @@ class _TachesWidgetState extends State<TachesWidget> {
                                             .labelMedium
                                             .fontStyle,
                                       ),
-                                  enabledBorder: OutlineInputBorder(
+                                  enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x4C000000),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  focusedBorder: OutlineInputBorder(
+                                  focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  errorBorder: OutlineInputBorder(
+                                  errorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  focusedErrorBorder: OutlineInputBorder(
+                                  focusedErrorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
                                       width: 1,
@@ -419,6 +423,17 @@ class _TachesWidgetState extends State<TachesWidget> {
                                     FlutterFlowTheme.of(context).primaryText,
                                 validator: _model.textControllerValidator
                                     .asValidator(context),
+                                inputFormatters: [
+                                  if (!isAndroid && !isiOS)
+                                    TextInputFormatter.withFunction(
+                                        (oldValue, newValue) {
+                                      return TextEditingValue(
+                                        selection: newValue.selection,
+                                        text: newValue.text.toCapitalization(
+                                            TextCapitalization.sentences),
+                                      );
+                                    }),
+                                ],
                               ),
                             ),
                           ),
@@ -471,12 +486,16 @@ class _TachesWidgetState extends State<TachesWidget> {
                                               SizedBox(height: 5),
                                           itemBuilder:
                                               (context, technicianTasksIndex) {
-                                            final technicianTasksItem =
-                                                technicianTasks[
+                                            final TechnicianTaskStruct technicianTasksItem =  technicianTasks[
                                                     technicianTasksIndex];
+                                               
+                                            
                                             return TechnicienTasksWidget(
+                                              TechnicianTask: technicianTasksItem,
                                               key: Key(
                                                   'Keyxum_${technicianTasksIndex}_of_${technicianTasks.length}'),
+
+                                              id: technicianTasksItem.id,
                                               clientName: technicianTasksItem
                                                   .clientName,
                                               taskType:

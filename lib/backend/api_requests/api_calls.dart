@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:mobile_installer/backend/schema/structs/exception_task_form_struct.dart';
-import 'package:mobile_installer/backend/schema/structs/new_task_info_struct.dart';
+import 'package:mobile_installer/backend/schema/structs/installation_submit_struct.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
@@ -560,7 +560,11 @@ class ReturnedDevicesCall {
       callName: 'ReturnedDevices',
       apiUrl: '${baseUrl}/getAllReturnedDevices',
       callType: ApiCallType.GET,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -570,6 +574,79 @@ class ReturnedDevicesCall {
       alwaysAllowBody: false,
     );
   }
+
+  List<int>? catacheid(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].catache_id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? serialnumber(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].serial_number''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<int>? id(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? nameModele(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].nameModele''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? nomComplet(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].nomComplet''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? endroits(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].endroits''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? dateReturned(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].dataReturned''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? matricule(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].matricule''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
 }
 
 class AffectedDevicesCall {
@@ -615,18 +692,22 @@ class TaskSpecifiqueCall {
 }
 
 class UpdateTaskCall {
-  Future<ApiCallResponse> call({
-    int? id,
-    int? statut,
-  }) async {
+  Future<ApiCallResponse> call(
+      int? id, InstallationSubmitStruct? task, String? statut) async {
+    print("send data ${id}: ${jsonEncode(task!.toMap())}");
     final baseUrl = TechnicienGroup.getBaseUrl();
 
     return ApiManager.instance.makeApiCall(
       callName: 'updateTask',
-      apiUrl: '${baseUrl}/updateTask/{id}/{statut}',
+      apiUrl: '${baseUrl}/updateTask/${id}/${statut}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
+      body: jsonEncode(task.toMap()),
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -751,37 +832,18 @@ class PostponeTaskCall {
 
 class TaskConfirmedCall {
   Future<ApiCallResponse> call(ExceptionTaskFormStruct? task) async {
-    print("send data: ${jsonEncode(task!.toMap())}");
     final baseUrl = TechnicienGroup.getBaseUrl();
-    
-    // return ApiManager.instance.makeApiCall(
-    //   callName: 'taskConfirmed',
-    //   apiUrl: '${baseUrl}/taskToConfirmed',
-    //   callType: ApiCallType.POST,
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': 'Bearer ${FFAppState().authToken}',
-    //   },
-    //   params: {},
-    //   body: jsonEncode(task.toMap()),
-    //   bodyType: BodyType.JSON,
-    //   returnBody: true,
-    //   encodeBodyUtf8: false,
-    //   decodeUtf8: false,
-    //   cache: false,
-    //   isStreamingApi: false,
-    //   alwaysAllowBody: false,
-    // );
     final response = await ApiManager.instance.makeApiCall(
       callName: 'taskConfirmed',
       apiUrl: '${baseUrl}/taskToConfirmed',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
       },
       params: {},
-      body: jsonEncode(task.toMap()),
+      body: jsonEncode(task!.toMap()),
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
