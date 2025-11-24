@@ -698,7 +698,8 @@ class _CommercialWidgetState extends State<CommercialWidget> {
                                   boxShadow: [
                                     BoxShadow(
                                       blurRadius: 4.0,
-                                      color: Color(0x4E39D2C0),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
                                       offset: Offset(
                                         0.0,
                                         2.0,
@@ -1031,7 +1032,8 @@ class _CommercialWidgetState extends State<CommercialWidget> {
                                   boxShadow: [
                                     BoxShadow(
                                       blurRadius: 4.0,
-                                      color: Color(0x6539D2C0),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
                                       offset: Offset(
                                         0.0,
                                         2.0,

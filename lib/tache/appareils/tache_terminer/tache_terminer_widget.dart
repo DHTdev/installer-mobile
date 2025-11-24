@@ -30,17 +30,17 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
     super.initState();
     _model = createModel(context, () => TacheTerminerModel());
 
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
+    _model.matriculeTextController ??= TextEditingController();
+    _model.matriculeFocusNode ??= FocusNode();
 
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
+    _model.imeiTextController ??= TextEditingController();
+    _model.imeiFocusNode ??= FocusNode();
 
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
+    _model.nSimTextController ??= TextEditingController();
+    _model.nSimFocusNode ??= FocusNode();
 
-    _model.textController4 ??= TextEditingController();
-    _model.textFieldFocusNode4 ??= FocusNode();
+    _model.observationTextController ??= TextEditingController();
+    _model.observationFocusNode ??= FocusNode();
   }
 
   @override
@@ -176,8 +176,9 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                       child: Container(
                                         width: 200.0,
                                         child: TextFormField(
-                                          controller: _model.textController1,
-                                          focusNode: _model.textFieldFocusNode1,
+                                          controller:
+                                              _model.matriculeTextController,
+                                          focusNode: _model.matriculeFocusNode,
                                           autofocus: false,
                                           obscureText: false,
                                           decoration: InputDecoration(
@@ -319,7 +320,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .primaryText,
                                           validator: _model
-                                              .textController1Validator
+                                              .matriculeTextControllerValidator
                                               .asValidator(context),
                                         ),
                                       ),
@@ -338,8 +339,8 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                       child: Container(
                                         width: 200.0,
                                         child: TextFormField(
-                                          controller: _model.textController2,
-                                          focusNode: _model.textFieldFocusNode2,
+                                          controller: _model.imeiTextController,
+                                          focusNode: _model.imeiFocusNode,
                                           autofocus: false,
                                           obscureText: false,
                                           decoration: InputDecoration(
@@ -481,7 +482,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .primaryText,
                                           validator: _model
-                                              .textController2Validator
+                                              .imeiTextControllerValidator
                                               .asValidator(context),
                                         ),
                                       ),
@@ -500,8 +501,8 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                       child: Container(
                                         width: 200.0,
                                         child: TextFormField(
-                                          controller: _model.textController3,
-                                          focusNode: _model.textFieldFocusNode3,
+                                          controller: _model.nSimTextController,
+                                          focusNode: _model.nSimFocusNode,
                                           autofocus: false,
                                           obscureText: false,
                                           decoration: InputDecoration(
@@ -643,7 +644,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .primaryText,
                                           validator: _model
-                                              .textController3Validator
+                                              .nSimTextControllerValidator
                                               .asValidator(context),
                                         ),
                                       ),
@@ -660,9 +661,9 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                         16.0, 0.0, 0.0, 8.0),
                                     child: FlutterFlowDropDown<String>(
                                       controller:
-                                          _model.dropDownValueController1 ??=
+                                          _model.gPSPositionValueController ??=
                                               FormFieldController<String>(
-                                        _model.dropDownValue1 ??= '',
+                                        _model.gPSPositionValue ??= '',
                                       ),
                                       options: List<String>.from(
                                           ['Option 1', 'Option 2', '2']),
@@ -672,7 +673,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                         'secondaire(2eme)'
                                       ],
                                       onChanged: (val) => safeSetState(
-                                          () => _model.dropDownValue1 = val),
+                                          () => _model.gPSPositionValue = val),
                                       width: MediaQuery.sizeOf(context).width *
                                           0.88,
                                       height: 41.8,
@@ -733,9 +734,9 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                         16.0, 0.0, 0.0, 8.0),
                                     child: FlutterFlowDropDown<String>(
                                       controller:
-                                          _model.dropDownValueController2 ??=
+                                          _model.relaisValueController ??=
                                               FormFieldController<String>(
-                                        _model.dropDownValue2 ??= '',
+                                        _model.relaisValue ??= '',
                                       ),
                                       options: List<String>.from(
                                           ['Option 1', 'Option 2', '2']),
@@ -745,7 +746,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                         'Spécial'
                                       ],
                                       onChanged: (val) => safeSetState(
-                                          () => _model.dropDownValue2 = val),
+                                          () => _model.relaisValue = val),
                                       width: 345.9,
                                       height: 41.8,
                                       textStyle: FlutterFlowTheme.of(context)
@@ -805,15 +806,15 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                         16.0, 0.0, 0.0, 8.0),
                                     child: FlutterFlowDropDown<String>(
                                       controller:
-                                          _model.dropDownValueController3 ??=
+                                          _model.accessoriesValueController ??=
                                               FormFieldController<String>(
-                                        _model.dropDownValue3 ??= '',
+                                        _model.accessoriesValue ??= '',
                                       ),
                                       options: List<String>.from(
                                           ['Option 1', 'Option 2']),
                                       optionLabels: ['MDVR', 'Relais'],
                                       onChanged: (val) => safeSetState(
-                                          () => _model.dropDownValue3 = val),
+                                          () => _model.accessoriesValue = val),
                                       width: 345.9,
                                       height: 41.8,
                                       textStyle: FlutterFlowTheme.of(context)
@@ -878,7 +879,9 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         final selectedMedia = await selectMedia(
-                                          imageQuality: 73,
+                                          maxWidth: 960.00,
+                                          maxHeight: 1280.00,
+                                          imageQuality: 80,
                                           mediaSource: MediaSource.photoGallery,
                                           multiImage: true,
                                         );
@@ -1008,8 +1011,10 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                       child: Container(
                                         width: 200.0,
                                         child: TextFormField(
-                                          controller: _model.textController4,
-                                          focusNode: _model.textFieldFocusNode4,
+                                          controller:
+                                              _model.observationTextController,
+                                          focusNode:
+                                              _model.observationFocusNode,
                                           autofocus: false,
                                           obscureText: false,
                                           decoration: InputDecoration(
@@ -1152,7 +1157,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .primaryText,
                                           validator: _model
-                                              .textController4Validator
+                                              .observationTextControllerValidator
                                               .asValidator(context),
                                         ),
                                       ),
@@ -1168,6 +1173,18 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                     if (_model.formKey.currentState == null ||
                                         !_model.formKey.currentState!
                                             .validate()) {
+                                      return;
+                                    }
+                                    if (_model.gPSPositionValue == null) {
+                                      return;
+                                    }
+                                    if (_model.relaisValue == null) {
+                                      return;
+                                    }
+                                    if (_model
+                                        .uploadedLocalFiles_tacheInstallation
+                                        .any((file) =>
+                                            (file.bytes?.isEmpty ?? true))) {
                                       return;
                                     }
                                   },

@@ -351,7 +351,8 @@ class _TacheconfirmerWidgetState extends State<TacheconfirmerWidget> {
                                         boxShadow: [
                                           BoxShadow(
                                             blurRadius: 4.0,
-                                            color: Color(0x5239D2C0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             offset: Offset(
                                               0.0,
                                               2.0,
@@ -652,10 +653,13 @@ class _TacheconfirmerWidgetState extends State<TacheconfirmerWidget> {
                                                                 10.0, 0.0),
                                                     child: Container(
                                                       width: 100.0,
-                                                      height: 20.0,
+                                                      height: 22.0,
                                                       decoration: BoxDecoration(
                                                         color:
-                                                            Color(0xFF07C491),
+                                                            Color(0xAC57636C),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(16.0),
                                                       ),
                                                       child: Align(
                                                         alignment:

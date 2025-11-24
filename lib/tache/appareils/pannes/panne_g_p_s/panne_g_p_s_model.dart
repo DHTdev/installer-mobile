@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class PanneGPSModel extends FlutterFlowModel<PanneGPSWidget> {
   ///  State fields for stateful widgets in this page.
 
+  final formKey = GlobalKey<FormState>();
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode1;
   TextEditingController? textController1;

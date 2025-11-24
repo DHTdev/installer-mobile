@@ -436,7 +436,7 @@ class _TachetechWidgetState extends State<TachetechWidget> {
                               16.0, 0.0, 16.0, 0.0),
                           iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          color: Color(0xFF07C491),
+                          color: FlutterFlowTheme.of(context).secondary,
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     font: GoogleFonts.interTight(
@@ -468,9 +468,7 @@ class _TachetechWidgetState extends State<TachetechWidget> {
                   child: Container(
                     width: 374.8,
                     height: 572.52,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                    ),
+                    decoration: BoxDecoration(),
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
@@ -582,8 +580,8 @@ class _TachetechWidgetState extends State<TachetechWidget> {
                                   fillColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   elevation: 2.0,
-                                  borderColor:
-                                      FlutterFlowTheme.of(context).primaryText,
+                                  borderColor: FlutterFlowTheme.of(context)
+                                      .secondaryText,
                                   borderWidth: 0.0,
                                   borderRadius: 8.0,
                                   margin: EdgeInsetsDirectional.fromSTEB(

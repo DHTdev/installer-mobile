@@ -253,7 +253,19 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
-                context.pushNamed(TchesreporteWidget.routeName);
+                context.pushNamed(
+                  TchesreporteWidget.routeName,
+                  queryParameters: {
+                    'id': serializeParam(
+                      0,
+                      ParamType.int,
+                    ),
+                    'clientName': serializeParam(
+                      '',
+                      ParamType.String,
+                    ),
+                  }.withoutNulls,
+                );
               },
               child: Container(
                 width: double.infinity,
@@ -319,6 +331,10 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
                     'clientName': serializeParam(
                       '',
                       ParamType.String,
+                    ),
+                    'id': serializeParam(
+                      0,
+                      ParamType.int,
                     ),
                   }.withoutNulls,
                 );

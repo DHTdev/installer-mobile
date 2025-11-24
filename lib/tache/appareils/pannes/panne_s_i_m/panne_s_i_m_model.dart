@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class PanneSIMModel extends FlutterFlowModel<PanneSIMWidget> {
   ///  State fields for stateful widgets in this page.
 
+  final formKey = GlobalKey<FormState>();
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode1;
   TextEditingController? textController1;

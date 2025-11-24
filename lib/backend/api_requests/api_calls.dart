@@ -335,6 +335,8 @@ class TechnicienGroup {
       ReinstallationTaskCall();
   static PanneTaskCall panneTaskCall = PanneTaskCall();
   static GetNewTaskInfoCall getNewTaskInfoCall = GetNewTaskInfoCall();
+  static GetTasksDataForReparationCall getTasksDataForReparationCall =
+      GetTasksDataForReparationCall();
 }
 
 class TasksCall {
@@ -720,12 +722,18 @@ class CancelTaskCall {
   }) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
 
+    final ffApiRequestBody = '''
+{
+
+"Observation":""
+}''';
     return ApiManager.instance.makeApiCall(
       callName: 'cancelTask',
       apiUrl: '${baseUrl}/cancelTask/{id}',
       callType: ApiCallType.PUT,
       headers: {},
       params: {},
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -808,12 +816,18 @@ class PostponeTaskCall {
   }) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
 
+    final ffApiRequestBody = '''
+{
+"NouvelleDate":"",
+"Observation":""
+}''';
     return ApiManager.instance.makeApiCall(
       callName: 'postponeTask',
       apiUrl: '${baseUrl}/postponeTask/{id}',
       callType: ApiCallType.PUT,
       headers: {},
       params: {},
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1076,12 +1090,18 @@ class PanneTaskCall {
   }) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
 
+    final ffApiRequestBody = '''
+{
+"images":"",
+"Observation":""
+}''';
     return ApiManager.instance.makeApiCall(
       callName: 'panneTask',
       apiUrl: '${baseUrl}/panneTask/{id}',
       callType: ApiCallType.PUT,
       headers: {},
       params: {},
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1100,6 +1120,26 @@ class GetNewTaskInfoCall {
     return ApiManager.instance.makeApiCall(
       callName: 'getNewTaskInfo',
       apiUrl: '${baseUrl}/newTask',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetTasksDataForReparationCall {
+  Future<ApiCallResponse> call() async {
+    final baseUrl = TechnicienGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getTasksDataForReparation',
+      apiUrl: '${baseUrl}/getTasksDataForReparation',
       callType: ApiCallType.GET,
       headers: {},
       params: {},

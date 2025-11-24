@@ -143,7 +143,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: TchesreporteWidget.routeName,
           path: TchesreporteWidget.routePath,
-          builder: (context, params) => TchesreporteWidget(),
+          builder: (context, params) => TchesreporteWidget(
+            id: params.getParam(
+              'id',
+              ParamType.int,
+            ),
+            clientName: params.getParam(
+              'clientName',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: DetailstacheWidget.routeName,
@@ -228,6 +237,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'clientName',
               ParamType.String,
             ),
+            imei: params.getParam(
+              'imei',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
@@ -272,6 +285,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             clientName: params.getParam(
               'clientName',
               ParamType.String,
+            ),
+            id: params.getParam(
+              'id',
+              ParamType.int,
             ),
           ),
         )
