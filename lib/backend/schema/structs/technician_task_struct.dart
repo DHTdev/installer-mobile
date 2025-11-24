@@ -10,8 +10,8 @@ class TechnicianTaskStruct extends BaseStruct {
   TechnicianTaskStruct({
     int? id,
     int? IMEI,
-    int? SIM,
-    bool? SIM_proprietaire,
+    String? SIM,
+    int? SIM_proprietaire,
     String? accesoriesModel,
     String? catache,
     String? cityName,
@@ -20,13 +20,13 @@ class TechnicianTaskStruct extends BaseStruct {
     DateTime? date_debut_realisation,
     DateTime? date_previsionnelle_debut,
     int? etatTache,
-    String? garantie,
-    bool? gps_principale,
+    int? garantie,
+    int? gps_principale,
     String? matricule,
     String? nameModeleGPS,
     String? nameModeleSIM,
     String? observation,
-    bool? proprietaire,
+    int? proprietaire,
     String? clientPhoneNumber,
   })  : _id = id,
         _IMEI = IMEI,
@@ -67,20 +67,20 @@ class TechnicianTaskStruct extends BaseStruct {
   bool hasIMEI() => _IMEI != null;
 
   // "SIM" field.
-  int? _SIM;
-  int?get SIM => _SIM ?? null;
-  set SIM(int? val) => _SIM = val;
+  String? _SIM;
+  String?get SIM => _SIM ?? null;
+  set SIM(String? val) => _SIM = val;
 
   // void incrementSIM(int amount) => SIM = SIM + amount;
 
   bool hasSIM() => _SIM != null;
 
   // "SIM_proprietaire" field.
-  bool? _SIM_proprietaire;
-  bool? get SIM_proprietaire => _SIM_proprietaire ?? null;
-  set SIM_proprietaire(bool? val) => _SIM_proprietaire = val;
+  int? _SIM_proprietaire;
+  int? get SIM_proprietaire => _SIM_proprietaire ?? null;
+  set SIM_proprietaire(int? val) => _SIM_proprietaire = val;
 
-  bool hasSIM_proprietaire() => _SIM_proprietaire != null;
+  // bool hasSIM_proprietaire() => _SIM_proprietaire != null;
 
   // "accesoriesModel" field.
   String? _accesoriesModel;
@@ -142,18 +142,18 @@ class TechnicianTaskStruct extends BaseStruct {
   bool hasetatTache() => _etatTache != null;
 
   // "garantie" field.
-  String? _garantie;
-  String get garantie => _garantie ?? '';
-  set garantie(String? val) => _garantie = val;
+  int? _garantie;
+  int? get garantie => _garantie ?? null;
+  set garantie(int? val) => _garantie = val;
 
   bool hasGarantie() => _garantie != null;
 
   // "gps_principale" field.
-  bool? _gps_principale;
-  bool? get gps_principale => _gps_principale ?? null;
-  set gps_principale(bool? val) => _gps_principale = val;
+  int? _gps_principale;
+  int? get gps_principale => _gps_principale ?? null;
+  set gps_principale(int? val) => _gps_principale = val;
 
-  bool hasgps_principale() => _gps_principale != null;
+  // bool hasgps_principale() => _gps_principale != null;
 
   // "matricule" field.
   String? _matricule;
@@ -184,9 +184,9 @@ class TechnicianTaskStruct extends BaseStruct {
   bool hasObservation() => _observation != null;
 
   // "proprietaire" field.
-  bool? _proprietaire;
-  bool? get proprietaire => _proprietaire ?? null;
-  set proprietaire(bool? val) => _proprietaire = val;
+  int? _proprietaire;
+  int? get proprietaire => _proprietaire ?? null;
+  set proprietaire(int? val) => _proprietaire = val;
 
   bool hasproprietaire() => _proprietaire != null;
 
@@ -203,9 +203,9 @@ class TechnicianTaskStruct extends BaseStruct {
   static TechnicianTaskStruct fromMap(Map<String, dynamic> data) =>
       TechnicianTaskStruct(
         id: castToType<int>(data['id']),
-        IMEI: castToType<int>(data['IMEI']),
-        SIM: castToType<int>(data['SIM']),
-        SIM_proprietaire: data['SIM_proprietaire'] as bool?,
+        IMEI: data['IMEI'] != null ? int.parse(data['IMEI']): null,
+        SIM: data['SIM'],
+        SIM_proprietaire: data['SIM_proprietaire'] != null ? data['SIM_proprietaire']: null,
         accesoriesModel: data['accesoriesModel'] as String?,
         catache: data['catache'] as String?,
         cityName: data['cityName'] as String?,
@@ -214,14 +214,14 @@ class TechnicianTaskStruct extends BaseStruct {
         date_debut_realisation: data['date_debut_realisation'] != null ?
             DateTime.parse(data['date_debut_realisation']) : null,
         date_previsionnelle_debut:DateFormat('yyyy-MM-dd').parse(data['date_previsionnelle_debut']),
-        etatTache: castToType<int>(data['etatTache']),
-        garantie: data['garantie'] as String?,
-        gps_principale: data['gps_principale'] as bool?,
+        etatTache: castToType<int>(data['etat_tache']),
+        garantie: data['garantie'] != null ? data['garantie']: null,
+        gps_principale: data['gps_principale'] != null ? data['gps_principale']: null,
         matricule: data['matricule'] as String?,
         nameModeleGPS: data['nameModeleGPS'] as String?,
         nameModeleSIM: data['nameModeleSIM'] as String?,
         observation: data['observation'] as String?,
-        proprietaire: data['proprietaire'] as bool?,
+        proprietaire: data['proprietaire'] != null ? data['proprietaire']: null,
         clientPhoneNumber: data['telephone_client'] as String?,
       );
 
@@ -264,11 +264,11 @@ class TechnicianTaskStruct extends BaseStruct {
         ),
         'SIM': serializeParam(
           _SIM,
-          ParamType.int,
+          ParamType.String,
         ),
         'SIM_proprietaire': serializeParam(
           _SIM_proprietaire,
-          ParamType.bool,
+          ParamType.int,
         ),
         'accesoriesModel': serializeParam(
           _accesoriesModel,
@@ -304,7 +304,7 @@ class TechnicianTaskStruct extends BaseStruct {
         ),
         'garantie': serializeParam(
           _garantie,
-          ParamType.String,
+          ParamType.int,
         ),
         'gps_principale': serializeParam(
           _gps_principale,
@@ -350,12 +350,12 @@ class TechnicianTaskStruct extends BaseStruct {
         ),
         SIM: deserializeParam(
           data['SIM'],
-          ParamType.int,
+          ParamType.String,
           false,
         ),
         SIM_proprietaire: deserializeParam(
           data['SIM_proprietaire'],
-          ParamType.bool,
+          ParamType.int,
           false,
         ),
         accesoriesModel: deserializeParam(
@@ -394,18 +394,18 @@ class TechnicianTaskStruct extends BaseStruct {
           false,
         ),
         etatTache: deserializeParam(
-          data['etatTache'],
+          data['etat_tache'],
           ParamType.int,
           false,
         ),
         garantie: deserializeParam(
           data['garantie'],
-          ParamType.String,
+          ParamType.int,
           false,
         ),
         gps_principale: deserializeParam(
           data['gps_principale'],
-          ParamType.bool,
+          ParamType.int,
           false,
         ),
         matricule: deserializeParam(
@@ -430,7 +430,7 @@ class TechnicianTaskStruct extends BaseStruct {
         ),
         proprietaire: deserializeParam(
           data['proprietaire'],
-          ParamType.bool,
+          ParamType.int,
           false,
         ),
         clientPhoneNumber: deserializeParam(
@@ -496,8 +496,8 @@ class TechnicianTaskStruct extends BaseStruct {
 TechnicianTaskStruct createTechnicianTaskStruct({
   int? id,
   int? IMEI,
-  int? SIM,
-  bool? SIM_proprietaire,
+  String? SIM,
+  int? SIM_proprietaire,
   String? accesoriesModel,
   String? catache,
   String? cityName,
@@ -506,13 +506,13 @@ TechnicianTaskStruct createTechnicianTaskStruct({
   DateTime? date_debut_realisation,
   DateTime? date_previsionnelle_debut,
   int? etatTache,
-  String? garantie,
-  bool? gps_principale,
+  int? garantie,
+  int? gps_principale,
   String? matricule,
   String? nameModeleGPS,
   String? nameModeleSIM,
   String? observation,
-  bool? proprietaire,
+  int? proprietaire,
   String? clientPhoneNumber,
 }) =>
     TechnicianTaskStruct(

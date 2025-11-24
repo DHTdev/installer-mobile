@@ -582,7 +582,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(widget.detailsTask.gps_principale, '-------------').toString(),
+                                      valueOrDefault(widget.detailsTask.gps_principale == 0 ? "1er" : "2nd", '-------------').toString(),
                                       textAlign: TextAlign.end,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -646,7 +646,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(widget.detailsTask.proprietaire, '-------------').toString(),
+                                      valueOrDefault(widget.detailsTask.proprietaire == 0 ? "DHT": "Client", '-------------').toString(),
                                       textAlign: TextAlign.end,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -838,7 +838,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(widget.detailsTask.IMEI,'-------------').toString(),
+                                      valueOrDefault(widget.detailsTask.SIM,'-------------').toString(),
                                       textAlign: TextAlign.end,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -902,7 +902,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(widget.detailsTask.SIM_proprietaire,'-------------').toString(),
+                                      valueOrDefault(widget.detailsTask.SIM_proprietaire == 0 ? 'DHT' : "Client",'-------------').toString(),
                                       textAlign: TextAlign.end,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium

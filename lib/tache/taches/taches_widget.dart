@@ -30,7 +30,7 @@ class _TachesWidgetState extends State<TachesWidget> {
   late TachesModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-    bool isLoading = false;
+  bool isLoading = false;
   final FFAppState appState = FFAppState();
   final String now = DateFormat.yMMMd().format(DateTime.now()).toString();
   List<TechnicianTaskStruct> technicianTasks = [];
@@ -46,12 +46,13 @@ class _TachesWidgetState extends State<TachesWidget> {
           await TechnicienGroup.tasksCall.call(appState.authToken);
 
       if ((_model.apiResultTechnianTasks?.succeeded ?? true)) {
+        print("thechnicianTasks:${_model.apiResultTechnianTasks?.jsonBody}");
         _model.technicianTask = ((_model.apiResultTechnianTasks?.jsonBody ?? '')
                 .toList()
                 .map<TechnicianTaskStruct?>(TechnicianTaskStruct.maybeFromMap)
                 .toList() as Iterable<TechnicianTaskStruct?>)
             .withoutNulls
-            .toList() 
+            .toList()
             .cast<TechnicianTaskStruct>();
         safeSetState(() {
           technicianTasks = _model.technicianTask.toList();
@@ -99,7 +100,7 @@ class _TachesWidgetState extends State<TachesWidget> {
             elevation: 2.0,
           ),
         ),
-      body: SafeArea(
+        body: SafeArea(
           top: true,
           child: SingleChildScrollView(
             child: Column(
@@ -462,7 +463,7 @@ class _TachesWidgetState extends State<TachesWidget> {
                                     ),
                                   );
                                 }
-                                final listViewTasksResponse = snapshot.data!;
+                                // final listViewTasksResponse = snapshot.data!;
 
                                 return Builder(
                                   builder: (context) {
@@ -486,15 +487,16 @@ class _TachesWidgetState extends State<TachesWidget> {
                                               SizedBox(height: 5),
                                           itemBuilder:
                                               (context, technicianTasksIndex) {
-                                            final TechnicianTaskStruct technicianTasksItem =  technicianTasks[
+                                            final TechnicianTaskStruct
+                                                technicianTasksItem =
+                                                technicianTasks[
                                                     technicianTasksIndex];
-                                               
-                                            
+
                                             return TechnicienTasksWidget(
-                                              TechnicianTask: technicianTasksItem,
+                                              TechnicianTask:
+                                                  technicianTasksItem,
                                               key: Key(
                                                   'Keyxum_${technicianTasksIndex}_of_${technicianTasks.length}'),
-
                                               id: technicianTasksItem.id,
                                               clientName: technicianTasksItem
                                                   .clientName,
@@ -527,7 +529,6 @@ class _TachesWidgetState extends State<TachesWidget> {
             ),
           ),
         ),
-      
       ),
     );
   }
