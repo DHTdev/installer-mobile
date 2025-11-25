@@ -9,6 +9,8 @@ class TchesreporteModel extends FlutterFlowModel<TchesreporteWidget> {
 
   DateTime? sectedDateFromBtn;
 
+  String? observation;
+
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();

@@ -477,6 +477,11 @@ class _TchesreporteWidgetState extends State<TchesreporteWidget> {
                                         controller:
                                             _model.observationTextController,
                                         focusNode: _model.observationFocusNode,
+                                        onFieldSubmitted: (_) async {
+                                          _model.observation =
+                                              _model.observation;
+                                          safeSetState(() {});
+                                        },
                                         autofocus: false,
                                         obscureText: false,
                                         decoration: InputDecoration(
@@ -633,6 +638,9 @@ class _TchesreporteWidgetState extends State<TchesreporteWidget> {
                                       .postponeTaskCall
                                       .call(
                                     id: widget.id,
+                                    nouvelleDate:
+                                        _model.sectedDateFromBtn?.toString(),
+                                    observation: _model.observation,
                                   );
 
                                   if ((_model.actionTP?.succeeded ?? true)) {

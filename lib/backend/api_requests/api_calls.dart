@@ -719,13 +719,13 @@ class UpdateTaskCall {
 class CancelTaskCall {
   Future<ApiCallResponse> call({
     int? id,
+    String? observation = '',
   }) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
 
     final ffApiRequestBody = '''
 {
-
-"Observation":""
+  "Observation": "${escapeStringForJson(observation)}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'cancelTask',
@@ -813,14 +813,13 @@ class UpdateTaskTerminedCall {
 class PostponeTaskCall {
   Future<ApiCallResponse> call({
     int? id,
+    String? nouvelleDate = '',
+    String? observation = '',
   }) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
 
     final ffApiRequestBody = '''
-{
-"NouvelleDate":"",
-"Observation":""
-}''';
+{"NouvelleDate":"<NouvelleDate>","Observation":"<Observation>"}''';
     return ApiManager.instance.makeApiCall(
       callName: 'postponeTask',
       apiUrl: '${baseUrl}/postponeTask/{id}',

@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'canceled_task_model.dart';
@@ -217,6 +218,14 @@ class _CanceledTaskWidgetState extends State<CanceledTaskWidget> {
                           TextFormField(
                             controller: _model.observationTextController,
                             focusNode: _model.observationFocusNode,
+                            onChanged: (_) => EasyDebounce.debounce(
+                              '_model.observationTextController',
+                              Duration(milliseconds: 2000),
+                              () async {
+                                _model.observation = _model.observation;
+                                safeSetState(() {});
+                              },
+                            ),
                             autofocus: true,
                             obscureText: false,
                             decoration: InputDecoration(
@@ -323,10 +332,47 @@ class _CanceledTaskWidgetState extends State<CanceledTaskWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          _model.apiResult50k =
+                          if (_model.formKey.currentState == null ||
+                              !_model.formKey.currentState!.validate()) {
+                            return;
+                          }
+                          _model.apiResult4wc =
                               await TechnicienGroup.cancelTaskCall.call(
                             id: widget.id,
+                            observation: _model.observation,
                           );
+
+                          if ((_model.apiResult4wc?.succeeded ?? true)) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'La tâche est annulée',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                                ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Une erreur est survenue, veuillez réessayer',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                                ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
+                            );
+                          }
 
                           safeSetState(() {});
                         },

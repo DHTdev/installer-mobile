@@ -4,6 +4,10 @@ import 'canceled_task_widget.dart' show CanceledTaskWidget;
 import 'package:flutter/material.dart';
 
 class CanceledTaskModel extends FlutterFlowModel<CanceledTaskWidget> {
+  ///  Local state fields for this page.
+
+  String? observation;
+
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
@@ -34,7 +38,7 @@ class CanceledTaskModel extends FlutterFlowModel<CanceledTaskWidget> {
   }
 
   // Stores action output result for [Backend Call - API (cancelTask)] action in Button widget.
-  ApiCallResponse? apiResult50k;
+  ApiCallResponse? apiResult4wc;
 
   @override
   void initState(BuildContext context) {

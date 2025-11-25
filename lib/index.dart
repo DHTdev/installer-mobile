@@ -53,3 +53,4 @@ export '/tache/appareils/pannes/panne_s_i_m/panne_s_i_m_widget.dart'
 export '/tache/appareils/reinstallation/reinstallation_widget.dart'
     show ReinstallationWidget;
 export '/tache/canceled_task/canceled_task_widget.dart' show CanceledTaskWidget;
+export '/notifications/notifications_widget.dart' show NotificationsWidget;
