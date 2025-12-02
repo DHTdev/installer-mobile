@@ -31,12 +31,23 @@ class TachesModel extends FlutterFlowModel<TachesWidget> {
           int index, Function(TechnicianTaskStruct) updateFn) =>
       technicianTask[index] = updateFn(technicianTask[index]);
 
+  List<CityStruct> cities = [];
+  void addToCities(CityStruct item) => cities.add(item);
+  void removeFromCities(CityStruct item) => cities.remove(item);
+  void removeAtIndexFromCities(int index) => cities.removeAt(index);
+  void insertAtIndexInCities(int index, CityStruct item) =>
+      cities.insert(index, item);
+  void updateCitiesAtIndex(int index, Function(CityStruct) updateFn) =>
+      cities[index] = updateFn(cities[index]);
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (Tasks)] action in Taches widget.
   ApiCallResponse? apiResultTechnianTasks;
   // Model for headerSection component.
   late HeaderSectionModel headerSectionModel;
+  // Stores action output result for [Backend Call - API (getInfo)] action in Container widget.
+  ApiCallResponse? citiesResp;
   // State field(s) for DropDown widget.
   String? dropDownValue1;
   FormFieldController<String>? dropDownValueController1;

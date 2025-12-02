@@ -527,6 +527,15 @@ class TasksCall {
           .map((x) => castToType<String>(x))
           .withoutNulls
           .toList();
+  List<int>? notifificationStatus(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].NotifificationStatus''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
 }
 
 class AppareilsCall {
@@ -909,7 +918,11 @@ class PostponedTaskCall {
       callName: 'postponedTask',
       apiUrl: '${baseUrl}/postponedTask',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       bodyType: BodyType.JSON,
       returnBody: true,
@@ -930,9 +943,13 @@ class NotificationUpdateCall {
 
     return ApiManager.instance.makeApiCall(
       callName: 'NotificationUpdate',
-      apiUrl: '${baseUrl}/NotificationUpdate/{id}',
+      apiUrl: '${baseUrl}/NotificationUpdate/${id}',
       callType: ApiCallType.POST,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       bodyType: BodyType.JSON,
       returnBody: true,
@@ -1098,7 +1115,11 @@ class PanneTaskCall {
       callName: 'panneTask',
       apiUrl: '${baseUrl}/panneTask/{id}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -1325,12 +1346,19 @@ class DeleteTaskCall {
 
 class NotificationsCall {
   static Future<ApiCallResponse> call() async {
+    final ffApiRequestBody = '''
+{
+  "counter": 10,
+  "message": "test notif",
+  "TechnicianName": "Alice"
+}''';
     return ApiManager.instance.makeApiCall(
       callName: ' Notifications',
       apiUrl: 'https://d3instal.com/api/Notification',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1340,6 +1368,47 @@ class NotificationsCall {
       alwaysAllowBody: false,
     );
   }
+}
+
+class GetInfoCall {
+  static Future<ApiCallResponse> call() async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getInfo',
+      apiUrl: 'https://d3instal.com/api/supportTechnique/newTask',
+      callType: ApiCallType.GET,
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static List<String>? cityName(dynamic response) => (getJsonField(
+        response,
+        r'''$.Cities[:].cityName''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<int>? id(dynamic response) => (getJsonField(
+        response,
+        r'''$.Cities[:].id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
 }
 
 class ApiPagingParams {

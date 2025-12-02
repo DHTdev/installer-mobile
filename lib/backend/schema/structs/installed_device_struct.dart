@@ -13,7 +13,7 @@ class InstalledDeviceStruct extends BaseStruct {
     int? tacheId,
     int? vehiculeId,
     DateTime? updatedAt,
-    LatestDeviceRelatingStruct? latestSimRelating,
+    List<LatestDeviceRelatingStruct>? latestSimRelating,
   })  : _id = id,
         _serialNumber = serialNumber,
         _gpsPrincipale = gpsPrincipale,
@@ -74,14 +74,15 @@ class InstalledDeviceStruct extends BaseStruct {
   bool hasUpdatedAt() => _updatedAt != null;
 
   // "latest_sim_relating" field.
-  LatestDeviceRelatingStruct? _latestSimRelating;
-  LatestDeviceRelatingStruct get latestSimRelating =>
-      _latestSimRelating ?? LatestDeviceRelatingStruct();
-  set latestSimRelating(LatestDeviceRelatingStruct? val) =>
+  List<LatestDeviceRelatingStruct>? _latestSimRelating;
+  List<LatestDeviceRelatingStruct> get latestSimRelating =>
+      _latestSimRelating ?? const [];
+  set latestSimRelating(List<LatestDeviceRelatingStruct>? val) =>
       _latestSimRelating = val;
 
-  void updateLatestSimRelating(Function(LatestDeviceRelatingStruct) updateFn) {
-    updateFn(_latestSimRelating ??= LatestDeviceRelatingStruct());
+  void updateLatestSimRelating(
+      Function(List<LatestDeviceRelatingStruct>) updateFn) {
+    updateFn(_latestSimRelating ??= []);
   }
 
   bool hasLatestSimRelating() => _latestSimRelating != null;
@@ -94,11 +95,10 @@ class InstalledDeviceStruct extends BaseStruct {
         tacheId: castToType<int>(data['tache_id']),
         vehiculeId: castToType<int>(data['vehicule_id']),
         updatedAt: data['updated_at'] as DateTime?,
-        latestSimRelating:
-            data['latest_sim_relating'] is LatestDeviceRelatingStruct
-                ? data['latest_sim_relating']
-                : LatestDeviceRelatingStruct.maybeFromMap(
-                    data['latest_sim_relating']),
+        latestSimRelating: getStructList(
+          data['latest_sim_relating'],
+          LatestDeviceRelatingStruct.fromMap,
+        ),
       );
 
   static InstalledDeviceStruct? maybeFromMap(dynamic data) => data is Map
@@ -112,7 +112,8 @@ class InstalledDeviceStruct extends BaseStruct {
         'tache_id': _tacheId,
         'vehicule_id': _vehiculeId,
         'updated_at': _updatedAt,
-        'latest_sim_relating': _latestSimRelating?.toMap(),
+        'latest_sim_relating':
+            _latestSimRelating?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
@@ -144,6 +145,7 @@ class InstalledDeviceStruct extends BaseStruct {
         'latest_sim_relating': serializeParam(
           _latestSimRelating,
           ParamType.DataStruct,
+          isList: true,
         ),
       }.withoutNulls;
 
@@ -179,10 +181,10 @@ class InstalledDeviceStruct extends BaseStruct {
           ParamType.DateTime,
           false,
         ),
-        latestSimRelating: deserializeStructParam(
+        latestSimRelating: deserializeStructParam<LatestDeviceRelatingStruct>(
           data['latest_sim_relating'],
           ParamType.DataStruct,
-          false,
+          true,
           structBuilder: LatestDeviceRelatingStruct.fromSerializableMap,
         ),
       );
@@ -192,6 +194,7 @@ class InstalledDeviceStruct extends BaseStruct {
 
   @override
   bool operator ==(Object other) {
+    const listEquality = ListEquality();
     return other is InstalledDeviceStruct &&
         id == other.id &&
         serialNumber == other.serialNumber &&
@@ -199,7 +202,7 @@ class InstalledDeviceStruct extends BaseStruct {
         tacheId == other.tacheId &&
         vehiculeId == other.vehiculeId &&
         updatedAt == other.updatedAt &&
-        latestSimRelating == other.latestSimRelating;
+        listEquality.equals(latestSimRelating, other.latestSimRelating);
   }
 
   @override
@@ -221,7 +224,6 @@ InstalledDeviceStruct createInstalledDeviceStruct({
   int? tacheId,
   int? vehiculeId,
   DateTime? updatedAt,
-  LatestDeviceRelatingStruct? latestSimRelating,
 }) =>
     InstalledDeviceStruct(
       id: id,
@@ -230,5 +232,4 @@ InstalledDeviceStruct createInstalledDeviceStruct({
       tacheId: tacheId,
       vehiculeId: vehiculeId,
       updatedAt: updatedAt,
-      latestSimRelating: latestSimRelating ?? LatestDeviceRelatingStruct(),
     );

@@ -295,20 +295,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: NotificationsWidget.routeName,
           path: NotificationsWidget.routePath,
-          builder: (context, params) => NotificationsWidget(
-            catache: params.getParam(
-              'catache',
-              ParamType.String,
-            ),
-            expectedStartDate: params.getParam(
-              'expectedStartDate',
-              ParamType.DateTime,
-            ),
-            clientname: params.getParam(
-              'clientname',
-              ParamType.String,
-            ),
-          ),
+          builder: (context, params) => NotificationsWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

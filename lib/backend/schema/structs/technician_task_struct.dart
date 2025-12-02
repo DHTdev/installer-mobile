@@ -16,9 +16,9 @@ class TechnicianTaskStruct extends BaseStruct {
     int? etatTache,
     String? matricule,
     String? imei,
-    String? proprietaire,
-    String? gpsPrincipale,
-    String? garantie,
+    int? proprietaire,
+    int? gpsPrincipale,
+    int? garantie,
     String? sim,
     String? sIMProprietaire,
     String? clientName,
@@ -30,6 +30,7 @@ class TechnicianTaskStruct extends BaseStruct {
     String? accesoriesModel,
     String? nameModeleSIM,
     String? vehicules,
+    int? notifificationStatus,
   })  : _id = id,
         _utiUtilsateurId = utiUtilsateurId,
         _datePrevisionnelleDebut = datePrevisionnelleDebut,
@@ -52,7 +53,8 @@ class TechnicianTaskStruct extends BaseStruct {
         _nameModeleGPS = nameModeleGPS,
         _accesoriesModel = accesoriesModel,
         _nameModeleSIM = nameModeleSIM,
-        _vehicules = vehicules;
+        _vehicules = vehicules,
+        _notifificationStatus = notifificationStatus;
 
   // "id" field.
   int? _id;
@@ -125,23 +127,31 @@ class TechnicianTaskStruct extends BaseStruct {
   bool hasImei() => _imei != null;
 
   // "proprietaire" field.
-  String? _proprietaire;
-  String get proprietaire => _proprietaire ?? '';
-  set proprietaire(String? val) => _proprietaire = val;
+  int? _proprietaire;
+  int get proprietaire => _proprietaire ?? 0;
+  set proprietaire(int? val) => _proprietaire = val;
+
+  void incrementProprietaire(int amount) =>
+      proprietaire = proprietaire + amount;
 
   bool hasProprietaire() => _proprietaire != null;
 
   // "gps_principale" field.
-  String? _gpsPrincipale;
-  String get gpsPrincipale => _gpsPrincipale ?? '';
-  set gpsPrincipale(String? val) => _gpsPrincipale = val;
+  int? _gpsPrincipale;
+  int get gpsPrincipale => _gpsPrincipale ?? 0;
+  set gpsPrincipale(int? val) => _gpsPrincipale = val;
+
+  void incrementGpsPrincipale(int amount) =>
+      gpsPrincipale = gpsPrincipale + amount;
 
   bool hasGpsPrincipale() => _gpsPrincipale != null;
 
   // "garantie" field.
-  String? _garantie;
-  String get garantie => _garantie ?? '';
-  set garantie(String? val) => _garantie = val;
+  int? _garantie;
+  int get garantie => _garantie ?? 0;
+  set garantie(int? val) => _garantie = val;
+
+  void incrementGarantie(int amount) => garantie = garantie + amount;
 
   bool hasGarantie() => _garantie != null;
 
@@ -222,6 +232,16 @@ class TechnicianTaskStruct extends BaseStruct {
 
   bool hasVehicules() => _vehicules != null;
 
+  // "NotifificationStatus" field.
+  int? _notifificationStatus;
+  int get notifificationStatus => _notifificationStatus ?? 0;
+  set notifificationStatus(int? val) => _notifificationStatus = val;
+
+  void incrementNotifificationStatus(int amount) =>
+      notifificationStatus = notifificationStatus + amount;
+
+  bool hasNotifificationStatus() => _notifificationStatus != null;
+
   static TechnicianTaskStruct fromMap(Map<String, dynamic> data) =>
       TechnicianTaskStruct(
         id: castToType<int>(data['id']),
@@ -233,9 +253,9 @@ class TechnicianTaskStruct extends BaseStruct {
         etatTache: castToType<int>(data['etat_tache']),
         matricule: data['matricule'] as String?,
         imei: data['IMEI'] as String?,
-        proprietaire: data['proprietaire'] as String?,
-        gpsPrincipale: data['gps_principale'] as String?,
-        garantie: data['garantie'] as String?,
+        proprietaire: castToType<int>(data['proprietaire']),
+        gpsPrincipale: castToType<int>(data['gps_principale']),
+        garantie: castToType<int>(data['garantie']),
         sim: data['SIM'] as String?,
         sIMProprietaire: data['SIM_proprietaire'] as String?,
         clientName: data['client_name'] as String?,
@@ -247,6 +267,7 @@ class TechnicianTaskStruct extends BaseStruct {
         accesoriesModel: data['accesoriesModel'] as String?,
         nameModeleSIM: data['nameModeleSIM'] as String?,
         vehicules: data['vehicules'] as String?,
+        notifificationStatus: castToType<int>(data['NotifificationStatus']),
       );
 
   static TechnicianTaskStruct? maybeFromMap(dynamic data) => data is Map
@@ -277,6 +298,7 @@ class TechnicianTaskStruct extends BaseStruct {
         'accesoriesModel': _accesoriesModel,
         'nameModeleSIM': _nameModeleSIM,
         'vehicules': _vehicules,
+        'NotifificationStatus': _notifificationStatus,
       }.withoutNulls;
 
   @override
@@ -319,15 +341,15 @@ class TechnicianTaskStruct extends BaseStruct {
         ),
         'proprietaire': serializeParam(
           _proprietaire,
-          ParamType.String,
+          ParamType.int,
         ),
         'gps_principale': serializeParam(
           _gpsPrincipale,
-          ParamType.String,
+          ParamType.int,
         ),
         'garantie': serializeParam(
           _garantie,
-          ParamType.String,
+          ParamType.int,
         ),
         'SIM': serializeParam(
           _sim,
@@ -372,6 +394,10 @@ class TechnicianTaskStruct extends BaseStruct {
         'vehicules': serializeParam(
           _vehicules,
           ParamType.String,
+        ),
+        'NotifificationStatus': serializeParam(
+          _notifificationStatus,
+          ParamType.int,
         ),
       }.withoutNulls;
 
@@ -424,17 +450,17 @@ class TechnicianTaskStruct extends BaseStruct {
         ),
         proprietaire: deserializeParam(
           data['proprietaire'],
-          ParamType.String,
+          ParamType.int,
           false,
         ),
         gpsPrincipale: deserializeParam(
           data['gps_principale'],
-          ParamType.String,
+          ParamType.int,
           false,
         ),
         garantie: deserializeParam(
           data['garantie'],
-          ParamType.String,
+          ParamType.int,
           false,
         ),
         sim: deserializeParam(
@@ -492,6 +518,11 @@ class TechnicianTaskStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        notifificationStatus: deserializeParam(
+          data['NotifificationStatus'],
+          ParamType.int,
+          false,
+        ),
       );
 
   @override
@@ -522,7 +553,8 @@ class TechnicianTaskStruct extends BaseStruct {
         nameModeleGPS == other.nameModeleGPS &&
         accesoriesModel == other.accesoriesModel &&
         nameModeleSIM == other.nameModeleSIM &&
-        vehicules == other.vehicules;
+        vehicules == other.vehicules &&
+        notifificationStatus == other.notifificationStatus;
   }
 
   @override
@@ -549,7 +581,8 @@ class TechnicianTaskStruct extends BaseStruct {
         nameModeleGPS,
         accesoriesModel,
         nameModeleSIM,
-        vehicules
+        vehicules,
+        notifificationStatus
       ]);
 }
 
@@ -563,9 +596,9 @@ TechnicianTaskStruct createTechnicianTaskStruct({
   int? etatTache,
   String? matricule,
   String? imei,
-  String? proprietaire,
-  String? gpsPrincipale,
-  String? garantie,
+  int? proprietaire,
+  int? gpsPrincipale,
+  int? garantie,
   String? sim,
   String? sIMProprietaire,
   String? clientName,
@@ -577,6 +610,7 @@ TechnicianTaskStruct createTechnicianTaskStruct({
   String? accesoriesModel,
   String? nameModeleSIM,
   String? vehicules,
+  int? notifificationStatus,
 }) =>
     TechnicianTaskStruct(
       id: id,
@@ -602,4 +636,5 @@ TechnicianTaskStruct createTechnicianTaskStruct({
       accesoriesModel: accesoriesModel,
       nameModeleSIM: nameModeleSIM,
       vehicules: vehicules,
+      notifificationStatus: notifificationStatus,
     );
