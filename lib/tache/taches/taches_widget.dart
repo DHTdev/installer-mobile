@@ -7,8 +7,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'dart:async';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -224,7 +226,16 @@ class _TachesWidgetState extends State<TachesWidget> {
                                   _model.citiesResp = await GetInfoCall.call();
 
                                   if ((_model.citiesResp?.succeeded ?? true)) {
-                                    _model.cities = _model.cities
+                                    _model.cities = (getJsonField(
+                                      (_model.citiesResp?.jsonBody ?? ''),
+                                      r'''$.Cities''',
+                                      true,
+                                    )!
+                                            .toList()
+                                            .map<CityStruct?>(
+                                                CityStruct.maybeFromMap)
+                                            .toList() as Iterable<CityStruct?>)
+                                        .withoutNulls
                                         .toList()
                                         .cast<CityStruct>();
                                     safeSetState(() {});
@@ -234,30 +245,67 @@ class _TachesWidgetState extends State<TachesWidget> {
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 20.0, 0.0, 0.0),
-                                    child: FlutterFlowDropDown<String>(
-                                      controller:
-                                          _model.dropDownValueController1 ??=
-                                              FormFieldController<String>(
-                                        _model.dropDownValue1 ??= 'empty',
-                                      ),
-                                      options: List<String>.from(_model.cities
-                                          .map((e) => e.cityName)
-                                          .toList()),
-                                      optionLabels: _model.cities
-                                          .map((e) => e.cityName)
-                                          .toList(),
-                                      onChanged: (val) => safeSetState(
-                                          () => _model.dropDownValue1 = val),
-                                      width: MediaQuery.sizeOf(context).width *
-                                          0.9,
-                                      height: 40.0,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            font: GoogleFonts.inter(
+                                  child: FlutterFlowDropDown<String>(
+                                    controller:
+                                        _model.selectCitiesDDValueController ??=
+                                            FormFieldController<String>(
+                                      _model.selectCitiesDDValue ??= 'empty',
+                                    ),
+                                    options: List<String>.from(_model.cities
+                                        .map((e) => e.cityName)
+                                        .toList()),
+                                    optionLabels: _model.cities
+                                        .map((e) => e.cityName)
+                                        .toList(),
+                                    onChanged: (val) async {
+                                      safeSetState(() =>
+                                          _model.selectCitiesDDValue = val);
+                                      _model.selectedCity =
+                                          _model.selectCitiesDDValue;
+                                      safeSetState(() {});
+                                    },
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.9,
+                                    height: 40.0,
+                                    searchHintTextStyle:
+                                        FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
+                                    searchTextStyle:
+                                        FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -267,7 +315,10 @@ class _TachesWidgetState extends State<TachesWidget> {
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
-                                            letterSpacing: 0.0,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.inter(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
@@ -277,26 +328,36 @@ class _TachesWidgetState extends State<TachesWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                      hintText: 'Toutes les villes',
-                                      icon: Icon(
-                                        Icons.keyboard_arrow_down_rounded,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        size: 24.0,
-                                      ),
-                                      fillColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      elevation: 2.0,
-                                      borderColor: Color(0x4C000000),
-                                      borderWidth: 0.0,
-                                      borderRadius: 8.0,
-                                      margin: EdgeInsetsDirectional.fromSTEB(
-                                          12.0, 0.0, 12.0, 0.0),
-                                      hidesUnderline: true,
-                                      isOverButton: false,
-                                      isSearchable: false,
-                                      isMultiSelect: false,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                    hintText: 'Toutes les villes',
+                                    searchHintText: 'Search...',
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
                                     ),
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    elevation: 2.0,
+                                    borderColor: Color(0x4C000000),
+                                    borderWidth: 0.0,
+                                    borderRadius: 8.0,
+                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                        12.0, 0.0, 12.0, 0.0),
+                                    hidesUnderline: true,
+                                    isOverButton: false,
+                                    isSearchable: true,
+                                    isMultiSelect: false,
                                   ),
                                 ),
                               ),
@@ -305,7 +366,7 @@ class _TachesWidgetState extends State<TachesWidget> {
                                     0.0, 8.0, 0.0, 0.0),
                                 child: FlutterFlowDropDown<String>(
                                   controller:
-                                      _model.dropDownValueController2 ??=
+                                      _model.selectDateDDValueController ??=
                                           FormFieldController<String>(null),
                                   options: [
                                     'Tout',
@@ -313,8 +374,13 @@ class _TachesWidgetState extends State<TachesWidget> {
                                     'Demain',
                                     'Hier'
                                   ],
-                                  onChanged: (val) => safeSetState(
-                                      () => _model.dropDownValue2 = val),
+                                  onChanged: (val) async {
+                                    safeSetState(
+                                        () => _model.selectDateDDValue = val);
+                                    _model.selectedDateFilter =
+                                        _model.selectDateDDValue;
+                                    safeSetState(() {});
+                                  },
                                   width: MediaQuery.sizeOf(context).width * 0.9,
                                   height: 40.0,
                                   textStyle: FlutterFlowTheme.of(context)
@@ -369,6 +435,15 @@ class _TachesWidgetState extends State<TachesWidget> {
                                     child: TextFormField(
                                       controller: _model.textController,
                                       focusNode: _model.textFieldFocusNode,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.textController',
+                                        Duration(milliseconds: 500),
+                                        () async {
+                                          _model.searchText =
+                                              _model.textController.text;
+                                          safeSetState(() {});
+                                        },
+                                      ),
                                       autofocus: false,
                                       textCapitalization:
                                           TextCapitalization.sentences,
@@ -515,77 +590,94 @@ class _TachesWidgetState extends State<TachesWidget> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                  child: FutureBuilder<ApiCallResponse>(
-                    future: (_model.apiRequestCompleter ??=
-                            Completer<ApiCallResponse>()
-                              ..complete(TechnicienGroup.tasksCall.call()))
-                        .future,
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                FlutterFlowTheme.of(context).primary,
+                if (functions.filterTasks(
+                            _model.technicianTask.toList(),
+                            _model.selectedCity,
+                            _model.selectedDateFilter,
+                            _model.searchText) !=
+                        null &&
+                    (functions.filterTasks(
+                            _model.technicianTask.toList(),
+                            _model.selectedCity,
+                            _model.selectedDateFilter,
+                            _model.searchText))!
+                        .isNotEmpty)
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                    child: FutureBuilder<ApiCallResponse>(
+                      future: (_model.apiRequestCompleter ??=
+                              Completer<ApiCallResponse>()
+                                ..complete(TechnicienGroup.tasksCall.call()))
+                          .future,
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      }
-                      final listViewTasksResponse = snapshot.data!;
-
-                      return Builder(
-                        builder: (context) {
-                          final technicianTasks =
-                              _model.technicianTask.toList().take(10).toList();
-
-                          return RefreshIndicator(
-                            onRefresh: () async {
-                              safeSetState(
-                                  () => _model.apiRequestCompleter = null);
-                              await _model.waitForApiRequestCompleted();
-                            },
-                            child: ListView.separated(
-                              padding: EdgeInsets.symmetric(vertical: 3.0),
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: technicianTasks.length,
-                              separatorBuilder: (_, __) =>
-                                  SizedBox(height: 3.0),
-                              itemBuilder: (context, technicianTasksIndex) {
-                                final technicianTasksItem =
-                                    technicianTasks[technicianTasksIndex];
-                                return wrapWithModel(
-                                  model: _model.technicienTasksModels.getModel(
-                                    technicianTasksItem.id.toString(),
-                                    technicianTasksIndex,
-                                  ),
-                                  updateCallback: () => safeSetState(() {}),
-                                  child: TechnicienTasksWidget(
-                                    key: Key(
-                                      'Keyxum_${technicianTasksItem.id.toString()}',
-                                    ),
-                                    clientName: technicianTasksItem.clientName,
-                                    taskType: technicianTasksItem.catache,
-                                    city: technicianTasksItem.cityName,
-                                    stateTask: technicianTasksItem.etatTache,
-                                    date: technicianTasksItem
-                                        .datePrevisionnelleDebut,
-                                  ),
-                                );
-                              },
-                            ),
                           );
-                        },
-                      );
-                    },
+                        }
+                        final listViewTasksResponse = snapshot.data!;
+
+                        return Builder(
+                          builder: (context) {
+                            final technicianTasks = _model.technicianTask
+                                .toList()
+                                .take(10)
+                                .toList();
+
+                            return RefreshIndicator(
+                              onRefresh: () async {
+                                safeSetState(
+                                    () => _model.apiRequestCompleter = null);
+                                await _model.waitForApiRequestCompleted();
+                              },
+                              child: ListView.separated(
+                                padding: EdgeInsets.symmetric(vertical: 3.0),
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: technicianTasks.length,
+                                separatorBuilder: (_, __) =>
+                                    SizedBox(height: 3.0),
+                                itemBuilder: (context, technicianTasksIndex) {
+                                  final technicianTasksItem =
+                                      technicianTasks[technicianTasksIndex];
+                                  return wrapWithModel(
+                                    model:
+                                        _model.technicienTasksModels.getModel(
+                                      technicianTasksItem.id.toString(),
+                                      technicianTasksIndex,
+                                    ),
+                                    updateCallback: () => safeSetState(() {}),
+                                    child: TechnicienTasksWidget(
+                                      key: Key(
+                                        'Keyxum_${technicianTasksItem.id.toString()}',
+                                      ),
+                                      clientName:
+                                          technicianTasksItem.clientName,
+                                      taskType: technicianTasksItem.catache,
+                                      city: technicianTasksItem.cityName,
+                                      stateTask: technicianTasksItem.etatTache,
+                                      date: technicianTasksItem
+                                          .datePrevisionnelleDebut,
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
-                ),
               ],
             ),
           ),

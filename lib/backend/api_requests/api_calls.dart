@@ -740,7 +740,11 @@ class CancelTaskCall {
       callName: 'cancelTask',
       apiUrl: '${baseUrl}/cancelTask/{id}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -833,7 +837,11 @@ class PostponeTaskCall {
       callName: 'postponeTask',
       apiUrl: '${baseUrl}/postponeTask/{id}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -1018,7 +1026,11 @@ class ChangeDeviceCall {
       callName: 'changeDevice',
       apiUrl: '${baseUrl}/changeDevice/{id}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       bodyType: BodyType.JSON,
       returnBody: true,
@@ -1041,7 +1053,11 @@ class ChangeRelaiCall {
       callName: 'changeRelai',
       apiUrl: '${baseUrl}/changeRelai/{id}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       bodyType: BodyType.JSON,
       returnBody: true,
@@ -1064,7 +1080,11 @@ class ChangeSimidCall {
       callName: 'changeSimid',
       apiUrl: '${baseUrl}/changeSim/{id}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       bodyType: BodyType.JSON,
       returnBody: true,

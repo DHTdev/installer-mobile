@@ -21,4 +21,5 @@ export 'returned_devices_struct.dart';
 export 'task_commercial_struct.dart';
 export 'task_pre_client_struct.dart';
 export 'technician_task_struct.dart';
+export 'uninstall_task_struct.dart';
 export 'user_struct.dart';
