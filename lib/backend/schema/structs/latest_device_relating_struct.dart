@@ -133,7 +133,8 @@ class LatestDeviceRelatingStruct extends BaseStruct {
 
   bool hasPivot() => _pivot != null;
 
-  static LatestDeviceRelatingStruct fromMap(Map<String, dynamic> data) =>
+  static LatestDeviceRelatingStruct fromMap(Map<String, dynamic> data){ 
+      return
       LatestDeviceRelatingStruct(
         id: castToType<int>(data['id']),
         modeleId: castToType<int>(data['modele_id']),
@@ -149,7 +150,7 @@ class LatestDeviceRelatingStruct extends BaseStruct {
         pivot: data['pivot'] is PivotStruct
             ? data['pivot']
             : PivotStruct.maybeFromMap(data['pivot']),
-      );
+      );}
 
   static LatestDeviceRelatingStruct? maybeFromMap(dynamic data) => data is Map
       ? LatestDeviceRelatingStruct.fromMap(data.cast<String, dynamic>())

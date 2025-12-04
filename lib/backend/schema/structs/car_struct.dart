@@ -10,9 +10,14 @@ class CarStruct extends BaseStruct {
     int? id,
     int? clientId,
     String? matricule,
+    List<LatestDeviceRelatingStruct>? latestDeviceRelating,
   })  : _id = id,
         _clientId = clientId,
-        _matricule = matricule;
+        _matricule = matricule,
+        _latestDeviceRelating = latestDeviceRelating;
+        
+
+
 
   // "id" field.
   int? _id;
@@ -39,10 +44,22 @@ class CarStruct extends BaseStruct {
 
   bool hasMatricule() => _matricule != null;
 
+    // "latestDeviceRelating" field.
+  List<LatestDeviceRelatingStruct>? _latestDeviceRelating;
+  List<LatestDeviceRelatingStruct> get latestDeviceRelating =>
+      _latestDeviceRelating ?? const [];
+  set latestDeviceRelating(List<LatestDeviceRelatingStruct>? val) =>
+      _latestDeviceRelating = val;
+
   static CarStruct fromMap(Map<String, dynamic> data) => CarStruct(
         id: castToType<int>(data['id']),
         clientId: castToType<int>(data['clientId']),
         matricule: data['matricule'] as String?,
+        latestDeviceRelating: getStructList(
+          data['articles'],
+          (m) => LatestDeviceRelatingStruct.fromMap({...m})
+,
+        ),
       );
 
   static CarStruct? maybeFromMap(dynamic data) =>

@@ -4,13 +4,13 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
-import 'tchesreporte_widget.dart' show TchesreporteWidget;
+import 'taches_reporte_widget.dart' show TachesReporteWidget;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class TchesreporteModel extends FlutterFlowModel<TchesreporteWidget> {
+class TchesreporteModel extends FlutterFlowModel<TachesReporteWidget> {
   ///  Local state fields for this page.
 
   DateTime? sectedDateFromBtn;
@@ -33,7 +33,7 @@ class TchesreporteModel extends FlutterFlowModel<TchesreporteWidget> {
     return null;
   }
 
-  DateTime datePicked =DateTime.now();
+  DateTime? datePicked;
   // State field(s) for observation widget.
   FocusNode? observationFocusNode;
   TextEditingController? observationTextController;

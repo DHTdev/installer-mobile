@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mime_type/mime_type.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow_util.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+
 
 const allowedFormats = {'image/png', 'image/jpeg', 'video/mp4', 'image/gif'};
 
@@ -374,3 +377,31 @@ void showUploadMessage(
 String? _removeTrailingSlash(String? path) => path != null && path.endsWith('/')
     ? path.substring(0, path.length - 1)
     : path;
+
+
+  Future<Uint8List> compressImageBytes(Uint8List data) async {
+    final compressed = await FlutterImageCompress.compressWithList(
+      data,
+      minHeight: 960,
+      minWidth: 1280,
+      quality: 80,
+      format: CompressFormat.jpeg,
+    );  
+    return Uint8List.fromList(compressed);
+  }
+
+    Future<List<Map<String, dynamic>>> prepareImagesForLaravel(List<FFUploadedFile> files) async {
+    List<Map<String, dynamic>> out = [];
+
+    for (var file in files) {
+      if (file.bytes == null) continue;
+
+      final compressed = await compressImageBytes(file.bytes!);
+      final base64String = base64Encode(compressed);
+      out.add({
+        "data": base64String,
+        "extension": "jpg",
+      });
+    }
+    return out;
+  }

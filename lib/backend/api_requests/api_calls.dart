@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:mobile_installer/backend/schema/structs/exception_task_form_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/installation_submit_struct.dart';
+import 'package:mobile_installer/backend/schema/structs/unistall_task_struct.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
@@ -125,8 +126,7 @@ class CommercialGroup {
   static ListeClientsCall listeClientsCall = ListeClientsCall();
   static CommercialeTasksCall commercialeTasksCall = CommercialeTasksCall();
   static ClientSpcifiqueCall clientSpcifiqueCall = ClientSpcifiqueCall();
-  static UpdateTaskToConfirmedCall updateTaskToConfirmedCall =
-      UpdateTaskToConfirmedCall();
+  static UpdateTaskToConfirmedCall updateTaskToConfirmedCall = UpdateTaskToConfirmedCall();
   static AjouterUnClientCall ajouterUnClientCall = AjouterUnClientCall();
   static SearchClientCall searchClientCall = SearchClientCall();
   static SearchDateClientCall searchDateClientCall = SearchDateClientCall();
@@ -308,7 +308,6 @@ class FilterTasksCall {
 
 class TechnicienGroup {
   static String getBaseUrl() => 'https://d3instal.com/api/technicien';
-  final appState = FFAppState();
 
   static Map<String, String> headers = {};
   static TasksCall tasksCall = TasksCall();
@@ -320,23 +319,19 @@ class TechnicienGroup {
   static CancelTaskCall cancelTaskCall = CancelTaskCall();
   static GetTasksCall getTasksCall = GetTasksCall();
   static AllUsersCall allUsersCall = AllUsersCall();
-  static UpdateTaskTerminedCall updateTaskTerminedCall =
-      UpdateTaskTerminedCall();
+  static UpdateTaskTerminedCall updateTaskTerminedCall = UpdateTaskTerminedCall();
   static PostponeTaskCall postponeTaskCall = PostponeTaskCall();
   static TaskConfirmedCall taskConfirmedCall = TaskConfirmedCall();
   static TaskToConfirmedCall taskToConfirmedCall = TaskToConfirmedCall();
   static StartedTaskCall startedTaskCall = StartedTaskCall();
   static PostponedTaskCall postponedTaskCall = PostponedTaskCall();
-  static NotificationUpdateCall notificationUpdateCall =
-      NotificationUpdateCall();
-  static UpdateTaskConfirmedCall updateTaskConfirmedCall =
-      UpdateTaskConfirmedCall();
+  static NotificationUpdateCall notificationUpdateCall = NotificationUpdateCall();
+  static UpdateTaskConfirmedCall updateTaskConfirmedCall = UpdateTaskConfirmedCall();
   static UninstallTaskCall uninstallTaskCall = UninstallTaskCall();
   static ChangeDeviceCall changeDeviceCall = ChangeDeviceCall();
   static ChangeRelaiCall changeRelaiCall = ChangeRelaiCall();
   static ChangeSimidCall changeSimidCall = ChangeSimidCall();
-  static ReinstallationTaskCall reinstallationTaskCall =
-      ReinstallationTaskCall();
+  static ReinstallationTaskCall reinstallationTaskCall = ReinstallationTaskCall();
   static PanneTaskCall panneTaskCall = PanneTaskCall();
   static GetNewTaskInfoCall getNewTaskInfoCall = GetNewTaskInfoCall();
 }
@@ -344,7 +339,7 @@ class TechnicienGroup {
 class TasksCall {
   Future<ApiCallResponse> call(String? authToken) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
-
+    print("Auth Token: ${authToken}");
     return ApiManager.instance.makeApiCall(
       callName: 'Tasks',
       apiUrl: '${baseUrl}/tâches',
@@ -537,8 +532,7 @@ class AppareilsCall {
       apiUrl: '${baseUrl}/appareils',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization':
-            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
         'content-type': 'application/json',
       },
       params: {},
@@ -562,8 +556,7 @@ class ReturnedDevicesCall {
       callType: ApiCallType.GET,
       headers: {
         'content-type': 'application/json',
-        'Authorization':
-            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
       },
       params: {},
       returnBody: true,
@@ -692,8 +685,7 @@ class TaskSpecifiqueCall {
 }
 
 class UpdateTaskCall {
-  Future<ApiCallResponse> call(
-      int? id, InstallationSubmitStruct? task, String? statut) async {
+  Future<ApiCallResponse> call(int? id, InstallationSubmitStruct? task, String? statut) async {
     print("send data ${id}: ${jsonEncode(task!.toMap())}");
     final baseUrl = TechnicienGroup.getBaseUrl();
 
@@ -703,8 +695,7 @@ class UpdateTaskCall {
       callType: ApiCallType.PUT,
       headers: {
         'content-type': 'application/json',
-        'Authorization':
-            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
       },
       params: {},
       body: jsonEncode(task.toMap()),
@@ -722,15 +713,20 @@ class UpdateTaskCall {
 class CancelTaskCall {
   Future<ApiCallResponse> call({
     int? id,
+    observation,
   }) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
 
     return ApiManager.instance.makeApiCall(
       callName: 'cancelTask',
-      apiUrl: '${baseUrl}/cancelTask/{id}',
+      apiUrl: '${baseUrl}/cancelTask/${id}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
+      body: jsonEncode({observation: observation}),
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -743,16 +739,17 @@ class CancelTaskCall {
 }
 
 class GetTasksCall {
-  Future<ApiCallResponse> call({
-    int? id,
-  }) async {
+  Future<ApiCallResponse> call(int? id) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
 
     return ApiManager.instance.makeApiCall(
       callName: 'getTasks',
-      apiUrl: '${baseUrl}/getTasksDataForReparation/{id}',
+      apiUrl: '${baseUrl}/getTasksDataForReparation/${id}',
       callType: ApiCallType.GET,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -810,14 +807,20 @@ class UpdateTaskTerminedCall {
 class PostponeTaskCall {
   Future<ApiCallResponse> call({
     int? id,
+    String? observation,
+    String? NouvelleDate,
   }) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
-
+    print("send data ${id}: ${jsonEncode({"NouvelleDate": NouvelleDate, "id": id, "Observation": observation})}");
     return ApiManager.instance.makeApiCall(
       callName: 'postponeTask',
-      apiUrl: '${baseUrl}/postponeTask/{id}',
+      apiUrl: '${baseUrl}/postponeTask/${id}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
+      body: jsonEncode({"NouvelleDate": NouvelleDate, "Observation": observation}),
       params: {},
       bodyType: BodyType.JSON,
       returnBody: true,
@@ -839,8 +842,7 @@ class TaskConfirmedCall {
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization':
-            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
       },
       params: {},
       body: jsonEncode(task!.toMap()),
@@ -967,16 +969,20 @@ class UpdateTaskConfirmedCall {
 }
 
 class UninstallTaskCall {
-  Future<ApiCallResponse> call({
-    int? id,
-  }) async {
+  Future<ApiCallResponse> call(int? id, UninstallTaskStruct uninstallTask) async {
+    print("send data ${id}: ${jsonEncode(uninstallTask!.toMap()['NSIM'])}");
+
     final baseUrl = TechnicienGroup.getBaseUrl();
 
     return ApiManager.instance.makeApiCall(
       callName: 'uninstallTask',
-      apiUrl: '${baseUrl}/uninstallTask/{id}',
+      apiUrl: '${baseUrl}/uninstallTask/${id}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
+      body: jsonEncode(uninstallTask.toMap()),
       params: {},
       bodyType: BodyType.JSON,
       returnBody: true,
@@ -1107,7 +1113,7 @@ class PanneTaskCall {
 class GetNewTaskInfoCall {
   Future<ApiCallResponse> call() async {
     final baseUrl = TechnicienGroup.getBaseUrl();
-
+    print("Auth Token: ${FFAppState().authToken}");
     return ApiManager.instance.makeApiCall(
       callName: 'getNewTaskInfo',
       apiUrl: 'https://d3instal.com/api/supportTechnique/newTask',
@@ -1138,8 +1144,7 @@ class GerantGroup {
   static AllAppareilsCall allAppareilsCall = AllAppareilsCall();
   static LogDeviceCall logDeviceCall = LogDeviceCall();
   static AppareilsPerUserCall appareilsPerUserCall = AppareilsPerUserCall();
-  static SearchTaskToConfirmedCall searchTaskToConfirmedCall =
-      SearchTaskToConfirmedCall();
+  static SearchTaskToConfirmedCall searchTaskToConfirmedCall = SearchTaskToConfirmedCall();
   static UpdateTaskConfirmCall updateTaskConfirmCall = UpdateTaskConfirmCall();
   static DeleteTaskCall deleteTaskCall = DeleteTaskCall();
 }
@@ -1329,8 +1334,7 @@ class ApiPagingParams {
   });
 
   @override
-  String toString() =>
-      'PagingParams(nextPageNumber: $nextPageNumber, numItems: $numItems, lastResponse: $lastResponse,)';
+  String toString() => 'PagingParams(nextPageNumber: $nextPageNumber, numItems: $numItems, lastResponse: $lastResponse,)';
 }
 
 String _toEncodable(dynamic item) {
@@ -1365,9 +1369,5 @@ String? escapeStringForJson(String? input) {
   if (input == null) {
     return null;
   }
-  return input
-      .replaceAll('\\', '\\\\')
-      .replaceAll('"', '\\"')
-      .replaceAll('\n', '\\n')
-      .replaceAll('\t', '\\t');
+  return input.replaceAll('\\', '\\\\').replaceAll('"', '\\"').replaceAll('\n', '\\n').replaceAll('\t', '\\t');
 }

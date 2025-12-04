@@ -21,8 +21,7 @@ class TechnicienTasksWidget extends StatefulWidget {
     String? city,
     int? stateTask,
     required this.TechnicianTask,
-  })  : 
-        this.clientName = clientName ?? '',
+  })  : this.clientName = clientName ?? '',
         this.taskType = taskType ?? ' ',
         this.city = city ?? '',
         this.stateTask = stateTask ?? 1;
@@ -53,7 +52,7 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TechnicienTasksModel());
-     taskItem = TechnicianTaskStruct(
+    taskItem = TechnicianTaskStruct(
       id: widget.id,
       clientName: widget.clientName,
       catache: widget.taskType,
@@ -90,7 +89,6 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                   child: DetailsWidget(
                     key: Key('details_${widget.TechnicianTask.id}'),
                     detailsTask: widget.TechnicianTask,
-                    
                   ),
                 );
               },
@@ -137,109 +135,53 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                                   Align(
                                     alignment: AlignmentDirectional(-1, 0),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 4, 0, 0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                                       child: Text(
                                         widget.TechnicianTask.clientName,
-                                        style: FlutterFlowTheme.of(context)
-                                            .titleMedium
-                                            .override(
+                                        style: FlutterFlowTheme.of(context).titleMedium.override(
                                               font: GoogleFonts.interTight(
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleMedium
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleMedium
-                                                        .fontStyle,
+                                                fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
                                               ),
                                               letterSpacing: 0.0,
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleMedium
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
                                             ),
                                       ),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 16, 0, 0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10, 0, 0, 0),
+                                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                                           child: Text(
                                             'tâche',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
+                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                   font: GoogleFonts.inter(
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
+                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
+                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                 ),
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  34, 0, 0, 0),
+                                          padding: EdgeInsetsDirectional.fromSTEB(34, 0, 0, 0),
                                           child: Text(
                                             widget.TechnicianTask.catache,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
+                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                   font: GoogleFonts.inter(
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
+                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
+                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                 ),
                                           ),
                                         ),
@@ -247,81 +189,40 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 8, 0, 0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10, 0, 0, 0),
+                                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                                           child: Text(
                                             'Date',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
+                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                   font: GoogleFonts.inter(
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
+                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
+                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                 ),
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  38, 0, 0, 0),
+                                          padding: EdgeInsetsDirectional.fromSTEB(38, 0, 0, 0),
                                           child: Text(
                                             valueOrDefault<String>(
                                               widget.TechnicianTask.date_previsionnelle_debut.toString(),
                                               '01/01/2025',
                                             ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
+                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                   font: GoogleFonts.inter(
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
+                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
+                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                 ),
                                           ),
                                         ),
@@ -329,80 +230,38 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 8, 0, 0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10, 0, 0, 0),
+                                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                                           child: Text(
                                             'Ville',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
+                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                   font: GoogleFonts.inter(
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
+                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
+                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                 ),
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  40, 0, 0, 0),
+                                          padding: EdgeInsetsDirectional.fromSTEB(40, 0, 0, 0),
                                           child: Text(
                                             widget.TechnicianTask.cityName,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
+                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                   font: GoogleFonts.inter(
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
+                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
+                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                 ),
                                           ),
                                         ),
@@ -430,8 +289,7 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                                     },
                                     child: FaIcon(
                                       FontAwesomeIcons.ellipsisV,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: FlutterFlowTheme.of(context).primaryText,
                                       size: 24,
                                     ),
                                   ),
@@ -481,24 +339,16 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                                       return 'annuler';
                                     }
                                   }(),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         font: GoogleFonts.inter(
                                           fontWeight: FontWeight.w500,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                         ),
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
+                                        color: FlutterFlowTheme.of(context).secondaryBackground,
                                         fontSize: 14,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                       ),
                                 ),
                               ],
@@ -520,7 +370,7 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                         model: _model.manageTachesModel,
                         updateCallback: () => safeSetState(() {}),
                         child: ManageTachesWidget(
-                          task: taskItem,
+                          task: widget.TechnicianTask,
                         ),
                       ),
                     ),

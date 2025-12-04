@@ -1,77 +1,89 @@
+import 'dart:async';
+
+import 'package:mobile_installer/backend/api_requests/api_manager.dart';
+import 'package:mobile_installer/backend/schema/structs/index.dart';
+// 
+import '/flutter_flow/flutter_flow_drop_down.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import 'dart:ui';
 import 'edit_taches_widget.dart' show EditTachesWidget;
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class EditTachesModel extends FlutterFlowModel<EditTachesWidget> {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
+  Completer<ApiCallResponse>? apiResponseCompleter;
+  ApiCallResponse? apiResultGetDevicesByTech;
+  ApiCallResponse? apiResponseTaskInfo;
+  NewTaskInfoStruct? newTaskInfo;
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode1;
-  TextEditingController? textController1;
+  FocusNode? textFieldFocusNodeClientName;
+  TextEditingController? textControllerClientName;
   String? Function(BuildContext, String?)? textController1Validator;
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode2;
-  TextEditingController? textController2;
+  FocusNode? textFieldFocusNodeMatricule;
+  TextEditingController? textControllerMatricule;
   String? Function(BuildContext, String?)? textController2Validator;
   // State field(s) for DropDown widget.
-  String? dropDownValue1;
-  FormFieldController<String>? dropDownValueController1;
+  String? dropDownValue;
+  FormFieldController<String>? dropDownValueController;
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode3;
-  TextEditingController? textController3;
-  String? Function(BuildContext, String?)? textController3Validator;
+  FocusNode? textFieldFocusNodeIMEI;
+  TextEditingController? textControllerIMEI;
+  int? Function(BuildContext, int?)? textController3Validator;
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode4;
-  TextEditingController? textController4;
+  FocusNode? textFieldFocusNodeDeviceType;
+  TextEditingController? textControllerDeviceType;
   String? Function(BuildContext, String?)? textController4Validator;
+  // State field(s) for GPS_Position widget.
+  String? gPSPositionValue1;
+  FormFieldController<String>? gPSPositionValueController1;
+  // State field(s) for GPS_Position widget.
+  String? gPSPositionValue2;
+  FormFieldController<String>? gPSPositionValueController2;
+  // State field(s) for type_relais widget.
+  String? typeRelaisValue;
+  FormFieldController<String>? typeRelaisValueController;
+  // State field(s) for city widget.
+  String? cityValue;
+  FormFieldController<String>? cityValueController;
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode5;
-  TextEditingController? textController5;
+  FocusNode? textFieldFocusNodeDate;
+  TextEditingController? textControllerDate;
   String? Function(BuildContext, String?)? textController5Validator;
-  // State field(s) for DropDown widget.
-  String? dropDownValue2;
-  FormFieldController<String>? dropDownValueController2;
-  // State field(s) for DropDown widget.
-  String? dropDownValue3;
-  FormFieldController<String>? dropDownValueController3;
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode6;
-  TextEditingController? textController6;
+  FocusNode? textFieldFocusNodeDescription;
+  TextEditingController? textControllerDescription;
   String? Function(BuildContext, String?)? textController6Validator;
-  // State field(s) for DropDown widget.
-  String? dropDownValue4;
-  FormFieldController<String>? dropDownValueController4;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode7;
-  TextEditingController? textController7;
-  String? Function(BuildContext, String?)? textController7Validator;
 
   @override
   void initState(BuildContext context) {}
 
   @override
   void dispose() {
-    textFieldFocusNode1?.dispose();
-    textController1?.dispose();
+    textFieldFocusNodeClientName?.dispose();
+    textControllerClientName?.dispose();
 
-    textFieldFocusNode2?.dispose();
-    textController2?.dispose();
+    textFieldFocusNodeMatricule?.dispose();
+    textControllerMatricule?.dispose();
 
-    textFieldFocusNode3?.dispose();
-    textController3?.dispose();
+    textFieldFocusNodeIMEI?.dispose();
+    textControllerIMEI?.dispose();
 
-    textFieldFocusNode4?.dispose();
-    textController4?.dispose();
+    textFieldFocusNodeDeviceType?.dispose();
+    textControllerDeviceType?.dispose();
 
-    textFieldFocusNode5?.dispose();
-    textController5?.dispose();
+    textFieldFocusNodeDate?.dispose();
+    textControllerDate?.dispose();
 
-    textFieldFocusNode6?.dispose();
-    textController6?.dispose();
-
-    textFieldFocusNode7?.dispose();
-    textController7?.dispose();
+    textFieldFocusNodeDescription?.dispose();
+    textControllerDescription?.dispose();
   }
 }

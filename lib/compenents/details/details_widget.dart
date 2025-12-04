@@ -41,7 +41,6 @@ class _DetailsWidgetState extends State<DetailsWidget> {
   @override
   void dispose() {
     _model.maybeDispose();
-
     super.dispose();
   }
 
@@ -177,7 +176,9 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                         ),
                                   ),
                                   Text(
-                                    valueOrDefault(widget.detailsTask.clientPhoneNumber,'-------------' ),
+                                    valueOrDefault(
+                                        widget.detailsTask.clientPhoneNumber,
+                                        '-------------'),
                                     textAlign: TextAlign.end,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -305,7 +306,8 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                         ),
                                   ),
                                   Text(
-                                    widget.detailsTask.date_previsionnelle_debut.toString(),
+                                    widget.detailsTask.date_previsionnelle_debut
+                                        .toString(),
                                     textAlign: TextAlign.end,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -369,7 +371,8 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                         ),
                                   ),
                                   Text(
-                                    valueOrDefault(widget.detailsTask.matricule, '-------------'),
+                                    valueOrDefault(widget.detailsTask.matricule,
+                                        '-------------'),
                                     textAlign: TextAlign.end,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -454,7 +457,9 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(widget.detailsTask.nameModeleGPS, '-------------'),
+                                      valueOrDefault(
+                                          widget.detailsTask.nameModeleGPS,
+                                          '-------------'),
                                       textAlign: TextAlign.end,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -518,7 +523,9 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(widget.detailsTask.IMEI, '-------------').toString(),
+                                      valueOrDefault(widget.detailsTask.IMEI,
+                                              '-------------')
+                                          .toString(),
                                       textAlign: TextAlign.end,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -582,7 +589,14 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(widget.detailsTask.gps_principale == 0 ? "1er" : "2nd", '-------------').toString(),
+                                      valueOrDefault(
+                                              widget.detailsTask
+                                                          .gps_principale ==
+                                                      0
+                                                  ? "1er"
+                                                  : "2nd",
+                                              '-------------')
+                                          .toString(),
                                       textAlign: TextAlign.end,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -646,7 +660,13 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(widget.detailsTask.proprietaire == 0 ? "DHT": "Client", '-------------').toString(),
+                                      valueOrDefault(
+                                              widget.detailsTask.proprietaire ==
+                                                      0
+                                                  ? "DHT"
+                                                  : "Client",
+                                              '-------------')
+                                          .toString(),
                                       textAlign: TextAlign.end,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -710,7 +730,11 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(widget.detailsTask.accesoriesModel, '-------------').toString(),
+                                      valueOrDefault(
+                                              widget
+                                                  .detailsTask.accesoriesModel,
+                                              '-------------')
+                                          .toString(),
                                       textAlign: TextAlign.end,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -774,7 +798,9 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(widget.detailsTask.nameModeleSIM, '-------------'),
+                                      valueOrDefault(
+                                          widget.detailsTask.nameModeleSIM,
+                                          '-------------'),
                                       textAlign: TextAlign.end,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -838,7 +864,9 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(widget.detailsTask.SIM,'-------------').toString(),
+                                      valueOrDefault(widget.detailsTask.SIM,
+                                              '-------------')
+                                          .toString(),
                                       textAlign: TextAlign.end,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -902,7 +930,14 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(widget.detailsTask.SIM_proprietaire == 0 ? 'DHT' : "Client",'-------------').toString(),
+                                      valueOrDefault(
+                                              widget.detailsTask
+                                                          .SIM_proprietaire ==
+                                                      0
+                                                  ? 'DHT'
+                                                  : "Client",
+                                              '-------------')
+                                          .toString(),
                                       textAlign: TextAlign.end,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -1030,7 +1065,11 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                           ),
                                     ),
                                     Text(
-                                     valueOrDefault(widget.detailsTask.date_debut_realisation.toString(), '-------------'),
+                                      valueOrDefault(
+                                          widget.detailsTask
+                                              .date_debut_realisation
+                                              .toString(),
+                                          '-------------'),
                                       textAlign: TextAlign.end,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -1059,7 +1098,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                   ],
                                 ),
                               ),
-                             Padding(
+                              Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     12, 8, 12, 8),
                                 child: Row(
@@ -1094,7 +1133,10 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                           ),
                                     ),
                                     Text(
-                                     valueOrDefault(widget.detailsTask.observation.toString(), '-------------'),
+                                      valueOrDefault(
+                                          widget.detailsTask.observation
+                                              .toString(),
+                                          '-------------'),
                                       textAlign: TextAlign.end,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -1123,7 +1165,6 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                   ],
                                 ),
                               ),
-                             
                             ],
                           ),
                         ),

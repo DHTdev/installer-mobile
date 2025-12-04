@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mobile_installer/home_page/home_page_widget.dart';
+import 'package:mobile_installer/tache/tchesreporte/tchesreporte_widget.dart';
 import 'package:provider/provider.dart';
 
 import '/backend/schema/structs/index.dart';
@@ -141,7 +142,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: TchesreporteWidget.routeName,
           path: TchesreporteWidget.routePath,
-          builder: (context, params) => TchesreporteWidget(),
+          builder: (context, params) => TchesreporteWidget(id: params.getParam('id', ParamType.int),clientName: params.getParam('clientName', ParamType.String),),
         ),
         FFRoute(
           name: DetailstacheWidget.routeName,

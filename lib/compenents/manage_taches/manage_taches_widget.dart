@@ -1,12 +1,16 @@
+import 'package:mobile_installer/tache/appareils/pannes/panne_g_p_s/panne_g_p_s_widget.dart';
+import 'package:mobile_installer/tache/appareils/pannes/panne_relais/panne_relais_widget.dart';
+import 'package:mobile_installer/tache/appareils/pannes/panne_s_i_m/panne_s_i_m_widget.dart';
+import 'package:mobile_installer/tache/canceled_task/canceled_task_widget.dart';
+import 'package:mobile_installer/tache/tchesreporte/tchesreporte_widget.dart';
+
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 import 'manage_taches_model.dart';
 export 'manage_taches_model.dart';
@@ -40,21 +44,57 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
   }
 
   void navigateTo() {
-    print("navigate to ${widget.task?.catache}");
     switch (widget.task?.catache) {
-      case "installation" || "installaion casiol":
+      case "installation" || "installation gasoil":
         Navigator.push(
           context,
           MaterialPageRoute<void>(
             builder: (context) => TacheTerminerWidget(infoTask: widget.task),
           ),
         );
-      //   case "changement GPS":
-      //   context.pushReplacementNamed();
-      //   case "changement SIM":
-      //   context.pushReplacementNamed();
-      //   case "reparation":
-      //   context.pushReplacementNamed();
+      case "desinstalation":
+        Navigator.push(
+          context,
+          MaterialPageRoute<void>(
+            builder: (context) => DesinstallationWidget(infoTask: widget.task),
+          ),
+        );
+      case "Reinstallation":
+        Navigator.push(
+          context,
+          MaterialPageRoute<void>(
+            builder: (context) => TacheTerminerWidget(infoTask: widget.task),
+          ),
+        );
+      case "Changement du GPS":
+        Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (context) => PanneGPSWidget(infoTask: widget.task),
+            ));
+      case "Changement du SIM":
+        Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (context) =>
+                  PanneSIMWidget(clientName: widget.task?.clientName),
+            ));
+        ;
+      case "reparationRelais":
+        Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (context) =>
+                  PanneRelaisWidget(clientName: widget.task?.clientName),
+            ));
+      case "Panne":
+        Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (context) =>
+                  PanneWidget(clientName: widget.task?.clientName),
+            ));
+        ;
     }
   }
 
@@ -96,7 +136,13 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
-                context.pushNamed(EditTachesWidget.routeName);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (context) =>
+                        EditTachesWidget(infoTask: widget.task),
+                  ),
+                );
               },
               child: Container(
                 width: double.infinity,
@@ -212,7 +258,13 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
-                context.pushNamed(TchesreporteWidget.routeName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) => TchesreporteWidget(
+                          id: widget.task?.id,
+                          clientName: widget.task?.clientName),
+                    ));
               },
               child: Container(
                 width: double.infinity,
@@ -270,7 +322,12 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
-                // context.pushNamed(CancelTaskWidget.routeName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) =>
+                          CanceledTaskWidget(infoTask: widget.task),
+                    ));
               },
               child: Container(
                 width: double.infinity,
