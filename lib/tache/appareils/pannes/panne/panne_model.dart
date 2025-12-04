@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/index.dart';
@@ -8,6 +9,17 @@ class PanneModel extends FlutterFlowModel<PanneWidget> {
   ///  Local state fields for this page.
 
   String? selectOption;
+
+  List<String> uploadedImagesURLs = [];
+  void addToUploadedImagesURLs(String item) => uploadedImagesURLs.add(item);
+  void removeFromUploadedImagesURLs(String item) =>
+      uploadedImagesURLs.remove(item);
+  void removeAtIndexFromUploadedImagesURLs(int index) =>
+      uploadedImagesURLs.removeAt(index);
+  void insertAtIndexInUploadedImagesURLs(int index, String item) =>
+      uploadedImagesURLs.insert(index, item);
+  void updateUploadedImagesURLsAtIndex(int index, Function(String) updateFn) =>
+      uploadedImagesURLs[index] = updateFn(uploadedImagesURLs[index]);
 
   ///  State fields for stateful widgets in this page.
 
@@ -28,13 +40,14 @@ class PanneModel extends FlutterFlowModel<PanneWidget> {
   TextEditingController? textController3;
   String? Function(BuildContext, String?)? textController3Validator;
   bool isDataUploading_taskMedia = false;
-  FFUploadedFile uploadedLocalFile_taskMedia =
-      FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
+  List<FFUploadedFile> uploadedLocalFiles_taskMedia = [];
 
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode4;
   TextEditingController? textController4;
   String? Function(BuildContext, String?)? textController4Validator;
+  // Stores action output result for [Backend Call - API (panneTask)] action in Button widget.
+  ApiCallResponse? apiResulto6y;
 
   @override
   void initState(BuildContext context) {}

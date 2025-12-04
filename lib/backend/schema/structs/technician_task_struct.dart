@@ -20,7 +20,7 @@ class TechnicianTaskStruct extends BaseStruct {
     int? gpsPrincipale,
     int? garantie,
     String? sim,
-    String? sIMProprietaire,
+    int? sIMProprietaire,
     String? clientName,
     String? telephoneClient,
     String? cityName,
@@ -163,9 +163,12 @@ class TechnicianTaskStruct extends BaseStruct {
   bool hasSim() => _sim != null;
 
   // "SIM_proprietaire" field.
-  String? _sIMProprietaire;
-  String get sIMProprietaire => _sIMProprietaire ?? '';
-  set sIMProprietaire(String? val) => _sIMProprietaire = val;
+  int? _sIMProprietaire;
+  int get sIMProprietaire => _sIMProprietaire ?? 0;
+  set sIMProprietaire(int? val) => _sIMProprietaire = val;
+
+  void incrementSIMProprietaire(int amount) =>
+      sIMProprietaire = sIMProprietaire + amount;
 
   bool hasSIMProprietaire() => _sIMProprietaire != null;
 
@@ -257,7 +260,7 @@ class TechnicianTaskStruct extends BaseStruct {
         gpsPrincipale: castToType<int>(data['gps_principale']),
         garantie: castToType<int>(data['garantie']),
         sim: data['SIM'] as String?,
-        sIMProprietaire: data['SIM_proprietaire'] as String?,
+        sIMProprietaire: castToType<int>(data['SIM_proprietaire']),
         clientName: data['client_name'] as String?,
         telephoneClient: data['telephone_client'] as String?,
         cityName: data['cityName'] as String?,
@@ -357,7 +360,7 @@ class TechnicianTaskStruct extends BaseStruct {
         ),
         'SIM_proprietaire': serializeParam(
           _sIMProprietaire,
-          ParamType.String,
+          ParamType.int,
         ),
         'client_name': serializeParam(
           _clientName,
@@ -470,7 +473,7 @@ class TechnicianTaskStruct extends BaseStruct {
         ),
         sIMProprietaire: deserializeParam(
           data['SIM_proprietaire'],
-          ParamType.String,
+          ParamType.int,
           false,
         ),
         clientName: deserializeParam(
@@ -600,7 +603,7 @@ TechnicianTaskStruct createTechnicianTaskStruct({
   int? gpsPrincipale,
   int? garantie,
   String? sim,
-  String? sIMProprietaire,
+  int? sIMProprietaire,
   String? clientName,
   String? telephoneClient,
   String? cityName,

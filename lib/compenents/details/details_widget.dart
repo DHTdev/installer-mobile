@@ -959,7 +959,8 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                   ),
                                   Text(
                                     valueOrDefault<String>(
-                                      widget.taskDetails?.sIMProprietaire,
+                                      widget.taskDetails?.sIMProprietaire
+                                          .toString(),
                                       '-------------',
                                     ),
                                     textAlign: TextAlign.end,

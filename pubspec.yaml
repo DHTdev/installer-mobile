@@ -82,6 +82,7 @@ dependencies:
   shared_preferences_windows: 2.4.1
   sqflite: 2.3.3+1
   sqflite_common: 2.5.4+3
+  substring_highlight: 1.0.33
   table_calendar: 3.2.0
   text_search: 1.0.1
   timeago: 3.7.1

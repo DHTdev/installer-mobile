@@ -233,13 +233,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: PanneWidget.routeName,
           path: PanneWidget.routePath,
           builder: (context, params) => PanneWidget(
-            clientName: params.getParam(
-              'clientName',
-              ParamType.String,
-            ),
-            imei: params.getParam(
-              'imei',
-              ParamType.String,
+            task: params.getParam(
+              'task',
+              ParamType.DataStruct,
+              isList: false,
+              structBuilder: TechnicianTaskStruct.fromSerializableMap,
             ),
           ),
         ),
@@ -247,9 +245,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: PanneGPSWidget.routeName,
           path: PanneGPSWidget.routePath,
           builder: (context, params) => PanneGPSWidget(
-            clientName: params.getParam(
-              'clientName',
-              ParamType.String,
+            task: params.getParam(
+              'task',
+              ParamType.DataStruct,
+              isList: false,
+              structBuilder: TechnicianTaskStruct.fromSerializableMap,
             ),
           ),
         ),

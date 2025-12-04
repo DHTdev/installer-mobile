@@ -1123,13 +1123,20 @@ class ReinstallationTaskCall {
 class PanneTaskCall {
   Future<ApiCallResponse> call({
     int? id,
+    List<String>? imagesList,
+    String? imei = '',
+    String? matricule = '',
+    String? observation = '',
   }) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
+    final images = _serializeList(imagesList);
 
     final ffApiRequestBody = '''
 {
-"images":"",
-"Observation":""
+  "images": "<image>",
+  "imei": "${escapeStringForJson(imei)}",
+  "matricule": "${escapeStringForJson(matricule)}",
+  "observation":"${escapeStringForJson(observation)}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'panneTask',

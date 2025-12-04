@@ -1,3 +1,5 @@
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -14,12 +16,10 @@ export 'panne_model.dart';
 class PanneWidget extends StatefulWidget {
   const PanneWidget({
     super.key,
-    required this.clientName,
-    this.imei,
+    required this.task,
   });
 
-  final String? clientName;
-  final String? imei;
+  final TechnicianTaskStruct? task;
 
   static String routeName = 'Panne';
   static String routePath = '/panne';
@@ -38,7 +38,8 @@ class _PanneWidgetState extends State<PanneWidget> {
     super.initState();
     _model = createModel(context, () => PanneModel());
 
-    _model.textController1 ??= TextEditingController();
+    _model.textController1 ??=
+        TextEditingController(text: widget.task?.clientName);
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.textController2 ??= TextEditingController();
@@ -126,9 +127,10 @@ class _PanneWidgetState extends State<PanneWidget> {
                             controller: _model.textController1,
                             focusNode: _model.textFieldFocusNode1,
                             autofocus: true,
+                            readOnly: true,
                             obscureText: false,
                             decoration: InputDecoration(
-                              labelText: widget.clientName,
+                              labelText: 'Nom du client',
                               labelStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
@@ -237,9 +239,9 @@ class _PanneWidgetState extends State<PanneWidget> {
                                 context.pushNamed(
                                   PanneGPSWidget.routeName,
                                   queryParameters: {
-                                    'clientName': serializeParam(
-                                      '',
-                                      ParamType.String,
+                                    'task': serializeParam(
+                                      TechnicianTaskStruct(),
+                                      ParamType.DataStruct,
                                     ),
                                   }.withoutNulls,
                                 );
@@ -353,9 +355,10 @@ class _PanneWidgetState extends State<PanneWidget> {
                             controller: _model.textController2,
                             focusNode: _model.textFieldFocusNode2,
                             autofocus: true,
+                            readOnly: true,
                             obscureText: false,
                             decoration: InputDecoration(
-                              labelText: 'IMEI',
+                              labelText: widget.task?.imei,
                               labelStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
@@ -452,9 +455,10 @@ class _PanneWidgetState extends State<PanneWidget> {
                             controller: _model.textController3,
                             focusNode: _model.textFieldFocusNode3,
                             autofocus: true,
+                            readOnly: true,
                             obscureText: false,
                             decoration: InputDecoration(
-                              labelText: 'Matricule',
+                              labelText: widget.task?.matricule,
                               labelStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
@@ -557,9 +561,9 @@ class _PanneWidgetState extends State<PanneWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 final selectedMedia = await selectMedia(
-                                  imageQuality: 75,
+                                  imageQuality: 69,
                                   mediaSource: MediaSource.photoGallery,
-                                  multiImage: false,
+                                  multiImage: true,
                                 );
                                 if (selectedMedia != null &&
                                     selectedMedia.every((m) =>
@@ -571,6 +575,11 @@ class _PanneWidgetState extends State<PanneWidget> {
                                       <FFUploadedFile>[];
 
                                   try {
+                                    showUploadMessage(
+                                      context,
+                                      'Uploading file...',
+                                      showLoading: true,
+                                    );
                                     selectedUploadedFiles = selectedMedia
                                         .map((m) => FFUploadedFile(
                                               name:
@@ -584,19 +593,27 @@ class _PanneWidgetState extends State<PanneWidget> {
                                             ))
                                         .toList();
                                   } finally {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
                                     _model.isDataUploading_taskMedia = false;
                                   }
                                   if (selectedUploadedFiles.length ==
                                       selectedMedia.length) {
                                     safeSetState(() {
-                                      _model.uploadedLocalFile_taskMedia =
-                                          selectedUploadedFiles.first;
+                                      _model.uploadedLocalFiles_taskMedia =
+                                          selectedUploadedFiles;
                                     });
+                                    showUploadMessage(context, 'Success!');
                                   } else {
                                     safeSetState(() {});
+                                    showUploadMessage(
+                                        context, 'Failed to upload data');
                                     return;
                                   }
                                 }
+
+                                _model.addToUploadedImagesURLs('t');
+                                safeSetState(() {});
                               },
                               child: Container(
                                 width: double.infinity,
@@ -661,6 +678,38 @@ class _PanneWidgetState extends State<PanneWidget> {
                                   ),
                                 ),
                               ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Builder(
+                              builder: (context) {
+                                final uploadedImages = _model.uploadedImagesURLs
+                                    .map((e) => e)
+                                    .toList();
+
+                                return SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children:
+                                        List.generate(uploadedImages.length,
+                                            (uploadedImagesIndex) {
+                                      final uploadedImagesItem =
+                                          uploadedImages[uploadedImagesIndex];
+                                      return ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        child: Image.network(
+                                          uploadedImagesItem,
+                                          width: 200.0,
+                                          height: 200.0,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      );
+                                    }),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                           TextFormField(
@@ -771,8 +820,35 @@ class _PanneWidgetState extends State<PanneWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
                       child: FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
+                        onPressed: () async {
+                          _model.apiResulto6y =
+                              await TechnicienGroup.panneTaskCall.call(
+                            id: widget.task?.id,
+                            imei: widget.task?.imei,
+                            matricule: widget.task?.matricule,
+                            imagesList: _model.uploadedImagesURLs,
+                            observation: _model.textController4.text,
+                          );
+
+                          if ((_model.apiResulto6y?.succeeded ?? true)) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  (_model.apiResulto6y?.succeeded ?? true)
+                                      .toString(),
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                                ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
+                            );
+                          }
+
+                          safeSetState(() {});
                         },
                         text: 'Enregistrer',
                         icon: Icon(

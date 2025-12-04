@@ -620,7 +620,7 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget>
                         TextFormField(
                           controller: _model.textController4,
                           focusNode: _model.textFieldFocusNode4,
-                          autofocus: true,
+                          autofocus: false,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelStyle: FlutterFlowTheme.of(context)

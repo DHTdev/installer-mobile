@@ -79,7 +79,9 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
               builder: (context) {
                 return Padding(
                   padding: MediaQuery.viewInsetsOf(context),
-                  child: DetailsWidget(),
+                  child: DetailsWidget(
+                    taskDetails: TechnicianTaskStruct(),
+                  ),
                 );
               },
             ).then((value) => safeSetState(() {}));

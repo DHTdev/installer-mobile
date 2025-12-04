@@ -54,7 +54,7 @@ class NotifsWidget extends StatefulWidget {
   final String? imei;
   final int? propietaire;
   final String? sim;
-  final String? simPropietaire;
+  final int? simPropietaire;
   final String? clientName;
   final String? cityName;
   final String? catache;
