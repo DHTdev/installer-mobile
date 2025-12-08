@@ -261,9 +261,9 @@ class _PanneWidgetState extends State<PanneWidget> {
                                   context.pushNamed(
                                     PanneRelaisWidget.routeName,
                                     queryParameters: {
-                                      'clientName': serializeParam(
-                                        '',
-                                        ParamType.String,
+                                      'task': serializeParam(
+                                        widget.task,
+                                        ParamType.DataStruct,
                                       ),
                                     }.withoutNulls,
                                   );
@@ -569,17 +569,12 @@ class _PanneWidgetState extends State<PanneWidget> {
                                     selectedMedia.every((m) =>
                                         validateFileFormat(
                                             m.storagePath, context))) {
-                                  safeSetState(() =>
-                                      _model.isDataUploading_taskMedia = true);
+                                  safeSetState(() => _model
+                                      .isDataUploading_panneTaskMedia = true);
                                   var selectedUploadedFiles =
                                       <FFUploadedFile>[];
 
                                   try {
-                                    showUploadMessage(
-                                      context,
-                                      'Uploading file...',
-                                      showLoading: true,
-                                    );
                                     selectedUploadedFiles = selectedMedia
                                         .map((m) => FFUploadedFile(
                                               name:
@@ -593,27 +588,20 @@ class _PanneWidgetState extends State<PanneWidget> {
                                             ))
                                         .toList();
                                   } finally {
-                                    ScaffoldMessenger.of(context)
-                                        .hideCurrentSnackBar();
-                                    _model.isDataUploading_taskMedia = false;
+                                    _model.isDataUploading_panneTaskMedia =
+                                        false;
                                   }
                                   if (selectedUploadedFiles.length ==
                                       selectedMedia.length) {
                                     safeSetState(() {
-                                      _model.uploadedLocalFiles_taskMedia =
+                                      _model.uploadedLocalFiles_panneTaskMedia =
                                           selectedUploadedFiles;
                                     });
-                                    showUploadMessage(context, 'Success!');
                                   } else {
                                     safeSetState(() {});
-                                    showUploadMessage(
-                                        context, 'Failed to upload data');
                                     return;
                                   }
                                 }
-
-                                _model.addToUploadedImagesURLs('t');
-                                safeSetState(() {});
                               },
                               child: Container(
                                 width: double.infinity,
@@ -683,8 +671,8 @@ class _PanneWidgetState extends State<PanneWidget> {
                           Expanded(
                             child: Builder(
                               builder: (context) {
-                                final uploadedImages = _model.uploadedImagesURLs
-                                    .map((e) => e)
+                                final uploadedImages = _model
+                                    .uploadedLocalFiles_panneTaskMedia
                                     .toList();
 
                                 return SingleChildScrollView(
@@ -696,14 +684,18 @@ class _PanneWidgetState extends State<PanneWidget> {
                                             (uploadedImagesIndex) {
                                       final uploadedImagesItem =
                                           uploadedImages[uploadedImagesIndex];
-                                      return ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        child: Image.network(
-                                          uploadedImagesItem,
-                                          width: 200.0,
-                                          height: 200.0,
-                                          fit: BoxFit.cover,
+                                      return Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 8.0, 0.0),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          child: Image.network(
+                                            'https://picsum.photos/seed/62/600',
+                                            width: 100.0,
+                                            height: 100.0,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       );
                                     }),
@@ -826,8 +818,9 @@ class _PanneWidgetState extends State<PanneWidget> {
                             id: widget.task?.id,
                             imei: widget.task?.imei,
                             matricule: widget.task?.matricule,
-                            imagesList: _model.uploadedImagesURLs,
                             observation: _model.textController4.text,
+                            imagesList:
+                                _model.uploadedLocalFiles_panneTaskMedia,
                           );
 
                           if ((_model.apiResulto6y?.succeeded ?? true)) {

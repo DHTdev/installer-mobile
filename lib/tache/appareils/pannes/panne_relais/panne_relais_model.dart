@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'panne_relais_widget.dart' show PanneRelaisWidget;
@@ -23,13 +24,14 @@ class PanneRelaisModel extends FlutterFlowModel<PanneRelaisWidget> {
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
   bool isDataUploading_uploadDataOk8 = false;
-  FFUploadedFile uploadedLocalFile_uploadDataOk8 =
-      FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
+  List<FFUploadedFile> uploadedLocalFiles_uploadDataOk8 = [];
 
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode4;
   TextEditingController? textController4;
   String? Function(BuildContext, String?)? textController4Validator;
+  // Stores action output result for [Backend Call - API (changeRelai)] action in Button widget.
+  ApiCallResponse? apiResultChR;
 
   @override
   void initState(BuildContext context) {}

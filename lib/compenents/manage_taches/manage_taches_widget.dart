@@ -145,7 +145,7 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
                       PanneGPSWidget.routeName,
                       queryParameters: {
                         'task': serializeParam(
-                          TechnicianTaskStruct(),
+                          widget.task,
                           ParamType.DataStruct,
                         ),
                       }.withoutNulls,
@@ -155,9 +155,9 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
                       context.pushNamed(
                         PanneRelaisWidget.routeName,
                         queryParameters: {
-                          'clientName': serializeParam(
-                            '',
-                            ParamType.String,
+                          'task': serializeParam(
+                            widget.task,
+                            ParamType.DataStruct,
                           ),
                         }.withoutNulls,
                       );

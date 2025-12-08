@@ -560,6 +560,43 @@ class AppareilsCall {
       alwaysAllowBody: false,
     );
   }
+
+  List? sim(dynamic response) => getJsonField(
+        response,
+        r'''$.SIM''',
+        true,
+      ) as List?;
+  List? gps(dynamic response) => getJsonField(
+        response,
+        r'''$.GPS''',
+        true,
+      ) as List?;
+  List<String>? imei(dynamic response) => (getJsonField(
+        response,
+        r'''$.GPS[:].serial_number''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  int? numberGPS(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.NumberGps''',
+      ));
+  int? numberSIM(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.NumberSim''',
+      ));
+  int? numberAccessory(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.NumberAccessory''',
+      ));
+  List? accessory(dynamic response) => getJsonField(
+        response,
+        r'''$.Accessory''',
+        true,
+      ) as List?;
 }
 
 class ReturnedDevicesCall {
@@ -687,7 +724,7 @@ class TaskSpecifiqueCall {
 
     return ApiManager.instance.makeApiCall(
       callName: 'TaskSpecifique',
-      apiUrl: '${baseUrl}/getTask/{id}',
+      apiUrl: '${baseUrl}/getTask/${id}',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -710,7 +747,7 @@ class UpdateTaskCall {
 
     return ApiManager.instance.makeApiCall(
       callName: 'updateTask',
-      apiUrl: '${baseUrl}/updateTask/{id}/{statut}',
+      apiUrl: '${baseUrl}/updateTask/${id}/${statut}',
       callType: ApiCallType.PUT,
       headers: {},
       params: {},
@@ -738,7 +775,7 @@ class CancelTaskCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'cancelTask',
-      apiUrl: '${baseUrl}/cancelTask/{id}',
+      apiUrl: '${baseUrl}/cancelTask/${id}',
       callType: ApiCallType.PUT,
       headers: {
         'content-type': 'application/json',
@@ -808,7 +845,7 @@ class UpdateTaskTerminedCall {
 
     return ApiManager.instance.makeApiCall(
       callName: 'updateTaskTermined',
-      apiUrl: '${baseUrl}/updateTaskTermined/{id}',
+      apiUrl: '${baseUrl}/updateTaskTermined/${id}',
       callType: ApiCallType.PUT,
       headers: {},
       params: {},
@@ -835,7 +872,7 @@ class PostponeTaskCall {
 {"NouvelleDate":"<NouvelleDate>","Observation":"<Observation>"}''';
     return ApiManager.instance.makeApiCall(
       callName: 'postponeTask',
-      apiUrl: '${baseUrl}/postponeTask/{id}',
+      apiUrl: '${baseUrl}/postponeTask/${id}',
       callType: ApiCallType.PUT,
       headers: {
         'content-type': 'application/json',
@@ -1046,20 +1083,30 @@ class ChangeDeviceCall {
 class ChangeRelaiCall {
   Future<ApiCallResponse> call({
     int? id,
+    String? typeRelais = '',
+    String? matricule = '',
+    List<FFUploadedFile>? imagesList,
+    String? observation = '',
   }) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
+    final images = imagesList ?? [];
 
     return ApiManager.instance.makeApiCall(
       callName: 'changeRelai',
-      apiUrl: '${baseUrl}/changeRelai/{id}',
+      apiUrl: '${baseUrl}/changeRelai/${id}',
       callType: ApiCallType.PUT,
       headers: {
         'content-type': 'application/json',
         'Authorization':
             'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
       },
-      params: {},
-      bodyType: BodyType.JSON,
+      params: {
+        'typeRelais': typeRelais,
+        'Matricule': matricule,
+        'images': images,
+        'observation': observation,
+      },
+      bodyType: BodyType.MULTIPART,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -1123,21 +1170,14 @@ class ReinstallationTaskCall {
 class PanneTaskCall {
   Future<ApiCallResponse> call({
     int? id,
-    List<String>? imagesList,
+    List<FFUploadedFile>? imagesList,
     String? imei = '',
     String? matricule = '',
     String? observation = '',
   }) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
-    final images = _serializeList(imagesList);
+    final images = imagesList ?? [];
 
-    final ffApiRequestBody = '''
-{
-  "images": "<image>",
-  "imei": "${escapeStringForJson(imei)}",
-  "matricule": "${escapeStringForJson(matricule)}",
-  "observation":"${escapeStringForJson(observation)}"
-}''';
     return ApiManager.instance.makeApiCall(
       callName: 'panneTask',
       apiUrl: '${baseUrl}/panneTask/{id}',
@@ -1147,9 +1187,13 @@ class PanneTaskCall {
         'Authorization':
             'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
       },
-      params: {},
-      body: ffApiRequestBody,
-      bodyType: BodyType.JSON,
+      params: {
+        'IMEI': imei,
+        'Matricule': matricule,
+        'Observation': observation,
+        'images[]': images,
+      },
+      bodyType: BodyType.MULTIPART,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -1186,7 +1230,7 @@ class GetTasksDataForReparationCall {
 
     return ApiManager.instance.makeApiCall(
       callName: 'getTasksDataForReparation',
-      apiUrl: '${baseUrl}/getTasksDataForReparation',
+      apiUrl: '${baseUrl}/getTasksDataForReparation/{id}',
       callType: ApiCallType.GET,
       headers: {},
       params: {},

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class ReinstallationModel extends FlutterFlowModel<ReinstallationWidget> {
   ///  State fields for stateful widgets in this page.
 
+  final formKey = GlobalKey<FormState>();
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode1;
   TextEditingController? textController1;
@@ -22,6 +23,14 @@ class ReinstallationModel extends FlutterFlowModel<ReinstallationWidget> {
   FocusNode? textFieldFocusNode4;
   TextEditingController? textController4;
   String? Function(BuildContext, String?)? textController4Validator;
+  String? _textController4Validator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Nouvelle Matricule is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
@@ -31,7 +40,9 @@ class ReinstallationModel extends FlutterFlowModel<ReinstallationWidget> {
   String? Function(BuildContext, String?)? textController5Validator;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    textController4Validator = _textController4Validator;
+  }
 
   @override
   void dispose() {

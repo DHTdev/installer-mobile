@@ -257,9 +257,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: PanneRelaisWidget.routeName,
           path: PanneRelaisWidget.routePath,
           builder: (context, params) => PanneRelaisWidget(
-            clientName: params.getParam(
-              'clientName',
-              ParamType.String,
+            task: params.getParam(
+              'task',
+              ParamType.DataStruct,
+              isList: false,
+              structBuilder: TechnicianTaskStruct.fromSerializableMap,
             ),
           ),
         ),

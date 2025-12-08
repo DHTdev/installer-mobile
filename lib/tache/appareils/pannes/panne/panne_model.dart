@@ -39,8 +39,8 @@ class PanneModel extends FlutterFlowModel<PanneWidget> {
   FocusNode? textFieldFocusNode3;
   TextEditingController? textController3;
   String? Function(BuildContext, String?)? textController3Validator;
-  bool isDataUploading_taskMedia = false;
-  List<FFUploadedFile> uploadedLocalFiles_taskMedia = [];
+  bool isDataUploading_panneTaskMedia = false;
+  List<FFUploadedFile> uploadedLocalFiles_panneTaskMedia = [];
 
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode4;
