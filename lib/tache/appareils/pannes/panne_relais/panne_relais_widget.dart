@@ -629,26 +629,30 @@ class _PanneRelaisWidgetState extends State<PanneRelaisWidget> {
                                   .uploadedLocalFiles_uploadDataOk8
                                   .toList();
 
-                              return Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: List.generate(selectedImages.length,
-                                    (selectedImagesIndex) {
-                                  final selectedImagesItem =
-                                      selectedImages[selectedImagesIndex];
-                                  return Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 8.0, 0.0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/600/600',
-                                        width: 100.0,
-                                        height: 100.0,
-                                        fit: BoxFit.cover,
+                              return SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: List.generate(selectedImages.length,
+                                      (selectedImagesIndex) {
+                                    final selectedImagesItem =
+                                        selectedImages[selectedImagesIndex];
+                                    return Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 8.0, 0.0),
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        child: Image.network(
+                                          'https://picsum.photos/seed/600/600',
+                                          width: 100.0,
+                                          height: 100.0,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                }),
+                                    );
+                                  }),
+                                ),
                               );
                             },
                           ),
@@ -769,6 +773,38 @@ class _PanneRelaisWidgetState extends State<PanneRelaisWidget> {
                             imagesList: _model.uploadedLocalFiles_uploadDataOk8,
                             observation: _model.textController4.text,
                           );
+
+                          if ((_model.apiResultChR?.succeeded ?? true)) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Le changement de relais a été effectué avec succès.',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                                ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  (_model.apiResultChR?.exceptionMessage ?? ''),
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                                ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
+                            );
+                          }
 
                           safeSetState(() {});
                         },
