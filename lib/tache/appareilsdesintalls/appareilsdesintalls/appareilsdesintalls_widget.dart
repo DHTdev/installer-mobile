@@ -1,3 +1,5 @@
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/header_section_widget.dart';
 import '/components/returned_devices_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -6,6 +8,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/random_data_util.dart' as random_data;
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:text_search/text_search.dart';
 import 'appareilsdesintalls_model.dart';
@@ -31,6 +34,22 @@ class _AppareilsdesintallsWidgetState extends State<AppareilsdesintallsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AppareilsdesintallsModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.apiResultz7r = await TechnicienGroup.returnedDevicesCall.call();
+
+      if ((_model.apiResultz7r?.succeeded ?? true)) {
+        _model.returnedDevices = ((_model.apiResultz7r?.jsonBody ?? '')
+                .toList()
+                .map<ReturnedDevicesStruct?>(ReturnedDevicesStruct.maybeFromMap)
+                .toList() as Iterable<ReturnedDevicesStruct?>)
+            .withoutNulls
+            .toList()
+            .cast<ReturnedDevicesStruct>();
+        safeSetState(() {});
+      }
+    });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
@@ -282,23 +301,65 @@ class _AppareilsdesintallsWidgetState extends State<AppareilsdesintallsWidget> {
                   height: MediaQuery.sizeOf(context).height * 0.71,
                   child: Stack(
                     children: [
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                        child: ListView(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: wrapWithModel(
-                                model: _model.returnedDevicesModel,
-                                updateCallback: () => safeSetState(() {}),
-                                child: ReturnedDevicesWidget(),
-                              ),
-                            ),
-                          ],
+                      Align(
+                        alignment: AlignmentDirectional(0.0, 0.0),
+                        child: Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: Builder(
+                            builder: (context) {
+                              final returnedDevicesList =
+                                  _model.returnedDevices.toList();
+
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: returnedDevicesList.length,
+                                itemBuilder:
+                                    (context, returnedDevicesListIndex) {
+                                  final returnedDevicesListItem =
+                                      returnedDevicesList[
+                                          returnedDevicesListIndex];
+                                  return Align(
+                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 8.0),
+                                      child: wrapWithModel(
+                                        model: _model.returnedDevicesModels
+                                            .getModel(
+                                          returnedDevicesListItem.id.toString(),
+                                          returnedDevicesListIndex,
+                                        ),
+                                        updateCallback: () =>
+                                            safeSetState(() {}),
+                                        child: ReturnedDevicesWidget(
+                                          key: Key(
+                                            'Keyk4h_${returnedDevicesListItem.id.toString()}',
+                                          ),
+                                          imei: returnedDevicesListItem
+                                              .serialNumber,
+                                          nameModele: returnedDevicesListItem
+                                              .nameModele,
+                                          nomComplet: returnedDevicesListItem
+                                              .nomComplet,
+                                          matricule:
+                                              returnedDevicesListItem.matricule,
+                                          dateReturned: returnedDevicesListItem
+                                              .dataReturned,
+                                          isSelected: _model.selected,
+                                          onSelectedChanged: () async {
+                                            _model.selected = false;
+                                            safeSetState(() {});
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ),
                       ),
                       Align(
@@ -325,7 +386,7 @@ class _AppareilsdesintallsWidgetState extends State<AppareilsdesintallsWidget> {
                                     16.0, 0.0, 16.0, 0.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                color: Color(0xFF07C491),
+                                color: FlutterFlowTheme.of(context).secondary,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(

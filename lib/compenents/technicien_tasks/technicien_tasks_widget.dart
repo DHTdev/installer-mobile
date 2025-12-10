@@ -425,18 +425,11 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                                       child: Align(
                                         alignment:
                                             AlignmentDirectional(1.0, -1.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {},
-                                          child: FaIcon(
-                                            FontAwesomeIcons.ellipsisV,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            size: 24.0,
-                                          ),
+                                        child: FaIcon(
+                                          FontAwesomeIcons.ellipsisV,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 24.0,
                                         ),
                                       ),
                                     ),

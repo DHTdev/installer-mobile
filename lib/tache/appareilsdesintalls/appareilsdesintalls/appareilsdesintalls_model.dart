@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/header_section_widget.dart';
 import '/components/returned_devices_widget.dart';
@@ -25,21 +26,26 @@ class AppareilsdesintallsModel
           int index, Function(ReturnedDevicesStruct) updateFn) =>
       returnedDevices[index] = updateFn(returnedDevices[index]);
 
+  bool selected = true;
+
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Backend Call - API (ReturnedDevices)] action in Appareilsdesintalls widget.
+  ApiCallResponse? apiResultz7r;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   List<String> simpleSearchResults = [];
-  // Model for Returned_devices component.
-  late ReturnedDevicesModel returnedDevicesModel;
+  // Models for Returned_devices dynamic component.
+  late FlutterFlowDynamicModels<ReturnedDevicesModel> returnedDevicesModels;
   // Model for headerSection component.
   late HeaderSectionModel headerSectionModel;
 
   @override
   void initState(BuildContext context) {
-    returnedDevicesModel = createModel(context, () => ReturnedDevicesModel());
+    returnedDevicesModels =
+        FlutterFlowDynamicModels(() => ReturnedDevicesModel());
     headerSectionModel = createModel(context, () => HeaderSectionModel());
   }
 
@@ -48,7 +54,7 @@ class AppareilsdesintallsModel
     textFieldFocusNode?.dispose();
     textController?.dispose();
 
-    returnedDevicesModel.dispose();
+    returnedDevicesModels.dispose();
     headerSectionModel.dispose();
   }
 }

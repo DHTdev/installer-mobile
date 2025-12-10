@@ -310,7 +310,7 @@ class TechnicienGroup {
   static TasksCall tasksCall = TasksCall();
   static AppareilsCall appareilsCall = AppareilsCall();
   static ReturnedDevicesCall returnedDevicesCall = ReturnedDevicesCall();
-  static AffectedDevicesCall affectedDevicesCall = AffectedDevicesCall();
+  static AffecteDevicesCall affecteDevicesCall = AffecteDevicesCall();
   static TaskSpecifiqueCall taskSpecifiqueCall = TaskSpecifiqueCall();
   static UpdateTaskCall updateTaskCall = UpdateTaskCall();
   static CancelTaskCall cancelTaskCall = CancelTaskCall();
@@ -696,16 +696,17 @@ class ReturnedDevicesCall {
           .toList();
 }
 
-class AffectedDevicesCall {
+class AffecteDevicesCall {
   Future<ApiCallResponse> call() async {
     final baseUrl = TechnicienGroup.getBaseUrl();
 
     return ApiManager.instance.makeApiCall(
-      callName: 'affectedDevices',
+      callName: 'affecteDevices',
       apiUrl: '${baseUrl}/affectedReturnedDevices',
-      callType: ApiCallType.GET,
+      callType: ApiCallType.POST,
       headers: {},
       params: {},
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
