@@ -3,7 +3,6 @@ import '/backend/schema/structs/index.dart';
 import '/components/header_section_widget.dart';
 import '/components/returned_devices_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/index.dart';
 import 'appareilsdesintalls_widget.dart' show AppareilsdesintallsWidget;
 import 'package:flutter/material.dart';
 
@@ -26,7 +25,17 @@ class AppareilsdesintallsModel
           int index, Function(ReturnedDevicesStruct) updateFn) =>
       returnedDevices[index] = updateFn(returnedDevices[index]);
 
-  bool selected = true;
+  bool selected = false;
+
+  List<int> selectedDevices = [];
+  void addToSelectedDevices(int item) => selectedDevices.add(item);
+  void removeFromSelectedDevices(int item) => selectedDevices.remove(item);
+  void removeAtIndexFromSelectedDevices(int index) =>
+      selectedDevices.removeAt(index);
+  void insertAtIndexInSelectedDevices(int index, int item) =>
+      selectedDevices.insert(index, item);
+  void updateSelectedDevicesAtIndex(int index, Function(int) updateFn) =>
+      selectedDevices[index] = updateFn(selectedDevices[index]);
 
   ///  State fields for stateful widgets in this page.
 
@@ -39,6 +48,8 @@ class AppareilsdesintallsModel
   List<String> simpleSearchResults = [];
   // Models for Returned_devices dynamic component.
   late FlutterFlowDynamicModels<ReturnedDevicesModel> returnedDevicesModels;
+  // Stores action output result for [Backend Call - API (affecteDevices)] action in Button widget.
+  ApiCallResponse? apiResultaf3;
   // Model for headerSection component.
   late HeaderSectionModel headerSectionModel;
 

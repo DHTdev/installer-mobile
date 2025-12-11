@@ -8,18 +8,16 @@ class PanneRelaisModel extends FlutterFlowModel<PanneRelaisWidget> {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode1;
-  TextEditingController? textController1;
-  String? Function(BuildContext, String?)? textController1Validator;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode2;
-  TextEditingController? textController2;
-  String? Function(BuildContext, String?)? textController2Validator;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode3;
-  TextEditingController? textController3;
-  String? Function(BuildContext, String?)? textController3Validator;
+  // State field(s) for ClientName widget.
+  FocusNode? clientNameFocusNode;
+  TextEditingController? clientNameTextController;
+  String? Function(BuildContext, String?)? clientNameTextControllerValidator;
+  // State field(s) for Matricule widget.
+  final matriculeKey = GlobalKey();
+  FocusNode? matriculeFocusNode;
+  TextEditingController? matriculeTextController;
+  String? matriculeSelectedOption;
+  String? Function(BuildContext, String?)? matriculeTextControllerValidator;
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
@@ -27,9 +25,9 @@ class PanneRelaisModel extends FlutterFlowModel<PanneRelaisWidget> {
   List<FFUploadedFile> uploadedLocalFiles_uploadDataOk8 = [];
 
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode4;
-  TextEditingController? textController4;
-  String? Function(BuildContext, String?)? textController4Validator;
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController3;
+  String? Function(BuildContext, String?)? textController3Validator;
   // Stores action output result for [Backend Call - API (changeRelai)] action in Button widget.
   ApiCallResponse? apiResultChR;
 
@@ -38,16 +36,12 @@ class PanneRelaisModel extends FlutterFlowModel<PanneRelaisWidget> {
 
   @override
   void dispose() {
-    textFieldFocusNode1?.dispose();
-    textController1?.dispose();
+    clientNameFocusNode?.dispose();
+    clientNameTextController?.dispose();
 
-    textFieldFocusNode2?.dispose();
-    textController2?.dispose();
+    matriculeFocusNode?.dispose();
 
-    textFieldFocusNode3?.dispose();
+    textFieldFocusNode?.dispose();
     textController3?.dispose();
-
-    textFieldFocusNode4?.dispose();
-    textController4?.dispose();
   }
 }

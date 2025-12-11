@@ -697,15 +697,27 @@ class ReturnedDevicesCall {
 }
 
 class AffecteDevicesCall {
-  Future<ApiCallResponse> call() async {
+  Future<ApiCallResponse> call({
+    List<int>? articlesList,
+  }) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
+    final articles = _serializeList(articlesList);
 
+    final ffApiRequestBody = '''
+{
+  "Articles": ${articles}
+}''';
     return ApiManager.instance.makeApiCall(
       callName: 'affecteDevices',
       apiUrl: '${baseUrl}/affectedReturnedDevices',
       callType: ApiCallType.POST,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -922,7 +934,11 @@ class TaskToConfirmedCall {
       callName: 'taskToConfirmed',
       apiUrl: '${baseUrl}/taskToConfirmed',
       callType: ApiCallType.GET,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -932,6 +948,88 @@ class TaskToConfirmedCall {
       alwaysAllowBody: false,
     );
   }
+
+  List<String>? clientName(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].client_name''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<int>? etatTache(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].etat_tache''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<int>? tacheID(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].tache_id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<int>? createdBiID(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].createdBy_id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? date(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].date_previsionnelle_debut''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? telephoneClient(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].telephone_client''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? userName(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].user_name''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? catache(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].catache''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<int>? validation(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].validation''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
 }
 
 class StartedTaskCall {

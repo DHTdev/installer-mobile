@@ -21,6 +21,7 @@ export 'pivot_struct.dart';
 export 'reinstallation_task_struct.dart';
 export 'reparation_info_struct.dart';
 export 'returned_devices_struct.dart';
+export 'tache_a_confirmer_struct.dart';
 export 'task_commercial_struct.dart';
 export 'task_pre_client_struct.dart';
 export 'technician_task_struct.dart';

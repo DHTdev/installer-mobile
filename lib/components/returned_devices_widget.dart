@@ -13,8 +13,9 @@ class ReturnedDevicesWidget extends StatefulWidget {
     this.nomComplet,
     this.matricule,
     this.dateReturned,
-    this.isSelected,
+    this.selected,
     this.onSelectedChanged,
+    this.id,
   });
 
   final String? imei;
@@ -22,8 +23,9 @@ class ReturnedDevicesWidget extends StatefulWidget {
   final String? nomComplet;
   final String? matricule;
   final String? dateReturned;
-  final bool? isSelected;
-  final Future Function()? onSelectedChanged;
+  final bool? selected;
+  final Future Function(int id, bool value)? onSelectedChanged;
+  final int? id;
 
   @override
   State<ReturnedDevicesWidget> createState() => _ReturnedDevicesWidgetState();
@@ -282,14 +284,20 @@ class _ReturnedDevicesWidgetState extends State<ReturnedDevicesWidget> {
                                   ),
                                   child: Checkbox(
                                     value: _model.checkboxValue ??=
-                                        widget.isSelected!,
+                                        widget.selected!,
                                     onChanged: (newValue) async {
                                       safeSetState(() =>
                                           _model.checkboxValue = newValue!);
                                       if (newValue!) {
-                                        await widget.onSelectedChanged?.call();
+                                        await widget.onSelectedChanged?.call(
+                                          widget.id!,
+                                          true,
+                                        );
                                       } else {
-                                        await widget.onSelectedChanged?.call();
+                                        await widget.onSelectedChanged?.call(
+                                          widget.id!,
+                                          false,
+                                        );
                                       }
                                     },
                                     side: (FlutterFlowTheme.of(context)

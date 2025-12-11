@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/random_data_util.dart' as random_data;
-import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -347,10 +346,20 @@ class _AppareilsdesintallsWidgetState extends State<AppareilsdesintallsWidget> {
                                               returnedDevicesListItem.matricule,
                                           dateReturned: returnedDevicesListItem
                                               .dataReturned,
-                                          isSelected: _model.selected,
-                                          onSelectedChanged: () async {
-                                            _model.selected = false;
-                                            safeSetState(() {});
+                                          selected: _model.selected,
+                                          id: returnedDevicesListItem.id,
+                                          onSelectedChanged: (id, value) async {
+                                            if (value == true) {
+                                              _model.addToSelectedDevices(
+                                                  returnedDevicesListItem.id);
+                                              _model.selected = true;
+                                              safeSetState(() {});
+                                            } else {
+                                              _model.removeFromSelectedDevices(
+                                                  returnedDevicesListItem.id);
+                                              _model.selected = false;
+                                              safeSetState(() {});
+                                            }
                                           },
                                         ),
                                       ),
@@ -375,8 +384,32 @@ class _AppareilsdesintallsWidgetState extends State<AppareilsdesintallsWidget> {
                             alignment: AlignmentDirectional(-0.11, 0.45),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                context.pushNamed(
-                                    TcheexceptionnelWidget.routeName);
+                                _model.apiResultaf3 = await TechnicienGroup
+                                    .affecteDevicesCall
+                                    .call(
+                                  articlesList: _model.selectedDevices,
+                                );
+
+                                if ((_model.apiResultaf3?.succeeded ?? true)) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        (_model.apiResultaf3?.succeeded ?? true)
+                                            .toString(),
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondary,
+                                    ),
+                                  );
+                                }
+
+                                safeSetState(() {});
                               },
                               text: 'Retourner  à ST',
                               options: FFButtonOptions(
