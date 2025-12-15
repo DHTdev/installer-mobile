@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:mobile_installer/backend/schema/structs/exception_task_form_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/installation_submit_struct.dart';
+import 'package:mobile_installer/backend/schema/structs/panne_gps_submit_struct.dart';
+import 'package:mobile_installer/backend/schema/structs/panne_sim_struct.dart';
+import 'package:mobile_installer/backend/schema/structs/reinstallation_task_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/unistall_task_struct.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
@@ -334,12 +337,12 @@ class TechnicienGroup {
   static ReinstallationTaskCall reinstallationTaskCall = ReinstallationTaskCall();
   static PanneTaskCall panneTaskCall = PanneTaskCall();
   static GetNewTaskInfoCall getNewTaskInfoCall = GetNewTaskInfoCall();
+  static GetAllCities getAllCities = GetAllCities();
 }
 
 class TasksCall {
   Future<ApiCallResponse> call(String? authToken) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
-    print("Auth Token: ${authToken}");
     return ApiManager.instance.makeApiCall(
       callName: 'Tasks',
       apiUrl: '${baseUrl}/tâches',
@@ -643,14 +646,25 @@ class ReturnedDevicesCall {
 }
 
 class AffectedDevicesCall {
-  Future<ApiCallResponse> call() async {
+  Future<ApiCallResponse> call({required List<int> articlesList}) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
+    final articles = _serializeList(articlesList);
 
+    final ffApiRequestBody = '''
+{
+  "Articles": ${articles}
+}''';
+    // print("send data: ${jsonEncode(ffApiRequestBody)}");
     return ApiManager.instance.makeApiCall(
       callName: 'affectedDevices',
       apiUrl: '${baseUrl}/affectedReturnedDevices',
-      callType: ApiCallType.GET,
-      headers: {},
+      callType: ApiCallType.POST,
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -686,7 +700,7 @@ class TaskSpecifiqueCall {
 
 class UpdateTaskCall {
   Future<ApiCallResponse> call(int? id, InstallationSubmitStruct? task, String? statut) async {
-    print("send data ${id}: ${jsonEncode(task!.toMap())}");
+    // print("send data ${id}: ${jsonEncode(task!.toMap())}");
     final baseUrl = TechnicienGroup.getBaseUrl();
 
     return ApiManager.instance.makeApiCall(
@@ -698,7 +712,7 @@ class UpdateTaskCall {
         'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
       },
       params: {},
-      body: jsonEncode(task.toMap()),
+      body: jsonEncode(task!.toMap()),
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -811,7 +825,6 @@ class PostponeTaskCall {
     String? NouvelleDate,
   }) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
-    print("send data ${id}: ${jsonEncode({"NouvelleDate": NouvelleDate, "id": id, "Observation": observation})}");
     return ApiManager.instance.makeApiCall(
       callName: 'postponeTask',
       apiUrl: '${baseUrl}/postponeTask/${id}',
@@ -867,7 +880,10 @@ class TaskToConfirmedCall {
       callName: 'taskToConfirmed',
       apiUrl: '${baseUrl}/taskToConfirmed',
       callType: ApiCallType.GET,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -970,8 +986,6 @@ class UpdateTaskConfirmedCall {
 
 class UninstallTaskCall {
   Future<ApiCallResponse> call(int? id, UninstallTaskStruct uninstallTask) async {
-    print("send data ${id}: ${jsonEncode(uninstallTask!.toMap()['NSIM'])}");
-
     final baseUrl = TechnicienGroup.getBaseUrl();
 
     return ApiManager.instance.makeApiCall(
@@ -996,16 +1010,18 @@ class UninstallTaskCall {
 }
 
 class ChangeDeviceCall {
-  Future<ApiCallResponse> call({
-    int? id,
-  }) async {
+  Future<ApiCallResponse> call(int? id, PanneGpsSubmitStruct panneGps) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
 
     return ApiManager.instance.makeApiCall(
       callName: 'changeDevice',
-      apiUrl: '${baseUrl}/changeDevice/{id}',
+      apiUrl: '${baseUrl}/changeDevice/${id}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': "Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92",
+      },
+      body: jsonEncode(panneGps.toMap()),
       params: {},
       bodyType: BodyType.JSON,
       returnBody: true,
@@ -1042,16 +1058,18 @@ class ChangeRelaiCall {
 }
 
 class ChangeSimidCall {
-  Future<ApiCallResponse> call({
-    int? id,
-  }) async {
+  Future<ApiCallResponse> call(int id, PanneSimSubmitStruct panneSimSubmit) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
-
+    print("send data ${id}: ${jsonEncode(panneSimSubmit.toMap())}");
     return ApiManager.instance.makeApiCall(
       callName: 'changeSimid',
-      apiUrl: '${baseUrl}/changeSim/{id}',
+      apiUrl: '${baseUrl}/changeSim/${id}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
+      body: jsonEncode(panneSimSubmit.toMap()),
       params: {},
       bodyType: BodyType.JSON,
       returnBody: true,
@@ -1065,16 +1083,17 @@ class ChangeSimidCall {
 }
 
 class ReinstallationTaskCall {
-  Future<ApiCallResponse> call({
-    int? id,
-  }) async {
+  Future<ApiCallResponse> call(int? id, ReinstallationTaskStruct reinstallationTask) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
-
     return ApiManager.instance.makeApiCall(
       callName: 'reinstallationTask',
-      apiUrl: '${baseUrl}/reinstallationTask/{id}',
+      apiUrl: '${baseUrl}/reinstallationTask/${id}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
+      body: jsonEncode(reinstallationTask.toMap()),
       params: {},
       bodyType: BodyType.JSON,
       returnBody: true,
@@ -1112,11 +1131,30 @@ class PanneTaskCall {
 
 class GetNewTaskInfoCall {
   Future<ApiCallResponse> call() async {
-    final baseUrl = TechnicienGroup.getBaseUrl();
-    print("Auth Token: ${FFAppState().authToken}");
     return ApiManager.instance.makeApiCall(
       callName: 'getNewTaskInfo',
       apiUrl: 'https://d3instal.com/api/supportTechnique/newTask',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${FFAppState().authToken}',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetAllCities {
+  Future<ApiCallResponse> call() async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getAllCities',
+      apiUrl: 'https://d3instal.com/api/comptable/allCities',
       callType: ApiCallType.GET,
       headers: {
         'Content-Type': 'application/json',

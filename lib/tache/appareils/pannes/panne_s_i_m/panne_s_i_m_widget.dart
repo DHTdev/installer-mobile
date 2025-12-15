@@ -1,59 +1,58 @@
 import 'dart:async';
 
-import 'package:mobile_installer/backend/api_requests/api_calls.dart';
-import 'package:mobile_installer/backend/schema/structs/index.dart';
+import 'package:mobile_installer/backend/schema/structs/car_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/installed_device_struct.dart';
+import 'package:mobile_installer/backend/schema/structs/panne_sim_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/reparation_info_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/technician_task_struct.dart';
-import 'package:mobile_installer/backend/schema/structs/unistall_task_struct.dart';
-import 'package:mobile_installer/flutter_flow/upload_data.dart';
-
+import 'package:mobile_installer/compenents/listOfSelection/list_of_Selection_widget.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'desinstallation_model.dart';
-export 'desinstallation_model.dart';
+import 'panne_s_i_m_model.dart';
+export 'panne_s_i_m_model.dart';
 
-class DesinstallationWidget extends StatefulWidget {
-  DesinstallationWidget({super.key, this.infoTask});
+class PanneSIMWidget extends StatefulWidget {
+  PanneSIMWidget({
+    super.key,
+    this.infoTask,
+  });
 
-  static String routeName = 'Desinstallation';
-  static String routePath = '/desinstallation';
   final TechnicianTaskStruct? infoTask;
 
+  static String routeName = 'PanneSIM';
+  static String routePath = '/panneSIM';
+
   @override
-  State<DesinstallationWidget> createState() => _DesinstallationWidgetState();
+  State<PanneSIMWidget> createState() => _PanneSIMWidgetState();
 }
 
-class _DesinstallationWidgetState extends State<DesinstallationWidget> with TickerProviderStateMixin {
-  late DesinstallationModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+class _PanneSIMWidgetState extends State<PanneSIMWidget> with TickerProviderStateMixin {
+  late PanneSIMModel _model;
   ReparationInfoStruct previousTaskInfo = ReparationInfoStruct();
   List<InstalledDeviceStruct> devicesInstalled = [];
   List<CarStruct> vehicules = [];
   String? serial_numberCombination;
   List<CarStruct> selectedVehicule = [];
   bool _isButtonEnabled = true;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
-
-    _model = createModel(context, () => DesinstallationModel());
+    _model = createModel(context, () => PanneSIMModel());
     GetTasksCall();
-
     _model.textControllerIMEI ??= TextEditingController();
-    _model.textFieldFocusIMEI ??= FocusNode();
+    _model.textFieldFocusNodeIMEI ??= FocusNode();
 
     _model.textControllerSimCombinat ??= TextEditingController();
     _model.textFieldFocusNodeSimCombinat ??= FocusNode();
@@ -63,32 +62,6 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget> with Tick
 
     _model.textControllerObsirvation ??= TextEditingController();
     _model.textFieldFocusNodeObsirvation ??= FocusNode();
-
-    animationsMap.addAll({
-      'containerOnPageLoadAnimation': AnimationInfo(
-        trigger: AnimationTrigger.onPageLoad,
-        effectsBuilder: () => [
-          FadeEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 600.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-          MoveEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 600.0.ms,
-            begin: Offset(0.0, 110.0),
-            end: Offset(0.0, 0.0),
-          ),
-        ],
-      ),
-    });
-    setupAnimations(
-      animationsMap.values.where((anim) => anim.trigger == AnimationTrigger.onActionTrigger || !anim.applyInitialState),
-      this,
-    );
   }
 
   Future<ReparationInfoStruct> GetTasksCall() async {
@@ -104,117 +77,120 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget> with Tick
     return previousTaskInfo;
   }
 
-  Future<void> submitUninstallTask() async {
-    print("submitUninstallTask called ${_model.textControllerMatricule.text}");
-    if (_model.formKey.currentState == null || !_model.formKey.currentState!.validate() || _model.isDataUploading_unistallationTask.isEmpty) {
-      setState(() => _model.textControllerImagesValidator = "Veuillez choisir au moins une image");
+  void setState(VoidCallback callback) {
+    super.setState(callback);
+    _model.textControllerMatricule.text = selectedVehicule.isNotEmpty ? selectedVehicule.first.matricule : '';
+    _model.onUpdate();
+  }
+
+  Future<void> endPanneSim() async {
+    if (_model.formKey.currentState == null || !_model.formKey.currentState!.validate() || _model.isDataUploading_panneSimTask.isEmpty || _model.newSimSelected == null) {
+      setState() {
+        _model.textControllerImagesValidator = "Veuillez choisir au moins une image";
+        _model.textControllerSimValidator = "Veuillez choisir une nouvelle SIM";
+      }
+
       return;
     }
-    setState(() => _isButtonEnabled = false);
-    // Implement the submission logic here
-    final uninstallTaskInfo = UninstallTaskStruct(
+    setState(() {
+      _isButtonEnabled = false;
+    });
+    final panneSimSubmitData = PanneSimSubmitStruct(
       imei: _model.textControllerIMEI.text,
-      nsim: _model.textControllerSimCombinat.text,
-      matricule: _model.textControllerMatricule.text,
       observation: _model.textControllerObsirvation.text,
-      special: _model.dropDownValue,
-      images: _model.isDataUploading_unistallationTask, // Add logic to handle images if necessary
+      matricule: _model.textControllerMatricule.text,
+      nouveauSim: _model.newSimSelected,
+      images: _model.isDataUploading_panneSimTask,
     );
-    _model.apiResultUnistallationTask = await TechnicienGroup.uninstallTaskCall.call(widget.infoTask?.id, uninstallTaskInfo);
-    if ((_model.apiResultUnistallationTask?.succeeded ?? true)) {
+    try {
+      await TechnicienGroup.changeSimidCall.call(widget.infoTask!.id, panneSimSubmitData);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            'L’opération de désinstallation a été menée à bien.',
-            style: TextStyle(
-              color: FlutterFlowTheme.of(context).primaryText,
-            ),
-          ),
+          content: Text('La panne de la carte SIM a été traitée avec succès.',
+              style: TextStyle(
+                color: FlutterFlowTheme.of(context).primaryText,
+              )),
           duration: Duration(milliseconds: 4000),
           backgroundColor: FlutterFlowTheme.of(context).secondary,
         ),
       );
-      context.pop();
-    } else {
+      Navigator.pop(context);
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            'Oups — une erreur est survenue.',
-            style: TextStyle(
-              color: FlutterFlowTheme.of(context).primaryText,
-            ),
-          ),
+          content: Text('Oups — une erreur est survenue.',
+              style: TextStyle(
+                color: FlutterFlowTheme.of(context).primaryText,
+              )),
           duration: Duration(milliseconds: 4000),
-          backgroundColor: FlutterFlowTheme.of(context).secondary,
+          backgroundColor: FlutterFlowTheme.of(context).error,
         ),
       );
+    } finally {
+      setState(() {
+        _isButtonEnabled = true;
+      });
     }
   }
 
   @override
   void dispose() {
     _model.dispose();
+
     super.dispose();
   }
-
-  // void setState(VoidCallback callback) {
-  //   super.setState(callback);
-  //   print("setState called");
-  //   _model.textControllerMatricule.text = selectedVehicule.isNotEmpty ? selectedVehicule.first.matricule : '';
-  //   _model.onUpdate();
-  // }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-          FocusManager.instance.primaryFocus?.unfocus();
-        },
-        child: Scaffold(
-          key: scaffoldKey,
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-          appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-            automaticallyImplyLeading: false,
-            leading: FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 30.0,
-              borderWidth: 1.0,
-              buttonSize: 60.0,
-              icon: Icon(
-                Icons.arrow_back_rounded,
-                color: FlutterFlowTheme.of(context).primaryText,
-                size: 30.0,
-              ),
-              onPressed: () async {
-                context.pop();
-              },
+          automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30.0,
+            borderWidth: 1.0,
+            buttonSize: 60.0,
+            icon: Icon(
+              Icons.arrow_back_rounded,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 30.0,
             ),
-            title: Text(
-              'Desinstallation',
-              style: FlutterFlowTheme.of(context).titleLarge.override(
-                    font: GoogleFonts.interTight(
-                      fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
-                      fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
-                    ),
-                    letterSpacing: 0.0,
+            onPressed: () async {
+              context.pop();
+            },
+          ),
+          title: Text(
+            'Changement de SIM',
+            style: FlutterFlowTheme.of(context).titleLarge.override(
+                  font: GoogleFonts.interTight(
                     fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
                     fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
                   ),
-            ),
-            actions: [],
-            centerTitle: false,
-            elevation: 0.0,
+                  letterSpacing: 0.0,
+                  fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
+                  fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                ),
           ),
-          body: SafeArea(
-            top: true,
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
-              child: FutureBuilder<ApiCallResponse>(
+          actions: [],
+          centerTitle: false,
+          elevation: 0.0,
+        ),
+        body: SafeArea(
+          top: true,
+          child: Form(
+            key: _model.formKey,
+            autovalidateMode: AutovalidateMode.disabled,
+            child: FutureBuilder<ApiCallResponse>(
                 future: (_model.apiResponseCompleter ??= Completer<ApiCallResponse>()..complete(TechnicienGroup.getTasksCall.call(widget.infoTask?.id))).future,
                 builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
                   if (!snapshot.hasData) {
                     return Center(
                       child: SizedBox(
@@ -228,38 +204,38 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget> with Tick
                       ),
                     );
                   }
-                  return SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Align(
-                          alignment: AlignmentDirectional(-1.0, 0.0),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              "${widget.infoTask?.clientName}",
-                              style: FlutterFlowTheme.of(context).titleLarge.override(
-                                    font: GoogleFonts.interTight(
-                                      fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                  return Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Align(
+                                  alignment: AlignmentDirectional(-1.0, 0.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 10.0),
+                                    child: Text(
+                                      "${widget.infoTask?.clientName}",
+                                      style: FlutterFlowTheme.of(context).titleLarge.override(
+                                            font: GoogleFonts.interTight(
+                                              fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
+                                            fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                                          ),
                                     ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
                                   ),
-                            ),
-                          ),
-                        ),
-                        Form(
-                          key: _model.formKey,
-                          autovalidateMode: AutovalidateMode.disabled,
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
+                                ),
+                                Form(
+                                    child: Column(
                                   children: [
                                     Autocomplete<InstalledDeviceStruct>(
                                       optionsBuilder: (TextEditingValue textEditingValue) {
@@ -273,12 +249,11 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget> with Tick
                                           keyboardType: TextInputType.number,
                                           controller: textEditingController,
                                           focusNode: focusNode,
-                                          autofocus: true,
+                                          autofocus: false,
                                           obscureText: false,
                                           onChanged: (value) {
                                             setState(() {
                                               _model.textControllerIMEI.text = value;
-                                              _model.textControllerMatricule.text = selectedVehicule.isNotEmpty ? selectedVehicule.first.matricule : '';
                                             });
                                           },
                                           decoration: InputDecoration(
@@ -341,7 +316,7 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget> with Tick
                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                               ),
                                           cursorColor: FlutterFlowTheme.of(context).primary,
-                                          validator: _model.textController1Validator.asValidator(context),
+                                          validator: _model.textControllerImeiValidator.asValidator(context),
                                         );
                                       },
                                       optionsViewBuilder: ((context, onselected, gpdDevicesPreTech) {
@@ -366,76 +341,9 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget> with Tick
                                       displayStringForOption: (InstalledDeviceStruct option) => option.serialNumber,
                                     ),
                                     TextFormField(
-                                      controller: _model.textControllerSimCombinat,
-                                      focusNode: _model.textFieldFocusNodeSimCombinat,
-                                      autofocus: true,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: 'SIM',
-                                        labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                                fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                              fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                                fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                              fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                            ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context).alternate,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius: BorderRadius.circular(12.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context).primary,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius: BorderRadius.circular(12.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context).error,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius: BorderRadius.circular(12.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context).error,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius: BorderRadius.circular(12.0),
-                                        ),
-                                        contentPadding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
-                                      ),
-                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                            font: GoogleFonts.inter(
-                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                            ),
-                                            letterSpacing: 0.0,
-                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                          ),
-                                      cursorColor: FlutterFlowTheme.of(context).primary,
-                                      validator: _model.textController2Validator.asValidator(context),
-                                    ),
-                                    TextFormField(
                                       controller: _model.textControllerMatricule,
                                       focusNode: _model.textFieldFocusNodeMatricule,
-                                      autofocus: true,
+                                      autofocus: false,
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Matricule',
@@ -499,46 +407,160 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget> with Tick
                                       cursorColor: FlutterFlowTheme.of(context).primary,
                                       validator: _model.textControllerMatriculeValidator.asValidator(context),
                                     ),
-                                    FlutterFlowDropDown<String>(
-                                      controller: _model.dropDownValueController ??= FormFieldController<String>(
-                                        _model.dropDownValue ??= widget.infoTask?.gps_principale.toString(),
+                                    TextFormField(
+                                      controller: _model.textControllerSimCombinat,
+                                      focusNode: _model.textFieldFocusNodeSimCombinat,
+                                      autofocus: false,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        labelText: 'Ancienne SIM',
+                                        labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                                fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                            ),
+                                        hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                                fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                            ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context).alternate,
+                                            width: 2.0,
+                                          ),
+                                          borderRadius: BorderRadius.circular(12.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context).primary,
+                                            width: 2.0,
+                                          ),
+                                          borderRadius: BorderRadius.circular(12.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context).error,
+                                            width: 2.0,
+                                          ),
+                                          borderRadius: BorderRadius.circular(12.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context).error,
+                                            width: 2.0,
+                                          ),
+                                          borderRadius: BorderRadius.circular(12.0),
+                                        ),
+                                        contentPadding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
                                       ),
-                                      options: List<String>.from([
-                                        'client',
-                                      ]),
-                                      optionLabels: [
-                                        'Client',
-                                      ],
-                                      onChanged: (val) => safeSetState(() => _model.dropDownValue = val),
-                                      width: MediaQuery.of(context).size.width * 0.88,
-                                      height: 41.8,
-                                      textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.inter(
                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                             ),
-                                            color: Color(0xFF57636C),
                                             letterSpacing: 0.0,
                                             fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                             fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
-                                      hintText: 'Remettre Chez',
-                                      icon: Icon(
-                                        Icons.keyboard_arrow_down_rounded,
-                                        color: FlutterFlowTheme.of(context).secondaryText,
-                                        size: 24,
-                                      ),
-                                      fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                      elevation: 2,
-                                      borderColor: FlutterFlowTheme.of(context).secondaryText,
-                                      borderWidth: 0,
-                                      borderRadius: 8,
-                                      margin: EdgeInsetsDirectional.fromSTEB(10, 0, 12, 0),
-                                      hidesUnderline: true,
-                                      isOverButton: false,
-                                      isSearchable: false,
-                                      isMultiSelect: false,
+                                      cursorColor: FlutterFlowTheme.of(context).primary,
+                                      validator: _model.textController4Validator.asValidator(context),
                                     ),
+                                    // Generated code for this Container Widget...
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        await showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          enableDrag: false,
+                                          context: context,
+                                          builder: (context) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                FocusScope.of(context).unfocus();
+                                                FocusManager.instance.primaryFocus?.unfocus();
+                                              },
+                                              child: Padding(
+                                                padding: MediaQuery.viewInsetsOf(context),
+                                                child: ListOfSelectionWidget(
+                                                  onItemSelected: (selectedSim) {
+                                                    setState(() => _model.newSimSelected = selectedSim);
+                                                  },
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ).then((value) => safeSetState(() {}));
+                                      },
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: 50,
+                                        constraints: BoxConstraints(
+                                          maxWidth: 500,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                                          borderRadius: BorderRadius.circular(12),
+                                          border: Border.all(
+                                            color: _model.textControllerSimValidator != null ? FlutterFlowTheme.of(context).error : FlutterFlowTheme.of(context).alternate,
+                                            width: 2,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(3.0, 8.0, 5.0, 8.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                                                child: Text(
+                                                  valueOrDefault(_model.newSimSelected, "Nouvelle SIM"),
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    if (_model.textControllerSimValidator != null)
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 0.0),
+                                        child: Text(
+                                          _model.textControllerSimValidator!,
+                                          style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                  fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                ),
+                                                color: FlutterFlowTheme.of(context).error,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                              ),
+                                        ),
+                                      ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                                       child: Container(
@@ -573,7 +595,7 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget> with Tick
                                                     multiImage: true,
                                                   );
                                                   if (selectedMedia != null && selectedMedia.every((m) => validateFileFormat(m.storagePath, context))) {
-                                                    safeSetState(() => _model.isDataUploading_unistallationTaskState = true);
+                                                    safeSetState(() => _model.isDataUploading_panneSimTaskState = true);
                                                     var selectedUploadedFiles = <FFUploadedFile>[];
                                                     try {
                                                       for (final media in selectedMedia) {
@@ -591,13 +613,13 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget> with Tick
                                                         );
                                                       }
                                                     } finally {
-                                                      _model.isDataUploading_unistallationTaskState = false;
+                                                      _model.isDataUploading_panneSimTaskState = false;
                                                     }
                                                     if (selectedUploadedFiles.length == selectedMedia.length) {
                                                       final imagesJson = await prepareImagesForLaravel(selectedUploadedFiles);
 
                                                       safeSetState(() {
-                                                        _model.isDataUploading_unistallationTask = imagesJson;
+                                                        _model.isDataUploading_panneSimTask = imagesJson;
                                                       });
                                                     } else {
                                                       safeSetState(() {});
@@ -655,10 +677,11 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget> with Tick
                                               ),
                                         ),
                                       ),
+
                                     TextFormField(
                                       controller: _model.textControllerObsirvation,
                                       focusNode: _model.textFieldFocusNodeObsirvation,
-                                      autofocus: true,
+                                      autofocus: false,
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
@@ -670,7 +693,7 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget> with Tick
                                               fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
                                               fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
                                             ),
-                                        hintText: 'Observations',
+                                        hintText: 'Observation...',
                                         hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
                                               font: GoogleFonts.inter(
                                                 fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
@@ -722,56 +745,57 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget> with Tick
                                       maxLines: 16,
                                       minLines: 6,
                                       cursorColor: FlutterFlowTheme.of(context).primary,
+                                      validator: _model.textController6Validator.asValidator(context),
                                     ),
                                   ].divide(SizedBox(height: 12.0)),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    _isButtonEnabled ? await submitUninstallTask() : null;
-                                  },
-                                  text: 'Envoyer',
-                                  icon: Icon(
-                                    Icons.receipt_long,
-                                    size: 15.0,
-                                  ),
-                                  options: FFButtonOptions(
-                                    width: double.infinity,
-                                    height: 48.0,
-                                    padding: EdgeInsets.all(0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context).secondary,
-                                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                          font: GoogleFonts.interTight(
-                                            fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                                            fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                          ),
-                                          color: Colors.white,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                                          fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                        ),
-                                    elevation: 4.0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(60.0),
-                                  ),
-                                ),
-                              ),
-                            ],
+                                ))
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                _isButtonEnabled ? await endPanneSim() : null;
+                              },
+                              text: 'Enregistrer',
+                              icon: Icon(
+                                Icons.receipt_long,
+                                size: 15.0,
+                              ),
+                              options: FFButtonOptions(
+                                width: double.infinity,
+                                height: 48.0,
+                                padding: EdgeInsets.all(0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context).secondary,
+                                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                      font: GoogleFonts.interTight(
+                                        fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                      ),
+                                      color: Colors.white,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                    ),
+                                elevation: 4.0,
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(60.0),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
-                },
-              ),
-            ),
+                }),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

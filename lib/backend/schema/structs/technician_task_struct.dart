@@ -210,7 +210,7 @@ class TechnicianTaskStruct extends BaseStruct {
         catache: data['catache'] as String?,
         cityName: data['cityName'] as String?,
         clientName: data['client_name'] as String?,
-        date_affectation: DateTime.parse(data['date_affectation']),
+        date_affectation: data['date_affectation'] != null ? DateTime.parse(data['date_affectation']) : null,
         date_debut_realisation: data['date_debut_realisation'] != null ?
             DateTime.parse(data['date_debut_realisation']) : null,
         date_previsionnelle_debut:DateFormat('yyyy-MM-dd').parse(data['date_previsionnelle_debut']),

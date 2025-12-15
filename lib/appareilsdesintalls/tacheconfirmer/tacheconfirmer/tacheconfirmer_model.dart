@@ -1,3 +1,9 @@
+import 'dart:async';
+
+import 'package:mobile_installer/backend/api_requests/api_manager.dart';
+import 'package:mobile_installer/backend/schema/structs/index.dart';
+import 'package:mobile_installer/compenents/taskToConfirmed/task_to_confirmed_item_model.dart';
+
 import '/components/header_section_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
@@ -9,6 +15,10 @@ class TacheconfirmerModel extends FlutterFlowModel<TacheconfirmerWidget> {
 
   bool isShowFullList = true;
 
+  ApiCallResponse? apiResponseAllConfirmedTask;
+  Completer<ApiCallResponse>? apiRequestCompleterAllConfirmedTask;
+  List<TechnicianTaskStruct> tasksToConfirmed = [];
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for TextField widget.
@@ -18,9 +28,11 @@ class TacheconfirmerModel extends FlutterFlowModel<TacheconfirmerWidget> {
   List<String> simpleSearchResults = [];
   // Model for headerSection component.
   late HeaderSectionModel headerSectionModel;
+  late TaskToConfirmedItemModel taskToConfirmedItemModel;
 
   @override
   void initState(BuildContext context) {
+    taskToConfirmedItemModel = createModel(context, () => TaskToConfirmedItemModel());
     headerSectionModel = createModel(context, () => HeaderSectionModel());
   }
 

@@ -1,23 +1,20 @@
 import 'dart:async';
 
-import 'package:mobile_installer/backend/api_requests/api_calls.dart';
+import 'package:mobile_installer/backend/api_requests/api_manager.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
-import 'desinstallation_widget.dart' show DesinstallationWidget;
+import 'panne_s_i_m_widget.dart' show PanneSIMWidget;
 import 'package:flutter/material.dart';
 
-class DesinstallationModel extends FlutterFlowModel<DesinstallationWidget> {
+class PanneSIMModel extends FlutterFlowModel<PanneSIMWidget> {
   ///  State fields for stateful widgets in this page.
   ApiCallResponse? apiResultTaskDesinstallationByTech;
-  ApiCallResponse? apiResultUnistallationTask;
   Completer<ApiCallResponse>? apiResponseCompleter;
   final formKey = GlobalKey<FormState>();
-
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusIMEI;
+  FocusNode? textFieldFocusNodeIMEI;
   TextEditingController? textControllerIMEI;
-  String? Function(BuildContext, String?)? textController1Validator;
+  String? Function(BuildContext, String?)? textControllerImeiValidator;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNodeSimCombinat;
   TextEditingController? textControllerSimCombinat;
@@ -34,16 +31,27 @@ class DesinstallationModel extends FlutterFlowModel<DesinstallationWidget> {
     return null;
   }
 
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
+  // State field(s) for TextField widget.
+  String? newSimSelected;
+  String? textControllerSimValidator;
+  String? Function(BuildContext, String?)? textController4Validator;
+  // State field(s) for Imges widget.
+  String? textControllerImagesValidator;
+  bool isDataUploading_panneSimTaskState = false;
+  List<Map<String, dynamic>> isDataUploading_panneSimTask = [];
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNodeObsirvation;
   TextEditingController? textControllerObsirvation;
-  // State field(s) for Upload widget.
-  String? textControllerImagesValidator ;
-  bool isDataUploading_unistallationTaskState = false;
-  List<Map<String, dynamic>> isDataUploading_unistallationTask = [];
+  String? Function(BuildContext, String?)? textController5Validator;
+  bool isDataUploading_uploadDataIpr = false;
+  FFUploadedFile uploadedLocalFile_uploadDataIpr = FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
+
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode6;
+  TextEditingController? textController6;
+  String? Function(BuildContext, String?)? textController6Validator;
+
+  get sims => null;
 
   @override
   void initState(BuildContext context) {
@@ -52,7 +60,7 @@ class DesinstallationModel extends FlutterFlowModel<DesinstallationWidget> {
 
   @override
   void dispose() {
-    textFieldFocusIMEI?.dispose();
+    textFieldFocusNodeIMEI?.dispose();
     textControllerIMEI?.dispose();
 
     textFieldFocusNodeSimCombinat?.dispose();
@@ -63,5 +71,8 @@ class DesinstallationModel extends FlutterFlowModel<DesinstallationWidget> {
 
     textFieldFocusNodeObsirvation?.dispose();
     textControllerObsirvation?.dispose();
+
+    textFieldFocusNode6?.dispose();
+    textController6?.dispose();
   }
 }

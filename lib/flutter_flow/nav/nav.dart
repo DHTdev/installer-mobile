@@ -67,7 +67,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: TcheexceptionnelWidget.routeName,
           path: TcheexceptionnelWidget.routePath,
-          builder: (context, params) => TcheexceptionnelWidget(),
+          builder: (context, params) => TcheexceptionnelWidget(typeTask: params.getParam('typeTask', ParamType.String)),
         ),
         FFRoute(
           name: AppareilsWidget.routeName,

@@ -1,6 +1,7 @@
 import 'package:mobile_installer/tache/appareils/pannes/panne_g_p_s/panne_g_p_s_widget.dart';
 import 'package:mobile_installer/tache/appareils/pannes/panne_relais/panne_relais_widget.dart';
 import 'package:mobile_installer/tache/appareils/pannes/panne_s_i_m/panne_s_i_m_widget.dart';
+import 'package:mobile_installer/tache/appareils/reinstallation/reinstallation_widget.dart';
 import 'package:mobile_installer/tache/canceled_task/canceled_task_widget.dart';
 import 'package:mobile_installer/tache/tchesreporte/tchesreporte_widget.dart';
 
@@ -63,7 +64,7 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
         Navigator.push(
           context,
           MaterialPageRoute<void>(
-            builder: (context) => TacheTerminerWidget(infoTask: widget.task),
+            builder: (context) => ReinstallationWidget(infoTask: widget.task),
           ),
         );
       case "Changement du GPS":
@@ -76,23 +77,20 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
         Navigator.push(
             context,
             MaterialPageRoute<void>(
-              builder: (context) =>
-                  PanneSIMWidget(clientName: widget.task?.clientName),
+              builder: (context) => PanneSIMWidget(infoTask: widget.task),
             ));
         ;
       case "reparationRelais":
         Navigator.push(
             context,
             MaterialPageRoute<void>(
-              builder: (context) =>
-                  PanneRelaisWidget(clientName: widget.task?.clientName),
+              builder: (context) => PanneRelaisWidget(clientName: widget.task?.clientName),
             ));
       case "Panne":
         Navigator.push(
             context,
             MaterialPageRoute<void>(
-              builder: (context) =>
-                  PanneWidget(clientName: widget.task?.clientName),
+              builder: (context) => PanneWidget(clientName: widget.task?.clientName),
             ));
         ;
     }
@@ -139,8 +137,7 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
                 Navigator.push(
                   context,
                   MaterialPageRoute<void>(
-                    builder: (context) =>
-                        EditTachesWidget(infoTask: widget.task),
+                    builder: (context) => EditTachesWidget(infoTask: widget.task),
                   ),
                 );
               },
@@ -167,24 +164,14 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Text(
                             'Edit',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
+                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                   ),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
+                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                 ),
                           ),
                         ),
@@ -225,24 +212,14 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Text(
                             'Terminer',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
+                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                   ),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
+                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                 ),
                           ),
                         ),
@@ -261,9 +238,7 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
                 Navigator.push(
                     context,
                     MaterialPageRoute<void>(
-                      builder: (context) => TchesreporteWidget(
-                          id: widget.task?.id,
-                          clientName: widget.task?.clientName),
+                      builder: (context) => TchesreporteWidget(id: widget.task?.id, clientName: widget.task?.clientName),
                     ));
               },
               child: Container(
@@ -289,24 +264,14 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Text(
                             'Reporter',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
+                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                   ),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
+                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                 ),
                           ),
                         ),
@@ -325,8 +290,7 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
                 Navigator.push(
                     context,
                     MaterialPageRoute<void>(
-                      builder: (context) =>
-                          CanceledTaskWidget(infoTask: widget.task),
+                      builder: (context) => CanceledTaskWidget(infoTask: widget.task),
                     ));
               },
               child: Container(
@@ -352,24 +316,14 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Text(
                             'Anuler',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
+                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                   ),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
+                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                 ),
                           ),
                         ),
