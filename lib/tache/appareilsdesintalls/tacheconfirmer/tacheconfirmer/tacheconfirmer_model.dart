@@ -1,4 +1,5 @@
 import '/components/header_section_widget.dart';
+import '/components/task_to_confirmed_item_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'tacheconfirmer_widget.dart' show TacheconfirmerWidget;
@@ -16,11 +17,15 @@ class TacheconfirmerModel extends FlutterFlowModel<TacheconfirmerWidget> {
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   List<String> simpleSearchResults = [];
+  // Model for taskToConfirmedItem component.
+  late TaskToConfirmedItemModel taskToConfirmedItemModel;
   // Model for headerSection component.
   late HeaderSectionModel headerSectionModel;
 
   @override
   void initState(BuildContext context) {
+    taskToConfirmedItemModel =
+        createModel(context, () => TaskToConfirmedItemModel());
     headerSectionModel = createModel(context, () => HeaderSectionModel());
   }
 
@@ -29,6 +34,7 @@ class TacheconfirmerModel extends FlutterFlowModel<TacheconfirmerWidget> {
     textFieldFocusNode?.dispose();
     textController?.dispose();
 
+    taskToConfirmedItemModel.dispose();
     headerSectionModel.dispose();
   }
 }
