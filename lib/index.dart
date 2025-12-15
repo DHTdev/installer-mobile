@@ -44,4 +44,4 @@ export '/tacheaconfirmer_gerant/tacheconfirmer_copy/tacheconfirmer_copy_widget.d
 export '/form/form_widget.dart' show FormWidget;
 export '/tache/appareils/desinstallation/desinstallation_widget.dart'
     show DesinstallationWidget;
-export '/tache/appareils/panne/panne_widget.dart' show PanneWidget;
+export 'tache/appareils/pannes/panne/panne_widget.dart' show PanneWidget;
