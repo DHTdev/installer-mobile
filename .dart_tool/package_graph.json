@@ -55,6 +55,7 @@
         "shared_preferences_windows",
         "sqflite",
         "sqflite_common",
+        "substring_highlight",
         "table_calendar",
         "text_search",
         "timeago",
@@ -121,6 +122,13 @@
       "version": "4.0.0",
       "dependencies": [
         "lints"
+      ]
+    },
+    {
+      "name": "substring_highlight",
+      "version": "1.0.33",
+      "dependencies": [
+        "flutter"
       ]
     },
     {

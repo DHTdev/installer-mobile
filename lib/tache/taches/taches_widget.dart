@@ -42,21 +42,15 @@ class _TachesWidgetState extends State<TachesWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.apiResultTechnianTasks =
-          await TechnicienGroup.tasksCall.call(appState.authToken);
+      _model.apiResultTechnianTasks = await TechnicienGroup.tasksCall.call(appState.authToken);
 
       if ((_model.apiResultTechnianTasks?.succeeded ?? true)) {
-        print("thechnicianTasks:${_model.apiResultTechnianTasks?.jsonBody}");
-        _model.technicianTask = ((_model.apiResultTechnianTasks?.jsonBody ?? '')
-                .toList()
-                .map<TechnicianTaskStruct?>(TechnicianTaskStruct.maybeFromMap)
-                .toList() as Iterable<TechnicianTaskStruct?>)
+        _model.technicianTask = ((_model.apiResultTechnianTasks?.jsonBody ?? '').toList().map<TechnicianTaskStruct?>(TechnicianTaskStruct.maybeFromMap).toList() as Iterable<TechnicianTaskStruct?>)
             .withoutNulls
             .toList()
             .cast<TechnicianTaskStruct>();
         safeSetState(() {
           technicianTasks = _model.technicianTask.toList();
-          ;
         });
       }
     });
@@ -64,6 +58,14 @@ class _TachesWidgetState extends State<TachesWidget> {
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
   }
+
+  // Future<CityStruct?> getCityById(int id) async {
+  //   final response = await CityGroup.getCityByIdCall.call(id);
+  //   if (response.succeeded) {
+  //     return CityStruct.fromMap(response.jsonBody);
+  //   }
+  //   return null;
+  // }
 
   @override
   void dispose() {
@@ -113,7 +115,9 @@ class _TachesWidgetState extends State<TachesWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(10, 20, 0, 0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        context.pushNamed(TcheexceptionnelWidget.routeName);
+                        context.pushNamed(TcheexceptionnelWidget.routeName, queryParameters: {
+                          'typeTask': 'Tâche exceptionnel',
+                        });
                       },
                       text: 'Tâche exceptionnel ',
                       options: FFButtonOptions(
@@ -122,25 +126,16 @@ class _TachesWidgetState extends State<TachesWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                         iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                         color: Color(0xFF07C491),
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  font: GoogleFonts.interTight(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontStyle,
-                                  ),
-                                  color: Colors.white,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontStyle,
-                                ),
+                        textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                              font: GoogleFonts.interTight(
+                                fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                              ),
+                              color: Colors.white,
+                              letterSpacing: 0.0,
+                              fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                            ),
                         elevation: 0,
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -162,100 +157,68 @@ class _TachesWidgetState extends State<TachesWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    10, 10, 0, 0),
+                                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
                                 child: Text(
                                   'List Des Tâches   |  ',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         font: GoogleFonts.inter(
                                           fontWeight: FontWeight.w600,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                         ),
                                         fontSize: 16,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                       ),
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                 child: Text(
                                   '${technicianTasks.length} tâches',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         font: GoogleFonts.inter(
                                           fontWeight: FontWeight.w600,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                         ),
                                         fontSize: 16,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                       ),
                                 ),
                               ),
                             ],
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                             child: FlutterFlowDropDown<String>(
-                              controller: _model.dropDownValueController1 ??=
-                                  FormFieldController<String>(null),
+                              controller: _model.dropDownValueController1 ??= FormFieldController<String>(null),
                               options: ['Option 1', 'Option 2', 'Option 3'],
-                              onChanged: (val) => safeSetState(
-                                  () => _model.dropDownValue1 = val),
+                              onChanged: (val) => safeSetState(() => _model.dropDownValue1 = val),
                               width: MediaQuery.sizeOf(context).width * 0.9,
                               height: 40,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
+                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                     ),
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
+                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                   ),
                               hintText: 'Toutes les villes',
                               icon: Icon(
                                 Icons.keyboard_arrow_down_rounded,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                color: FlutterFlowTheme.of(context).secondaryText,
                                 size: 24,
                               ),
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
+                              fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                               elevation: 2,
                               borderColor: Color(0x4C000000),
                               borderWidth: 0,
                               borderRadius: 8,
-                              margin:
-                                  EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
+                              margin: EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
                               hidesUnderline: true,
                               isOverButton: false,
                               isSearchable: false,
@@ -265,47 +228,32 @@ class _TachesWidgetState extends State<TachesWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                             child: FlutterFlowDropDown<String>(
-                              controller: _model.dropDownValueController2 ??=
-                                  FormFieldController<String>(null),
-                              options: ['Option 1', 'Option 2', 'Option 3'],
-                              onChanged: (val) => safeSetState(
-                                  () => _model.dropDownValue2 = val),
+                              controller: _model.dropDownValueController2 ??= FormFieldController<String>(null),
+                              options: ["aujourd'hui", 'hier', 'demain'],
+                              onChanged: (val) => safeSetState(() => _model.dropDownValue2 = val),
                               width: MediaQuery.sizeOf(context).width * 0.9,
                               height: 40,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
+                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                     ),
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
+                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                   ),
                               hintText: 'Aujourd’hui',
                               icon: Icon(
                                 Icons.keyboard_arrow_down_rounded,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                color: FlutterFlowTheme.of(context).secondaryText,
                                 size: 24,
                               ),
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
+                              fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                               elevation: 2,
                               borderColor: Color(0x4C000000),
                               borderWidth: 0,
                               borderRadius: 8,
-                              margin:
-                                  EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
+                              margin: EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
                               hidesUnderline: true,
                               isOverButton: false,
                               isSearchable: false,
@@ -320,54 +268,29 @@ class _TachesWidgetState extends State<TachesWidget> {
                                 controller: _model.textController,
                                 focusNode: _model.textFieldFocusNode,
                                 autofocus: false,
-                                textCapitalization:
-                                    TextCapitalization.sentences,
+                                textCapitalization: TextCapitalization.sentences,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   isDense: true,
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
+                                  labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
                                         font: GoogleFonts.inter(
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
+                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
                                         ),
                                         letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
+                                        fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
                                       ),
                                   alignLabelWithHint: false,
                                   hintText: 'Rechercher par Nom Client',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
+                                  hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
                                         font: GoogleFonts.inter(
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
+                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
                                         ),
                                         letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
+                                        fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
                                       ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
@@ -398,40 +321,25 @@ class _TachesWidgetState extends State<TachesWidget> {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       font: GoogleFonts.inter(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
+                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                       ),
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
+                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                     ),
-                                cursorColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                                validator: _model.textControllerValidator
-                                    .asValidator(context),
+                                cursorColor: FlutterFlowTheme.of(context).primaryText,
+                                validator: _model.textControllerValidator.asValidator(context),
                                 inputFormatters: [
                                   if (!isAndroid && !isiOS)
-                                    TextInputFormatter.withFunction(
-                                        (oldValue, newValue) {
+                                    TextInputFormatter.withFunction((oldValue, newValue) {
                                       return TextEditingValue(
                                         selection: newValue.selection,
-                                        text: newValue.text.toCapitalization(
-                                            TextCapitalization.sentences),
+                                        text: newValue.text.toCapitalization(TextCapitalization.sentences),
                                       );
                                     }),
                                 ],
@@ -439,14 +347,9 @@ class _TachesWidgetState extends State<TachesWidget> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                             child: FutureBuilder<ApiCallResponse>(
-                              future: (_model.apiRequestCompleter ??=
-                                      Completer<ApiCallResponse>()
-                                        ..complete(TechnicienGroup.tasksCall
-                                            .call(appState.authToken)))
-                                  .future,
+                              future: (_model.apiRequestCompleter ??= Completer<ApiCallResponse>()..complete(TechnicienGroup.tasksCall.call(appState.authToken))).future,
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
@@ -455,8 +358,7 @@ class _TachesWidgetState extends State<TachesWidget> {
                                       width: 50,
                                       height: 50,
                                       child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
+                                        valueColor: AlwaysStoppedAnimation<Color>(
                                           FlutterFlowTheme.of(context).primary,
                                         ),
                                       ),
@@ -469,45 +371,29 @@ class _TachesWidgetState extends State<TachesWidget> {
                                   builder: (context) {
                                     return RefreshIndicator(
                                       onRefresh: () async {
-                                        safeSetState(() =>
-                                            _model.apiRequestCompleter = null);
-                                        await _model
-                                            .waitForApiRequestCompleted();
+                                        safeSetState(() => _model.apiRequestCompleter = null);
+                                        await _model.waitForApiRequestCompleted();
                                       },
                                       child: SingleChildScrollView(
                                         child: ListView.separated(
-                                          padding:
-                                              EdgeInsets.symmetric(vertical: 5),
+                                          padding: EdgeInsets.symmetric(vertical: 5),
                                           shrinkWrap: true,
-                                          physics:
-                                              NeverScrollableScrollPhysics(),
+                                          physics: NeverScrollableScrollPhysics(),
                                           scrollDirection: Axis.vertical,
                                           itemCount: technicianTasks.length,
-                                          separatorBuilder: (_, __) =>
-                                              SizedBox(height: 5),
-                                          itemBuilder:
-                                              (context, technicianTasksIndex) {
-                                            final TechnicianTaskStruct
-                                                technicianTasksItem =
-                                                technicianTasks[
-                                                    technicianTasksIndex];
+                                          separatorBuilder: (_, __) => SizedBox(height: 5),
+                                          itemBuilder: (context, technicianTasksIndex) {
+                                            final TechnicianTaskStruct technicianTasksItem = technicianTasks[technicianTasksIndex];
 
                                             return TechnicienTasksWidget(
-                                              TechnicianTask:
-                                                  technicianTasksItem,
-                                              key: Key(
-                                                  'Keyxum_${technicianTasksIndex}_of_${technicianTasks.length}'),
+                                              TechnicianTask: technicianTasksItem,
+                                              key: Key('Keyxum_${technicianTasksIndex}_of_${technicianTasks.length}'),
                                               id: technicianTasksItem.id,
-                                              clientName: technicianTasksItem
-                                                  .clientName,
-                                              taskType:
-                                                  technicianTasksItem.catache,
-                                              city:
-                                                  technicianTasksItem.cityName,
-                                              stateTask:
-                                                  technicianTasksItem.etatTache,
-                                              date: technicianTasksItem
-                                                  .date_previsionnelle_debut,
+                                              clientName: technicianTasksItem.clientName,
+                                              taskType: technicianTasksItem.catache,
+                                              city: technicianTasksItem.cityName,
+                                              stateTask: technicianTasksItem.etatTache,
+                                              date: technicianTasksItem.date_previsionnelle_debut,
                                             );
                                           },
                                         ),
@@ -518,9 +404,7 @@ class _TachesWidgetState extends State<TachesWidget> {
                               },
                             ),
                           ),
-                        ]
-                            .divide(SizedBox(height: 5))
-                            .around(SizedBox(height: 5)),
+                        ].divide(SizedBox(height: 5)).around(SizedBox(height: 5)),
                       ),
                     ),
                   ),

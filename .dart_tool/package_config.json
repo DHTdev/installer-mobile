@@ -656,6 +656,12 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "substring_highlight",
+      "rootUri": "file:///C:/Users/Dev1/AppData/Local/Pub/Cache/hosted/pub.dev/substring_highlight-1.0.33",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "synchronized",
       "rootUri": "file:///C:/Users/Dev1/AppData/Local/Pub/Cache/hosted/pub.dev/synchronized-3.4.0",
       "packageUri": "lib/",
