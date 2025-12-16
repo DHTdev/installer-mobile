@@ -6,7 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/index.dart';
-import 'package:easy_debounce/easy_debounce.dart';
+// import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'tcheexceptionnel_model.dart';
@@ -109,6 +109,7 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
               height: 695.5,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
+                borderRadius: BorderRadius.circular(12.0),
               ),
               child: Form(
                 key: _model.formKey,
@@ -135,15 +136,15 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                     child: TextFormField(
                                       controller: _model.textController1,
                                       focusNode: _model.textFieldFocusNode1,
-                                      onChanged: (_) => EasyDebounce.debounce(
-                                        '_model.textController1',
-                                        Duration(milliseconds: 2000),
-                                        () async {
-                                          _model.nomComplet =
-                                              _model.textController1.text;
-                                          safeSetState(() {});
-                                        },
-                                      ),
+                                      // onChanged: (_) => EasyDebounce.debounce(
+                                      //   '_model.textController1',
+                                      //   Duration(milliseconds: 2000),
+                                      //   () async {
+                                      //     _model.nomComplet =
+                                      //         _model.textController1.text;
+                                      //     safeSetState(() {});
+                                      //   },
+                                      // ),
                                       autofocus: false,
                                       obscureText: false,
                                       decoration: InputDecoration(
@@ -197,7 +198,8 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -284,15 +286,15 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                     child: TextFormField(
                                       controller: _model.textController2,
                                       focusNode: _model.textFieldFocusNode2,
-                                      onChanged: (_) => EasyDebounce.debounce(
-                                        '_model.textController2',
-                                        Duration(milliseconds: 2000),
-                                        () async {
-                                          _model.telephone =
-                                              _model.textController2.text;
-                                          safeSetState(() {});
-                                        },
-                                      ),
+                                      // onChanged: (_) => EasyDebounce.debounce(
+                                      //   '_model.textController2',
+                                      //   Duration(milliseconds: 2000),
+                                      //   () async {
+                                      //     _model.telephone =
+                                      //         _model.textController2.text;
+                                      //     safeSetState(() {});
+                                      //   },
+                                      // ),
                                       autofocus: false,
                                       obscureText: false,
                                       decoration: InputDecoration(
@@ -346,7 +348,8 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -435,15 +438,15 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                     child: TextFormField(
                                       controller: _model.textController3,
                                       focusNode: _model.textFieldFocusNode3,
-                                      onChanged: (_) => EasyDebounce.debounce(
-                                        '_model.textController3',
-                                        Duration(milliseconds: 2000),
-                                        () async {
-                                          _model.typeTache =
-                                              _model.textController3.text;
-                                          safeSetState(() {});
-                                        },
-                                      ),
+                                      // onChanged: (_) => EasyDebounce.debounce(
+                                      //   '_model.textController3',
+                                      //   Duration(milliseconds: 2000),
+                                      //   () async {
+                                      //     _model.typeTache =
+                                      //         _model.textController3.text;
+                                      //     safeSetState(() {});
+                                      //   },
+                                      // ),
                                       autofocus: false,
                                       obscureText: false,
                                       decoration: InputDecoration(
@@ -497,7 +500,8 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -586,7 +590,7 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                       border: Border.all(
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                            .secondaryText,
                                         width: 1.0,
                                       ),
                                     ),
@@ -682,7 +686,7 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                               Icons.calendar_month,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                      .secondaryText,
                                               size: 24.0,
                                             ),
                                           ),
@@ -710,15 +714,15 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                       child: TextFormField(
                                         controller: _model.textController4,
                                         focusNode: _model.textFieldFocusNode4,
-                                        onChanged: (_) => EasyDebounce.debounce(
-                                          '_model.textController4',
-                                          Duration(milliseconds: 2000),
-                                          () async {
-                                            _model.quantite = int.tryParse(
-                                                _model.textController4.text);
-                                            safeSetState(() {});
-                                          },
-                                        ),
+                                        // onChanged: (_) => EasyDebounce.debounce(
+                                        //   '_model.textController4',
+                                        //   Duration(milliseconds: 2000),
+                                        //   () async {
+                                        //     _model.quantite = int.tryParse(
+                                        //         _model.textController4.text);
+                                        //     safeSetState(() {});
+                                        //   },
+                                        // ),
                                         autofocus: false,
                                         obscureText: false,
                                         decoration: InputDecoration(
@@ -778,7 +782,9 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                               ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Colors.black,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -917,7 +923,8 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                   fillColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   elevation: 2.0,
-                                  borderColor: Colors.black,
+                                  borderColor: FlutterFlowTheme.of(context)
+                                      .secondaryText,
                                   borderWidth: 0.0,
                                   borderRadius: 8.0,
                                   margin: EdgeInsetsDirectional.fromSTEB(
@@ -944,15 +951,15 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                     child: TextFormField(
                                       controller: _model.textController5,
                                       focusNode: _model.textFieldFocusNode5,
-                                      onChanged: (_) => EasyDebounce.debounce(
-                                        '_model.textController5',
-                                        Duration(milliseconds: 2000),
-                                        () async {
-                                          _model.description =
-                                              _model.textController5.text;
-                                          safeSetState(() {});
-                                        },
-                                      ),
+                                      // onChanged: (_) => EasyDebounce.debounce(
+                                      //   '_model.textController5',
+                                      //   Duration(milliseconds: 2000),
+                                      //   () async {
+                                      //     _model.description =
+                                      //         _model.textController5.text;
+                                      //     safeSetState(() {});
+                                      //   },
+                                      // ),
                                       autofocus: false,
                                       obscureText: false,
                                       decoration: InputDecoration(
@@ -1006,7 +1013,8 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.black,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -1105,7 +1113,7 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
                                     24.0, 0.0, 24.0, 0.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                color: Color(0xFF07C491),
+                                color: FlutterFlowTheme.of(context).secondary,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(

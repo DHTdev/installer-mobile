@@ -14,7 +14,7 @@ class TachesModel extends FlutterFlowModel<TachesWidget> {
 
   bool isShowFullList = true;
 
-  String searchText = '\"\"';
+  String? searchText = '';
 
   String selectedStatus = '\"\"';
 
@@ -31,16 +31,33 @@ class TachesModel extends FlutterFlowModel<TachesWidget> {
           int index, Function(TechnicianTaskStruct) updateFn) =>
       technicianTask[index] = updateFn(technicianTask[index]);
 
+  List<CityStruct> cities = [];
+  void addToCities(CityStruct item) => cities.add(item);
+  void removeFromCities(CityStruct item) => cities.remove(item);
+  void removeAtIndexFromCities(int index) => cities.removeAt(index);
+  void insertAtIndexInCities(int index, CityStruct item) =>
+      cities.insert(index, item);
+  void updateCitiesAtIndex(int index, Function(CityStruct) updateFn) =>
+      cities[index] = updateFn(cities[index]);
+
+  String? selectedCity;
+
+  String? selectedDateFilter;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (Tasks)] action in Taches widget.
   ApiCallResponse? apiResultTechnianTasks;
-  // State field(s) for DropDown widget.
-  String? dropDownValue1;
-  FormFieldController<String>? dropDownValueController1;
-  // State field(s) for DropDown widget.
-  String? dropDownValue2;
-  FormFieldController<String>? dropDownValueController2;
+  // Model for headerSection component.
+  late HeaderSectionModel headerSectionModel;
+  // Stores action output result for [Backend Call - API (getInfo)] action in Container widget.
+  ApiCallResponse? citiesResp;
+  // State field(s) for SelectCitiesDD widget.
+  String? selectCitiesDDValue;
+  FormFieldController<String>? selectCitiesDDValueController;
+  // State field(s) for SelectDateDD widget.
+  String? selectDateDDValue;
+  FormFieldController<String>? selectDateDDValueController;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
@@ -48,23 +65,21 @@ class TachesModel extends FlutterFlowModel<TachesWidget> {
   Completer<ApiCallResponse>? apiRequestCompleter;
   // Models for TechnicienTasks dynamic component.
   late FlutterFlowDynamicModels<TechnicienTasksModel> technicienTasksModels;
-  // Model for headerSection component.
-  late HeaderSectionModel headerSectionModel;
 
   @override
   void initState(BuildContext context) {
+    headerSectionModel = createModel(context, () => HeaderSectionModel());
     technicienTasksModels =
         FlutterFlowDynamicModels(() => TechnicienTasksModel());
-    headerSectionModel = createModel(context, () => HeaderSectionModel());
   }
 
   @override
   void dispose() {
+    headerSectionModel.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
 
     technicienTasksModels.dispose();
-    headerSectionModel.dispose();
   }
 
   /// Additional helper methods.

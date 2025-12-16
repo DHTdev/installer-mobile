@@ -6,8 +6,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class DeviceStruct extends BaseStruct {
   DeviceStruct({
-    String? numberGps,
-    String? numberSim,
+    int? numberGps,
+    int? numberSim,
     String? numberAccessory,
     List<GpsStruct>? gps,
     List<SimStruct>? sim,
@@ -20,16 +20,20 @@ class DeviceStruct extends BaseStruct {
         _accessory = accessory;
 
   // "NumberGps" field.
-  String? _numberGps;
-  String get numberGps => _numberGps ?? '';
-  set numberGps(String? val) => _numberGps = val;
+  int? _numberGps;
+  int get numberGps => _numberGps ?? 0;
+  set numberGps(int? val) => _numberGps = val;
+
+  void incrementNumberGps(int amount) => numberGps = numberGps + amount;
 
   bool hasNumberGps() => _numberGps != null;
 
   // "NumberSim" field.
-  String? _numberSim;
-  String get numberSim => _numberSim ?? '';
-  set numberSim(String? val) => _numberSim = val;
+  int? _numberSim;
+  int get numberSim => _numberSim ?? 0;
+  set numberSim(int? val) => _numberSim = val;
+
+  void incrementNumberSim(int amount) => numberSim = numberSim + amount;
 
   bool hasNumberSim() => _numberSim != null;
 
@@ -74,8 +78,8 @@ class DeviceStruct extends BaseStruct {
   bool hasAccessory() => _accessory != null;
 
   static DeviceStruct fromMap(Map<String, dynamic> data) => DeviceStruct(
-        numberGps: data['NumberGps'] as String?,
-        numberSim: data['NumberSim'] as String?,
+        numberGps: castToType<int>(data['NumberGps']),
+        numberSim: castToType<int>(data['NumberSim']),
         numberAccessory: data['numberAccessory'] as String?,
         gps: getStructList(
           data['GPS'],
@@ -107,11 +111,11 @@ class DeviceStruct extends BaseStruct {
   Map<String, dynamic> toSerializableMap() => {
         'NumberGps': serializeParam(
           _numberGps,
-          ParamType.String,
+          ParamType.int,
         ),
         'NumberSim': serializeParam(
           _numberSim,
-          ParamType.String,
+          ParamType.int,
         ),
         'numberAccessory': serializeParam(
           _numberAccessory,
@@ -138,12 +142,12 @@ class DeviceStruct extends BaseStruct {
       DeviceStruct(
         numberGps: deserializeParam(
           data['NumberGps'],
-          ParamType.String,
+          ParamType.int,
           false,
         ),
         numberSim: deserializeParam(
           data['NumberSim'],
-          ParamType.String,
+          ParamType.int,
           false,
         ),
         numberAccessory: deserializeParam(
@@ -192,8 +196,8 @@ class DeviceStruct extends BaseStruct {
 }
 
 DeviceStruct createDeviceStruct({
-  String? numberGps,
-  String? numberSim,
+  int? numberGps,
+  int? numberSim,
   String? numberAccessory,
 }) =>
     DeviceStruct(

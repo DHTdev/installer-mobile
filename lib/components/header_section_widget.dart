@@ -118,10 +118,19 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
                           ],
                           borderRadius: BorderRadius.circular(5.0),
                         ),
-                        child: Icon(
-                          Icons.notifications_active,
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          size: 30.0,
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed(NotificationsWidget.routeName);
+                          },
+                          child: Icon(
+                            Icons.notifications_active,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 30.0,
+                          ),
                         ),
                       ),
                       Container(

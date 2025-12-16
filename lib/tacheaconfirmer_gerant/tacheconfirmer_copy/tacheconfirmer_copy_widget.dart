@@ -78,7 +78,7 @@ class _TacheconfirmerCopyWidgetState extends State<TacheconfirmerCopyWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Bonjour Hamza TOUIL',
+                                'Bonjour gerant',
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(

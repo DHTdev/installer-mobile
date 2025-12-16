@@ -124,7 +124,8 @@ class _AppareilsWidgetState extends State<AppareilsWidget> {
                       updateCallback: () => safeSetState(() {}),
                       child: NumberDeviceWidget(
                         typeName: 'GPS',
-                        numberDevices: widget.technicianDevices!.numberGps,
+                        numberDevices:
+                            widget.technicianDevices!.numberGps.toString(),
                         gps: widget.technicianDevices?.gps,
                       ),
                     ),
@@ -145,7 +146,8 @@ class _AppareilsWidgetState extends State<AppareilsWidget> {
                       updateCallback: () => safeSetState(() {}),
                       child: NumberDeviceWidget(
                         typeName: 'SIM',
-                        numberDevices: widget.technicianDevices!.numberSim,
+                        numberDevices:
+                            widget.technicianDevices!.numberSim.toString(),
                         sim: widget.technicianDevices?.sim,
                       ),
                     ),

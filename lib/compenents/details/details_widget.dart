@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -7,7 +8,12 @@ import 'details_model.dart';
 export 'details_model.dart';
 
 class DetailsWidget extends StatefulWidget {
-  const DetailsWidget({super.key});
+  const DetailsWidget({
+    super.key,
+    this.taskDetails,
+  });
+
+  final TechnicianTaskStruct? taskDetails;
 
   @override
   State<DetailsWidget> createState() => _DetailsWidgetState();
@@ -37,50 +43,35 @@ class _DetailsWidgetState extends State<DetailsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 44.0, 0.0, 0.0),
-      child: Container(
-        width: double.infinity,
-        height: 719.18,
-        decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 4.0,
-              color: Color(0x25090F13),
-              offset: Offset(
-                0.0,
-                2.0,
-              ),
-            )
-          ],
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(0.0),
-            bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(12.0),
-            topRight: Radius.circular(12.0),
-          ),
+    return Container(
+      width: double.infinity,
+      height: 600.0,
+      decoration: BoxDecoration(
+        color: FlutterFlowTheme.of(context).secondaryBackground,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 4.0,
+            color: Color(0x25090F13),
+            offset: Offset(
+              0.0,
+              2.0,
+            ),
+          )
+        ],
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(0.0),
+          bottomRight: Radius.circular(0.0),
+          topLeft: Radius.circular(12.0),
+          topRight: Radius.circular(12.0),
         ),
-        child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 50.0),
+      ),
+      child: Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 50.0),
+        child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 60.0,
-                    height: 4.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      borderRadius: BorderRadius.circular(2.0),
-                    ),
-                  ),
-                ],
-              ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                 child: Text(
@@ -107,7 +98,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
               Divider(
                 height: 24.0,
                 thickness: 2.0,
-                color: Colors.black,
+                color: FlutterFlowTheme.of(context).secondaryText,
               ),
               ListView(
                 padding: EdgeInsets.zero,
@@ -162,7 +153,10 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                       ),
                                 ),
                                 Text(
-                                  '+212 607-646403',
+                                  valueOrDefault<String>(
+                                    widget.taskDetails?.telephoneClient,
+                                    '-------------',
+                                  ),
                                   textAlign: TextAlign.end,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -221,7 +215,10 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                       ),
                                 ),
                                 Text(
-                                  'installation',
+                                  valueOrDefault<String>(
+                                    widget.taskDetails?.catache,
+                                    '-------------',
+                                  ),
                                   textAlign: TextAlign.end,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -256,7 +253,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Date Previsionnelle début :',
+                                  'Date :',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyLarge
                                       .override(
@@ -280,7 +277,73 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                       ),
                                 ),
                                 Text(
-                                  '2025-07-05 11:39:00',
+                                  valueOrDefault<String>(
+                                    widget
+                                        .taskDetails?.datePrevisionnelleDebut,
+                                    '-------------',
+                                  ),
+                                  textAlign: TextAlign.end,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 8.0, 12.0, 8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Ville :',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyLarge
+                                      .override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
+                                ),
+                                Text(
+                                  valueOrDefault<String>(
+                                    widget.taskDetails?.cityName,
+                                    '-------------',
+                                  ),
                                   textAlign: TextAlign.end,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -339,7 +402,10 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                       ),
                                 ),
                                 Text(
-                                  '-------------',
+                                  valueOrDefault<String>(
+                                    widget.taskDetails?.matricule,
+                                    '-------------',
+                                  ),
                                   textAlign: TextAlign.end,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -421,7 +487,10 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                         ),
                                   ),
                                   Text(
-                                    '-------------',
+                                    valueOrDefault<String>(
+                                      widget.taskDetails?.nameModeleGPS,
+                                      '-------------',
+                                    ),
                                     textAlign: TextAlign.end,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -485,7 +554,10 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                         ),
                                   ),
                                   Text(
-                                    '-------------',
+                                    valueOrDefault<String>(
+                                      widget.taskDetails?.imei,
+                                      '-------------',
+                                    ),
                                     textAlign: TextAlign.end,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -549,7 +621,11 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                         ),
                                   ),
                                   Text(
-                                    '-------------',
+                                    valueOrDefault<String>(
+                                      widget.taskDetails?.gpsPrincipale
+                                          .toString(),
+                                      '-------------',
+                                    ),
                                     textAlign: TextAlign.end,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -613,7 +689,11 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                         ),
                                   ),
                                   Text(
-                                    '-------------',
+                                    valueOrDefault<String>(
+                                      widget.taskDetails?.proprietaire
+                                          .toString(),
+                                      '-------------',
+                                    ),
                                     textAlign: TextAlign.end,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -677,7 +757,10 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                         ),
                                   ),
                                   Text(
-                                    '-------------',
+                                    valueOrDefault<String>(
+                                      widget.taskDetails?.accesoriesModel,
+                                      '-------------',
+                                    ),
                                     textAlign: TextAlign.end,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -741,7 +824,10 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                         ),
                                   ),
                                   Text(
-                                    '-------------',
+                                    valueOrDefault<String>(
+                                      widget.taskDetails?.nameModeleSIM,
+                                      '-------------',
+                                    ),
                                     textAlign: TextAlign.end,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -805,7 +891,10 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                         ),
                                   ),
                                   Text(
-                                    '-------------',
+                                    valueOrDefault<String>(
+                                      widget.taskDetails?.sim,
+                                      '-------------',
+                                    ),
                                     textAlign: TextAlign.end,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -869,7 +958,11 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                         ),
                                   ),
                                   Text(
-                                    '-------------',
+                                    valueOrDefault<String>(
+                                      widget.taskDetails?.sIMProprietaire
+                                          .toString(),
+                                      '-------------',
+                                    ),
                                     textAlign: TextAlign.end,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -908,70 +1001,6 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                 children: [
                                   Text(
                                     'Accessoires :',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyLarge
-                                        .override(
-                                          font: GoogleFonts.inter(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
-                                          ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontStyle,
-                                        ),
-                                  ),
-                                  Text(
-                                    '-------------',
-                                    textAlign: TextAlign.end,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          font: GoogleFonts.inter(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 8.0, 12.0, 8.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Date début :',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyLarge
                                         .override(
