@@ -1,4 +1,4 @@
-package com.mycompany.mobileinstaller
+package com.dht.installer
 
 import io.flutter.embedding.android.FlutterActivity
 

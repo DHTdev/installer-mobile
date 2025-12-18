@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-// Using Flutter's RichText instead of the external 'substring_highlight' package.
+import 'package:substring_highlight/substring_highlight.dart';
 
 class AutocompleteOptionsList extends StatelessWidget {
   const AutocompleteOptionsList({
@@ -62,44 +62,17 @@ class AutocompleteOptionsList extends StatelessWidget {
                       Scrollable.ensureVisible(context, alignment: 0.5);
                     });
                   }
-
-                  // Build highlighted text using RichText to avoid external dependency.
-                  final term = textController.text;
-                  final List<TextSpan> spans = [];
-                  if (term.isEmpty) {
-                    spans.add(TextSpan(text: option, style: textStyle));
-                  } else {
-                    final lowerOption = option.toLowerCase();
-                    final lowerTerm = term.toLowerCase();
-                    int start = 0;
-                    int matchIndex = lowerOption.indexOf(lowerTerm, start);
-                    while (matchIndex != -1) {
-                      if (matchIndex > start) {
-                        spans.add(TextSpan(
-                            text: option.substring(start, matchIndex),
-                            style: textStyle));
-                      }
-                      spans.add(TextSpan(
-                          text: option.substring(
-                              matchIndex, matchIndex + term.length),
-                          style: textHighlightStyle ?? textStyle));
-                      start = matchIndex + term.length;
-                      matchIndex = lowerOption.indexOf(lowerTerm, start);
-                    }
-                    if (start < option.length) {
-                      spans.add(TextSpan(
-                          text: option.substring(start), style: textStyle));
-                    }
-                  }
-
                   return Container(
                     color: highlight
                         ? optionHighlightColor ?? Theme.of(context).focusColor
                         : optionBackgroundColor,
                     padding: const EdgeInsets.all(16.0),
-                    child: RichText(
+                    child: SubstringHighlight(
+                      text: option,
+                      term: textController.text,
+                      textStyle: textStyle,
                       textAlign: textAlign,
-                      text: TextSpan(style: textStyle, children: spans),
+                      textStyleHighlight: textHighlightStyle ?? textStyle,
                     ),
                   );
                 }),

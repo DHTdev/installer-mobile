@@ -3,7 +3,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-// import 'package:easy_debounce/easy_debounce.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'canceled_task_model.dart';
@@ -218,14 +218,14 @@ class _CanceledTaskWidgetState extends State<CanceledTaskWidget> {
                           TextFormField(
                             controller: _model.observationTextController,
                             focusNode: _model.observationFocusNode,
-                            // onChanged: (_) => EasyDebounce.debounce(
-                            //   '_model.observationTextController',
-                            //   Duration(milliseconds: 2000),
-                            //   () async {
-                            //     _model.observation = _model.observation;
-                            //     safeSetState(() {});
-                            //   },
-                            // ),
+                            onChanged: (_) => EasyDebounce.debounce(
+                              '_model.observationTextController',
+                              Duration(milliseconds: 2000),
+                              () async {
+                                _model.observation = _model.observation;
+                                safeSetState(() {});
+                              },
+                            ),
                             autofocus: true,
                             obscureText: false,
                             decoration: InputDecoration(

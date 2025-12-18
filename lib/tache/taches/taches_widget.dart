@@ -10,7 +10,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'dart:async';
-// import 'package:easy_debounce/easy_debounce.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -435,15 +435,15 @@ class _TachesWidgetState extends State<TachesWidget> {
                                     child: TextFormField(
                                       controller: _model.textController,
                                       focusNode: _model.textFieldFocusNode,
-                                      // onChanged: (_) => EasyDebounce.debounce(
-                                      //   '_model.textController',
-                                      //   Duration(milliseconds: 500),
-                                      //   () async {
-                                      //     _model.searchText =
-                                      //         _model.textController.text;
-                                      //     safeSetState(() {});
-                                      //   },
-                                      // ),
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.textController',
+                                        Duration(milliseconds: 500),
+                                        () async {
+                                          _model.searchText =
+                                              _model.textController.text;
+                                          safeSetState(() {});
+                                        },
+                                      ),
                                       autofocus: false,
                                       textCapitalization:
                                           TextCapitalization.sentences,
