@@ -47,7 +47,6 @@ class _GpsDeviceItemWidgetState extends State<GpsDeviceItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print("data:${widget.brand}");
     return Align(
       alignment: AlignmentDirectional(-1, 0),
       child: Padding(

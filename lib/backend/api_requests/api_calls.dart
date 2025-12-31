@@ -46,6 +46,27 @@ class CheckLoggedInCall {
   }
 }
 
+class GetAllCitiesCall {
+  static Future<ApiCallResponse> call() async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getAllCities',
+      apiUrl: 'https://d3instal.com/api/comptable/allCities',
+      callType: ApiCallType.GET,
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class LoginCall {
   Future<ApiCallResponse> call({
     String? emailAddress = 'hamza.touil@gmail.com',

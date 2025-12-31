@@ -2,10 +2,10 @@ import '/components/gps_device_item_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:text_search/text_search.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
+
 import 'gps_model.dart';
 export 'gps_model.dart';
 
@@ -53,6 +53,7 @@ class _GpsWidgetState extends State<GpsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final filterDevice = functions.filterDevices(gpsDevices, _model.textController!.text);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -116,52 +117,37 @@ class _GpsWidgetState extends State<GpsWidget> {
                         Align(
                           alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                20.0, 0.0, 0.0, 0.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
                             child: Text(
                               'GPS',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.inter(
                                       fontWeight: FontWeight.bold,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                     ),
                                     color: Colors.white,
                                     fontSize: 20.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                   ),
                             ),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 20.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
                           child: Text(
-                            '223',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
+                            filterDevice!.length.toString(),
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   font: GoogleFonts.inter(
                                     fontWeight: FontWeight.bold,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                   ),
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: FlutterFlowTheme.of(context).secondaryBackground,
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
+                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                 ),
                           ),
                         ),
@@ -177,22 +163,8 @@ class _GpsWidgetState extends State<GpsWidget> {
                   child: TextFormField(
                     controller: _model.textController,
                     focusNode: _model.textFieldFocusNode,
-                    onFieldSubmitted: (_) async {
-                      safeSetState(() {
-                        _model.simpleSearchResults = TextSearch((List.generate(
-                                        random_data.randomInteger(5, 5),
-                                        (index) =>
-                                            random_data.randomName(true, true))
-                                    as List)
-                                .cast<String>()
-                                .map((str) =>
-                                    TextSearchItem.fromTerms(str, [str]))
-                                .toList())
-                            .search('TestField')
-                            .map((r) => r.object)
-                            .toList();
-                        ;
-                      });
+                    onChanged: (_) async {
+                      functions.filterDevices(gpsDevices, _model.textController.text);
                       _model.isShowFullList = false;
                       safeSetState(() {});
                     },
@@ -200,43 +172,25 @@ class _GpsWidgetState extends State<GpsWidget> {
                     obscureText: false,
                     decoration: InputDecoration(
                       isDense: true,
-                      labelStyle:
-                          FlutterFlowTheme.of(context).labelMedium.override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
-                                ),
-                                letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontStyle,
-                              ),
+                      labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                            font: GoogleFonts.inter(
+                              fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                            ),
+                            letterSpacing: 0.0,
+                            fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                          ),
                       hintText: 'Rechercher ...',
-                      hintStyle:
-                          FlutterFlowTheme.of(context).labelMedium.override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
-                                ),
-                                letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontStyle,
-                              ),
+                      hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                            font: GoogleFonts.inter(
+                              fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                            ),
+                            letterSpacing: 0.0,
+                            fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                          ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x4C000000),
@@ -266,52 +220,45 @@ class _GpsWidgetState extends State<GpsWidget> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       filled: true,
-                      fillColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
+                      fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.inter(
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
+                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                           ),
                           letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
                     cursorColor: FlutterFlowTheme.of(context).primaryText,
-                    validator:
-                        _model.textControllerValidator.asValidator(context),
+                    validator: _model.textControllerValidator.asValidator(context),
                   ),
                 ),
               ),
-              Expanded(
-                child: ListView.separated(
-                    shrinkWrap: true,
-                    // physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, gpsDevicesIndex) {
-                      final gpsDeviceItem = gpsDevices[gpsDevicesIndex];
-                      return wrapWithModel(
-                        updateCallback: () => setState(() {}),
-                        model: GpsModel(),
-                        child: GpsDeviceItemWidget(
-                          key: Key('gpsDeviceItem${gpsDeviceItem.serialNumber}'),
-                          imei: gpsDeviceItem.serialNumber,
-                          simNumber: gpsDeviceItem.serialNumberCombination,
-                          deviceModel: gpsDeviceItem.nameModele,
-                          brand: gpsDeviceItem.nameType,
-                        ),
-                      );
-                    },
-                    separatorBuilder: (_, __) => SizedBox(height: 5),
-                    itemCount: gpsDevices.length),
-              ),
+              if (filterDevice!.isNotEmpty && filterDevice != null)
+                Expanded(
+                  child: ListView.separated(
+                      shrinkWrap: true,
+                      // physics: NeverScrollableScrollPhysics(),
+                      itemCount: filterDevice.length,
+                      itemBuilder: (context, gpsDevicesIndex) {
+                        final gpsDeviceItem = filterDevice[gpsDevicesIndex];
+                        return wrapWithModel(
+                          updateCallback: () => setState(() {}),
+                          model: GpsModel(),
+                          child: GpsDeviceItemWidget(
+                            key: Key('gpsDeviceItem${gpsDeviceItem.serialNumber}'),
+                            imei: gpsDeviceItem.serialNumber,
+                            simNumber: gpsDeviceItem.serialNumberCombination,
+                            deviceModel: gpsDeviceItem.nameModele,
+                            brand: gpsDeviceItem.nameType,
+                          ),
+                        );
+                      },
+                      separatorBuilder: (_, __) => SizedBox(height: 5),
+                      ),
+                ),
             ],
           ),
         ),

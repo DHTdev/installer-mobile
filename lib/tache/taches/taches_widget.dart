@@ -1,3 +1,5 @@
+import 'package:easy_debounce/easy_debounce.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/compenents/technicien_tasks/technicien_tasks_widget.dart';
@@ -7,6 +9,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -34,12 +37,13 @@ class _TachesWidgetState extends State<TachesWidget> {
   final FFAppState appState = FFAppState();
   final String now = DateFormat.yMMMd().format(DateTime.now()).toString();
   List<TechnicianTaskStruct> technicianTasks = [];
+  List<String> cities = ['Toutes les villes'];
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => TachesModel());
-
+    getCities();
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.apiResultTechnianTasks = await TechnicienGroup.tasksCall.call(appState.authToken);
@@ -59,13 +63,14 @@ class _TachesWidgetState extends State<TachesWidget> {
     _model.textFieldFocusNode ??= FocusNode();
   }
 
-  // Future<CityStruct?> getCityById(int id) async {
-  //   final response = await CityGroup.getCityByIdCall.call(id);
-  //   if (response.succeeded) {
-  //     return CityStruct.fromMap(response.jsonBody);
-  //   }
-  //   return null;
-  // }
+  Future<List<CityStruct>> getCities() async {
+    final response = await GetAllCitiesCall.call();
+    if (response.succeeded) {
+      _model.citiesResponse = (response.jsonBody?.toList().map<CityStruct?>(CityStruct.maybeFromMap).toList() as Iterable<CityStruct?>).withoutNulls.toList().cast<CityStruct>();
+    }
+    cities.addAll(_model.citiesResponse.map((e) => e.cityName));
+    return [];
+  }
 
   @override
   void dispose() {
@@ -76,6 +81,7 @@ class _TachesWidgetState extends State<TachesWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final filteredTasks = functions.filterTasks(_model.technicianTask.toList(), _model.selectedCity, _model.selectedDateFilter, _model.searchText);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -175,7 +181,7 @@ class _TachesWidgetState extends State<TachesWidget> {
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                 child: Text(
-                                  '${technicianTasks.length} tâches',
+                                  '${filteredTasks?.length} tâches',
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         font: GoogleFonts.inter(
                                           fontWeight: FontWeight.w600,
@@ -194,8 +200,8 @@ class _TachesWidgetState extends State<TachesWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                             child: FlutterFlowDropDown<String>(
                               controller: _model.dropDownValueController1 ??= FormFieldController<String>(null),
-                              options: ['Option 1', 'Option 2', 'Option 3'],
-                              onChanged: (val) => safeSetState(() => _model.dropDownValue1 = val),
+                              options: cities,
+                              onChanged: (val) => safeSetState(() => _model.selectedCity = val),
                               width: MediaQuery.sizeOf(context).width * 0.9,
                               height: 40,
                               textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -230,7 +236,11 @@ class _TachesWidgetState extends State<TachesWidget> {
                             child: FlutterFlowDropDown<String>(
                               controller: _model.dropDownValueController2 ??= FormFieldController<String>(null),
                               options: ["aujourd'hui", 'hier', 'demain'],
-                              onChanged: (val) => safeSetState(() => _model.dropDownValue2 = val),
+                              onChanged: (val) async {
+                                safeSetState(() => _model.selectDateDDValue = val);
+                                _model.selectedDateFilter = _model.selectDateDDValue;
+                                safeSetState(() {});
+                              },
                               width: MediaQuery.sizeOf(context).width * 0.9,
                               height: 40,
                               textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -265,6 +275,14 @@ class _TachesWidgetState extends State<TachesWidget> {
                             child: Container(
                               width: MediaQuery.sizeOf(context).width * 0.9,
                               child: TextFormField(
+                                onChanged: (_) => EasyDebounce.debounce(
+                                  '_model.textController',
+                                  Duration(milliseconds: 500),
+                                  () async {
+                                    _model.searchText = _model.textController.text;
+                                    safeSetState(() {});
+                                  },
+                                ),
                                 controller: _model.textController,
                                 focusNode: _model.textFieldFocusNode,
                                 autofocus: false,
@@ -351,64 +369,65 @@ class _TachesWidgetState extends State<TachesWidget> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                  child: FutureBuilder<ApiCallResponse>(
-                    future: (_model.apiRequestCompleter ??= Completer<ApiCallResponse>()..complete(TechnicienGroup.tasksCall.call(appState.authToken))).future,
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                FlutterFlowTheme.of(context).primary,
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                      // final listViewTasksResponse = snapshot.data!;
-
-                      return Builder(
-                        builder: (context) {
-                          return RefreshIndicator(
-                            onRefresh: () async {
-                              safeSetState(() => _model.apiRequestCompleter = null);
-                              await _model.waitForApiRequestCompleted();
-                            },
-                            child: SingleChildScrollView(
-                              child: ListView.separated(
-                                padding: EdgeInsets.symmetric(vertical: 5),
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                scrollDirection: Axis.vertical,
-                                itemCount: technicianTasks.length,
-                                separatorBuilder: (_, __) => SizedBox(height: 5),
-                                itemBuilder: (context, technicianTasksIndex) {
-                                  final TechnicianTaskStruct technicianTasksItem = technicianTasks[technicianTasksIndex];
-
-                                  return TechnicienTasksWidget(
-                                    TechnicianTask: technicianTasksItem,
-                                    key: Key('Keyxum_${technicianTasksIndex}_of_${technicianTasks.length}'),
-                                    id: technicianTasksItem.id,
-                                    clientName: technicianTasksItem.clientName,
-                                    taskType: technicianTasksItem.catache,
-                                    city: technicianTasksItem.cityName,
-                                    stateTask: technicianTasksItem.etatTache,
-                                    date: technicianTasksItem.date_previsionnelle_debut,
-                                  );
-                                },
+                if (filteredTasks!.isNotEmpty && filteredTasks != null)
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                    child: FutureBuilder<ApiCallResponse>(
+                      future: (_model.apiRequestCompleter ??= Completer<ApiCallResponse>()..complete(TechnicienGroup.tasksCall.call(appState.authToken))).future,
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
+                                ),
                               ),
                             ),
                           );
-                        },
-                      );
-                    },
+                        }
+                        // final listViewTasksResponse = snapshot.data!;
+
+                        return Builder(
+                          builder: (context) {
+                            return RefreshIndicator(
+                              onRefresh: () async {
+                                safeSetState(() => _model.apiRequestCompleter = null);
+                                await _model.waitForApiRequestCompleted();
+                              },
+                              child: SingleChildScrollView(
+                                child: ListView.separated(
+                                  padding: EdgeInsets.symmetric(vertical: 5),
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: filteredTasks.length,
+                                  separatorBuilder: (_, __) => SizedBox(height: 5),
+                                  itemBuilder: (context, technicianTasksIndex) {
+                                    final TechnicianTaskStruct technicianTasksItem = filteredTasks[technicianTasksIndex];
+
+                                    return TechnicienTasksWidget(
+                                      TechnicianTask: technicianTasksItem,
+                                      key: Key('Keyxum_${technicianTasksIndex}_of_${technicianTasks.length}'),
+                                      id: technicianTasksItem.id,
+                                      clientName: technicianTasksItem.clientName,
+                                      taskType: technicianTasksItem.catache,
+                                      city: technicianTasksItem.cityName,
+                                      stateTask: technicianTasksItem.etatTache,
+                                      date: technicianTasksItem.date_previsionnelle_debut,
+                                    );
+                                  },
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
-                ),
               ],
             ),
           ),

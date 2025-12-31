@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:mobile_installer/backend/api_requests/api_calls.dart';
 import 'package:mobile_installer/backend/schema/structs/technician_task_struct.dart';
 import 'package:mobile_installer/compenents/taskToConfirmed/task_to_confirmed_item_widget.dart';
+import 'package:mobile_installer/flutter_flow/custom_functions.dart' as function;
 
 import '/components/header_section_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -63,6 +64,7 @@ class _TacheconfirmerWidgetState extends State<TacheconfirmerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final filtertaskConfirme = function.filterTacheaConfirmer(_model.tasksToConfirmed, _model.textController!.text);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -166,7 +168,7 @@ class _TacheconfirmerWidgetState extends State<TacheconfirmerWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                             child: Text(
-                              '${_model.tasksToConfirmed.length} clients',
+                              '${filtertaskConfirme!.length} clients',
                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.inter(
                                       fontWeight: FontWeight.w600,
@@ -188,17 +190,8 @@ class _TacheconfirmerWidgetState extends State<TacheconfirmerWidget> {
                           child: TextFormField(
                             controller: _model.textController,
                             focusNode: _model.textFieldFocusNode,
-                            onFieldSubmitted: (_) async {
-                              safeSetState(() {
-                                _model.simpleSearchResults = TextSearch((List.generate(random_data.randomInteger(5, 5), (index) => random_data.randomName(true, true)) as List)
-                                        .cast<String>()
-                                        .map((str) => TextSearchItem.fromTerms(str, [str]))
-                                        .toList())
-                                    .search('TestField')
-                                    .map((r) => r.object)
-                                    .toList();
-                                ;
-                              });
+                            onChanged: (_) async {
+                              function.filterTacheaConfirmer(_model.tasksToConfirmed, _model.textController!.text);
                               _model.isShowFullList = false;
                               safeSetState(() {});
                             },
@@ -270,49 +263,50 @@ class _TacheconfirmerWidgetState extends State<TacheconfirmerWidget> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
-                        child: FutureBuilder(
-                            future: (_model.apiRequestCompleterAllConfirmedTask ??= Completer<ApiCallResponse>()..complete(TechnicienGroup.taskToConfirmedCall.call())).future,
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
+                      if (filtertaskConfirme!.isNotEmpty && filtertaskConfirme != null)
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
+                          child: FutureBuilder(
+                              future: (_model.apiRequestCompleterAllConfirmedTask ??= Completer<ApiCallResponse>()..complete(TechnicienGroup.taskToConfirmedCall.call())).future,
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: CircularProgressIndicator(
+                                        valueColor: AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
                                       ),
                                     ),
+                                  );
+                                }
+                                return SingleChildScrollView(
+                                  child: ListView.builder(
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: filtertaskConfirme.length,
+                                    itemBuilder: (context, tasksToConfirmedIndex) {
+                                      final tasksToConfirmedItem = filtertaskConfirme[tasksToConfirmedIndex];
+                                      return wrapWithModel(
+                                        model: _model.taskToConfirmedItemModel,
+                                        updateCallback: () => setState(() {}),
+                                        child: TaskToConfirmedItemWidget(
+                                          key: Key(
+                                            'Keyf6j_${tasksToConfirmedIndex}_of_${_model.tasksToConfirmed.length}',
+                                          ),
+                                          tasksToConfirmedItem: tasksToConfirmedItem,
+                                        ),
+                                      );
+                                    },
                                   ),
                                 );
-                              }
-                              return SingleChildScrollView(
-                                child: ListView.builder(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: _model.tasksToConfirmed.length,
-                                  itemBuilder: (context, tasksToConfirmedIndex) {
-                                    final tasksToConfirmedItem = _model.tasksToConfirmed[tasksToConfirmedIndex];
-                                    return wrapWithModel(
-                                      model: _model.taskToConfirmedItemModel,
-                                      updateCallback: () => setState(() {}),
-                                      child: TaskToConfirmedItemWidget(
-                                        key: Key(
-                                          'Keyf6j_${tasksToConfirmedIndex}_of_${_model.tasksToConfirmed.length}',
-                                        ),
-                                        tasksToConfirmedItem: tasksToConfirmedItem,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              );
-                            }),
-                      ),
+                              }),
+                        ),
                     ],
                   ),
                 ),

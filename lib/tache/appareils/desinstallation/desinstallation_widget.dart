@@ -105,7 +105,6 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget> with Tick
   }
 
   Future<void> submitUninstallTask() async {
-    print("submitUninstallTask called ${_model.textControllerMatricule.text}");
     if (_model.formKey.currentState == null || !_model.formKey.currentState!.validate() || _model.isDataUploading_unistallationTask.isEmpty) {
       setState(() => _model.textControllerImagesValidator = "Veuillez choisir au moins une image");
       return;
@@ -595,7 +594,6 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget> with Tick
                                                     }
                                                     if (selectedUploadedFiles.length == selectedMedia.length) {
                                                       final imagesJson = await prepareImagesForLaravel(selectedUploadedFiles);
-
                                                       safeSetState(() {
                                                         _model.isDataUploading_unistallationTask = imagesJson;
                                                       });

@@ -58,7 +58,7 @@ class _NumberDeviceWidgetState extends State<NumberDeviceWidget> {
         });
         path = SimWidget.routeName;
         break;
-      case 'Accessoires':
+      case 'Accessory':
         setState(() {
           FFAppState().devicesAccessory = widget.accessory!;
         });

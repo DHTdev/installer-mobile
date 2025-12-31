@@ -76,7 +76,7 @@ class DeviceStruct extends BaseStruct {
   static DeviceStruct fromMap(Map<String, dynamic> data) => DeviceStruct(
         numberGps: data['NumberGps'],
         numberSim: data['NumberSim'],
-        numberAccessory: data['numberAccessory'],
+        numberAccessory: data['NumberAccessory'],
         gps: getStructList(
           data['GPS'],
           GpsStruct.fromMap,

@@ -1,5 +1,6 @@
 import 'package:mobile_installer/backend/schema/structs/index.dart';
 import 'package:mobile_installer/components/sim_device_item_widget.dart';
+import 'package:mobile_installer/flutter_flow/custom_functions.dart' as function;
 
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -49,6 +50,7 @@ class _SimWidgetState extends State<SimWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final filterSIM = function.filterSIM(simStruct, _model.textController.text);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -112,52 +114,37 @@ class _SimWidgetState extends State<SimWidget> {
                         Align(
                           alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                20.0, 0.0, 0.0, 0.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
                             child: Text(
                               'SIM',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.inter(
                                       fontWeight: FontWeight.bold,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                     ),
                                     color: Colors.white,
                                     fontSize: 20.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                   ),
                             ),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 20.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
                           child: Text(
-                            '223',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
+                            filterSIM!.length.toString(),
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   font: GoogleFonts.inter(
                                     fontWeight: FontWeight.bold,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                   ),
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: FlutterFlowTheme.of(context).secondaryBackground,
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
+                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                 ),
                           ),
                         ),
@@ -173,66 +160,33 @@ class _SimWidgetState extends State<SimWidget> {
                   child: TextFormField(
                     controller: _model.textController,
                     focusNode: _model.textFieldFocusNode,
-                    onFieldSubmitted: (_) async {
-                      safeSetState(() {
-                        _model.simpleSearchResults = TextSearch((List.generate(
-                                        random_data.randomInteger(5, 5),
-                                        (index) =>
-                                            random_data.randomName(true, true))
-                                    as List)
-                                .cast<String>()
-                                .map((str) =>
-                                    TextSearchItem.fromTerms(str, [str]))
-                                .toList())
-                            .search('TestField')
-                            .map((r) => r.object)
-                            .toList();
-                        ;
-                      });
-                      _model.isShowFullList = false;
+                    onChanged: (_) async {
+                      function.filterSIM(simStruct, _model.textController.text);
                       safeSetState(() {});
                     },
                     autofocus: false,
                     obscureText: false,
                     decoration: InputDecoration(
                       isDense: true,
-                      labelStyle:
-                          FlutterFlowTheme.of(context).labelMedium.override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
-                                ),
-                                letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontStyle,
-                              ),
+                      labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                            font: GoogleFonts.inter(
+                              fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                            ),
+                            letterSpacing: 0.0,
+                            fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                          ),
                       hintText: 'Rechercher ...',
-                      hintStyle:
-                          FlutterFlowTheme.of(context).labelMedium.override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
-                                ),
-                                letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontStyle,
-                              ),
+                      hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                            font: GoogleFonts.inter(
+                              fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                            ),
+                            letterSpacing: 0.0,
+                            fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                          ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x4C000000),
@@ -262,47 +216,40 @@ class _SimWidgetState extends State<SimWidget> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       filled: true,
-                      fillColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
+                      fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.inter(
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
+                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                           ),
                           letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
                     cursorColor: FlutterFlowTheme.of(context).primaryText,
-                    validator:
-                        _model.textControllerValidator.asValidator(context),
+                    validator: _model.textControllerValidator.asValidator(context),
                   ),
                 ),
               ),
-              Expanded(
-                  child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        final simItem = simStruct[index];
-                        return wrapWithModel(
-                            model: SimModel(),
-                            child: SimDeviceItemWidget(
-                              key: Key('simItem_${simItem.id}'),
-                              simNumber: simItem.serialNumber,
-                              SimModel: simItem.nameModele,
-                              SimType: simItem.nameType,
-                            ),
-                            updateCallback: () => setState(() {}));
-                      },
-                      separatorBuilder: (_, __) => SizedBox(height: 5),
-                      itemCount: simStruct.length))
+              if (filterSIM.isNotEmpty && filterSIM != null)
+                Expanded(
+                    child: ListView.separated(
+                  itemCount: filterSIM.length,
+                  itemBuilder: (context, index) {
+                    final simItem = filterSIM[index];
+                    return wrapWithModel(
+                        model: SimModel(),
+                        child: SimDeviceItemWidget(
+                          key: Key('simItem_${simItem.id}'),
+                          simNumber: simItem.serialNumber,
+                          SimModel: simItem.nameModele,
+                          SimType: simItem.nameType,
+                        ),
+                        updateCallback: () => setState(() {}));
+                  },
+                  separatorBuilder: (_, __) => SizedBox(height: 5),
+                ))
             ],
           ),
         ),

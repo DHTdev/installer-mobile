@@ -14,30 +14,35 @@ class TachesModel extends FlutterFlowModel<TachesWidget> {
 
   bool isShowFullList = true;
 
-  String searchText = '\"\"';
+  String? searchText = null;
 
   String selectedStatus = '\"\"';
 
   List<TechnicianTaskStruct> technicianTask = [];
-  void addToTechnicianTask(TechnicianTaskStruct item) =>
-      technicianTask.add(item);
-  void removeFromTechnicianTask(TechnicianTaskStruct item) =>
-      technicianTask.remove(item);
-  void removeAtIndexFromTechnicianTask(int index) =>
-      technicianTask.removeAt(index);
-  void insertAtIndexInTechnicianTask(int index, TechnicianTaskStruct item) =>
-      technicianTask.insert(index, item);
-  void updateTechnicianTaskAtIndex(
-          int index, Function(TechnicianTaskStruct) updateFn) =>
-      technicianTask[index] = updateFn(technicianTask[index]);
+  void addToTechnicianTask(TechnicianTaskStruct item) => technicianTask.add(item);
+  void removeFromTechnicianTask(TechnicianTaskStruct item) => technicianTask.remove(item);
+  void removeAtIndexFromTechnicianTask(int index) => technicianTask.removeAt(index);
+  void insertAtIndexInTechnicianTask(int index, TechnicianTaskStruct item) => technicianTask.insert(index, item);
+  void updateTechnicianTaskAtIndex(int index, Function(TechnicianTaskStruct) updateFn) => technicianTask[index] = updateFn(technicianTask[index]);
 
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (Tasks)] action in Taches widget.
   ApiCallResponse? apiResultTechnianTasks;
+  List<CityStruct> citiesResponse =[];
   // State field(s) for DropDown widget.
   String? dropDownValue1;
   FormFieldController<String>? dropDownValueController1;
+  String? selectedDateFilter;
+
+  String? selectedCity;
+
+  // State field(s) for SelectCitiesDD widget.
+  String? selectCitiesDDValue;
+  FormFieldController<String>? selectCitiesDDValueController;
+  // State field(s) for SelectDateDD widget.
+  String? selectDateDDValue;
+  FormFieldController<String>? selectDateDDValueController;
   // State field(s) for DropDown widget.
   String? dropDownValue2;
   FormFieldController<String>? dropDownValueController2;
@@ -53,8 +58,7 @@ class TachesModel extends FlutterFlowModel<TachesWidget> {
 
   @override
   void initState(BuildContext context) {
-    technicienTasksModels =
-        FlutterFlowDynamicModels(() => TechnicienTasksModel());
+    technicienTasksModels = FlutterFlowDynamicModels(() => TechnicienTasksModel());
     headerSectionModel = createModel(context, () => HeaderSectionModel());
   }
 

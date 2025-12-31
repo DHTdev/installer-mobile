@@ -1,82 +1,48 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
+import 'package:mobile_installer/flutter_flow/flutter_flow_theme.dart';
+import 'package:mobile_installer/flutter_flow/flutter_flow_util.dart';
 
-import 'sim_device_item_model.dart';
-export 'sim_device_item_model.dart';
-
-class SimDeviceItemWidget extends StatefulWidget {
-  const SimDeviceItemWidget({
-    super.key,
-    required this.simNumber,
-    this.SimModel,
-    this.SimType,
-  });
-  final String simNumber;
-  final String? SimModel;
-  final String? SimType;
-  @override
-  State<SimDeviceItemWidget> createState() => _SimDeviceItemWidgetState();
-}
-
-class _SimDeviceItemWidgetState extends State<SimDeviceItemWidget> {
-  late SimDeviceItemModel _model;
-
-  @override
-  void setState(VoidCallback callback) {
-    super.setState(callback);
-    _model.onUpdate();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, () => SimDeviceItemModel());
-  }
-
-  @override
-  void dispose() {
-    _model.maybeDispose();
-
-    super.dispose();
-  }
+class AccessoryDeviceItemWidget extends StatelessWidget {
+  final String? accessoryId;
+  final String? accessoryName;
+  final String? accessoryType;
+  const AccessoryDeviceItemWidget({super.key ,this.accessoryId,this.accessoryName,this.accessoryType});
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(-1, 0),
+      alignment: AlignmentDirectional(-1.0, 0.0),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
+        padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
         child: Container(
-          height: 115,
+          height: 109.38,
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).secondaryBackground,
             boxShadow: [
               BoxShadow(
-                blurRadius: 4,
+                blurRadius: 4.0,
                 color: Color(0x33000000),
                 offset: Offset(
-                  0,
-                  2,
+                  0.0,
+                  2.0,
                 ),
               )
             ],
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          alignment: AlignmentDirectional(0, -1),
+          alignment: AlignmentDirectional(0.0, -1.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Align(
-                alignment: AlignmentDirectional(-1, 0),
+                alignment: AlignmentDirectional(-1.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,47 +51,54 @@ class _SimDeviceItemWidgetState extends State<SimDeviceItemWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Container(
-                                width: 25,
-                                height: 25,
+                                width: 25.0,
+                                height: 25.0,
                                 decoration: BoxDecoration(
                                   color: Color(0xFFBFD2ED),
                                   boxShadow: [
                                     BoxShadow(
-                                      blurRadius: 4,
+                                      blurRadius: 4.0,
                                       color: Color(0x33000000),
                                       offset: Offset(
-                                        0,
-                                        4,
+                                        0.0,
+                                        4.0,
                                       ),
                                     )
                                   ],
-                                  borderRadius: BorderRadius.circular(2),
+                                  borderRadius: BorderRadius.circular(11.0),
                                 ),
-                                child: Icon(
-                                  Icons.sim_card,
-                                  color: Color(0xFF5889D1),
-                                  size: 20,
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(3.0, 3.0, 3.0, 3.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.network(
+                                      'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/mobile-installer-8g06wc/assets/8bibq1mazqms/icons8-adobe-indesign-26.png',
+                                      width: 200.0,
+                                      height: 200.0,
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
                                 ),
                               ),
                               Text(
-                                'SIM',
+                                'Acessoires ID',
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       font: GoogleFonts.inter(
                                         fontWeight: FontWeight.bold,
                                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                       ),
-                                      fontSize: 16,
+                                      fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                     ),
                               ),
-                            ].divide(SizedBox(width: 15)),
+                            ].divide(SizedBox(width: 15.0)),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
                             child: Text(
-                              widget.simNumber,
+                              accessoryId!,
                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.inter(
                                       fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -144,7 +117,7 @@ class _SimDeviceItemWidgetState extends State<SimDeviceItemWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 5, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 0.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -153,28 +126,28 @@ class _SimDeviceItemWidgetState extends State<SimDeviceItemWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Container(
-                          width: 25,
-                          height: 25,
+                          width: 25.0,
+                          height: 25.0,
                           decoration: BoxDecoration(
                             color: Color(0xFFBFD2ED),
                             boxShadow: [
                               BoxShadow(
-                                blurRadius: 4,
+                                blurRadius: 4.0,
                                 color: Color(0x33000000),
                                 offset: Offset(
-                                  0,
-                                  4,
+                                  0.0,
+                                  4.0,
                                 ),
                               )
                             ],
-                            borderRadius: BorderRadius.circular(2),
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
+                            padding: EdgeInsetsDirectional.fromSTEB(1.0, 3.0, 0.0, 0.0),
                             child: FaIcon(
-                              FontAwesomeIcons.globeAsia,
+                              FontAwesomeIcons.boxOpen,
                               color: Color(0xFF5889D1),
-                              size: 20,
+                              size: 18.0,
                             ),
                           ),
                         ),
@@ -185,18 +158,18 @@ class _SimDeviceItemWidgetState extends State<SimDeviceItemWidget> {
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                 ),
-                                fontSize: 16,
+                                fontSize: 16.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                               ),
                         ),
-                      ].divide(SizedBox(width: 15)),
+                      ].divide(SizedBox(width: 15.0)),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
                       child: Text(
-                        widget.SimModel.toString(),
+                        accessoryName!,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.inter(
                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -212,7 +185,7 @@ class _SimDeviceItemWidgetState extends State<SimDeviceItemWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 5, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 0.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -221,50 +194,50 @@ class _SimDeviceItemWidgetState extends State<SimDeviceItemWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Container(
-                          width: 25,
-                          height: 25,
+                          width: 25.0,
+                          height: 25.0,
                           decoration: BoxDecoration(
                             color: Color(0xFFBFD2ED),
                             boxShadow: [
                               BoxShadow(
-                                blurRadius: 4,
+                                blurRadius: 4.0,
                                 color: Color(0x33000000),
                                 offset: Offset(
-                                  0,
-                                  4,
+                                  0.0,
+                                  4.0,
                                 ),
                               )
                             ],
-                            borderRadius: BorderRadius.circular(2),
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(5, 2, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(5.0, 2.0, 0.0, 0.0),
                             child: FaIcon(
                               FontAwesomeIcons.tag,
                               color: Color(0xFF5889D1),
-                              size: 20,
+                              size: 20.0,
                             ),
                           ),
                         ),
                         Text(
-                          'Type',
+                          'Marque',
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                 font: GoogleFonts.inter(
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                 ),
-                                fontSize: 16,
+                                fontSize: 16.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                               ),
                         ),
-                      ].divide(SizedBox(width: 15)),
+                      ].divide(SizedBox(width: 15.0)),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
                       child: Text(
-                        widget.SimType.toString(),
+                        accessoryType!,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.inter(
                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
