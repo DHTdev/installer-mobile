@@ -150,7 +150,6 @@ class _TachesWidgetState extends State<TachesWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                   child: Container(
-                    height: MediaQuery.sizeOf(context).height * 0.35,
                     width: 379.2,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
