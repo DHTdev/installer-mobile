@@ -26,6 +26,7 @@ class AppareilsWidget extends StatefulWidget {
 
 class _AppareilsWidgetState extends State<AppareilsWidget> {
   late AppareilsModel _model;
+  bool isInitialLoadComplete = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   DeviceStruct technicianDevices = DeviceStruct();
@@ -41,8 +42,9 @@ class _AppareilsWidgetState extends State<AppareilsWidget> {
 
       if ((_model.apiResultwi6?.succeeded ?? true)) {
             safeSetState(() {
-          technicianDevices = DeviceStruct.maybeFromMap(_model.apiResultwi6?.jsonBody) as DeviceStruct;
-        });
+              technicianDevices = DeviceStruct.maybeFromMap(_model.apiResultwi6?.jsonBody) as DeviceStruct;
+              isInitialLoadComplete = true;
+            });
       }
     });
   }
@@ -111,6 +113,7 @@ class _AppareilsWidgetState extends State<AppareilsWidget> {
                       typeName: 'GPS',
                       numberDevices: technicianDevices.numberGps.toString(),
                       gps: technicianDevices.gps,
+                        isLoading: !isInitialLoadComplete
                     ),
                   ),
                 ),
@@ -123,6 +126,7 @@ class _AppareilsWidgetState extends State<AppareilsWidget> {
                       typeName: 'SIM',
                       numberDevices: technicianDevices.numberSim.toString(),
                       sim: technicianDevices.sim,
+                        isLoading: !isInitialLoadComplete,
                     ),
                   ),
                 ),
@@ -133,8 +137,9 @@ class _AppareilsWidgetState extends State<AppareilsWidget> {
                     updateCallback: () => safeSetState(() {}),
                     child: NumberDeviceWidget(
                       typeName: 'Accessory',
-                      numberDevices: technicianDevices.numberAccessory.toString(),
+                      numberDevices:  technicianDevices.numberAccessory.toString(),
                       accessory: technicianDevices.accessory,
+                        isLoading: !isInitialLoadComplete,
                     ),
                   ),
                 ),

@@ -16,6 +16,7 @@ class NumberDeviceWidget extends StatefulWidget {
     this.gps,
     this.sim,
     this.accessory,
+    this.isLoading = false,
   });
 
   final String typeName;
@@ -23,6 +24,7 @@ class NumberDeviceWidget extends StatefulWidget {
   final List<GpsStruct>? gps;
   final List<SimStruct>? sim;
   final List<AccessoryStruct>? accessory;
+  final bool isLoading;
 
   @override
   State<NumberDeviceWidget> createState() => _NumberDeviceWidgetState();
@@ -138,7 +140,9 @@ class _NumberDeviceWidgetState extends State<NumberDeviceWidget> {
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
-                child: Text(
+                child: widget.isLoading
+                    ? CircularProgressIndicator()
+                    :Text(
                   valueOrDefault<String>(
                     widget.numberDevices,
                     '0',
