@@ -87,7 +87,7 @@ class _NumberDeviceWidgetState extends State<NumberDeviceWidget> {
         highlightColor: Colors.transparent,
         onTap: () async {
           await setPath(widget.typeName);
-          if (path != null) {
+          if (path != null && !widget.isLoading) {
             await context.pushNamed(path!);
           }
         },
