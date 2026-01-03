@@ -110,8 +110,49 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
       etatTache: "2",
     );
     try {
-      TechnicienGroup.updateTaskCall.call(widget.infoTask?.id, endInstallationTalsData, "installation");
-      Navigator.pop(context);
+      _model.apiResultInstallationSubmit = await TechnicienGroup.updateTaskCall.call(widget.infoTask?.id, endInstallationTalsData, "installation");
+      if ((_model.apiResultInstallationSubmit?.succeeded ?? true)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'installation soumise avec succès',
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    font: GoogleFonts.inter(
+                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                    ),
+                    letterSpacing: 0.0,
+                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                  ),
+            ),
+            duration: Duration(milliseconds: 4000),
+            backgroundColor: FlutterFlowTheme.of(context).secondary,
+          ),
+        );
+        context.pop();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Oups — une erreur est survenue. Veuillez réessayer plus tard.',
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    font: GoogleFonts.inter(
+                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                    ),
+                    letterSpacing: 0.0,
+                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                  ),
+            ),
+            duration: Duration(milliseconds: 4000),
+            backgroundColor: FlutterFlowTheme.of(context).error,
+          ),
+        );
+      }
     } catch (e) {
       print(e);
     }
@@ -348,6 +389,8 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                                   child: Autocomplete<GpsStruct>(
                                                     optionsBuilder: (TextEditingValue textEditingValue) {
                                                       if (textEditingValue.text == "") {
+                                                        print("list empty");
+
                                                         return List<GpsStruct>.empty();
                                                       }
                                                       return gpdDevicesPreTech.where((imei) => imei.serialNumber.toLowerCase().contains(textEditingValue.text.toLowerCase()));

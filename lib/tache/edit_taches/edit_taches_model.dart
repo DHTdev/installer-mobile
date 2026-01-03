@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:mobile_installer/backend/api_requests/api_manager.dart';
 import 'package:mobile_installer/backend/schema/structs/index.dart';
-// 
+//
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -21,6 +21,7 @@ class EditTachesModel extends FlutterFlowModel<EditTachesWidget> {
   final formKey = GlobalKey<FormState>();
   Completer<ApiCallResponse>? apiResponseCompleter;
   ApiCallResponse? apiResultGetDevicesByTech;
+  ApiCallResponse? apiResultUpdateTask;
   ApiCallResponse? apiResponseTaskInfo;
   NewTaskInfoStruct? newTaskInfo;
   // State field(s) for TextField widget.
@@ -42,6 +43,10 @@ class EditTachesModel extends FlutterFlowModel<EditTachesWidget> {
   FocusNode? textFieldFocusNodeDeviceType;
   TextEditingController? textControllerDeviceType;
   String? Function(BuildContext, String?)? textController4Validator;
+  // State field(s) for TextField widget for SIM NUMBER.
+  FocusNode? textFieldFocusNodeSIM;
+  TextEditingController? textControllerSIM;
+  String? Function(BuildContext, String?)? textControllerSIMValidator;
   // State field(s) for GPS_Position widget.
   String? gPSPositionValue1;
   FormFieldController<String>? gPSPositionValueController1;
@@ -58,6 +63,10 @@ class EditTachesModel extends FlutterFlowModel<EditTachesWidget> {
   FocusNode? textFieldFocusNodeDate;
   TextEditingController? textControllerDate;
   String? Function(BuildContext, String?)? textController5Validator;
+
+  // State field to manage uploading images.
+  bool isDataUploading = false;
+  List<Map<String, dynamic>> uploadedLocalFiles = [];
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNodeDescription;
   TextEditingController? textControllerDescription;
@@ -79,6 +88,9 @@ class EditTachesModel extends FlutterFlowModel<EditTachesWidget> {
 
     textFieldFocusNodeDeviceType?.dispose();
     textControllerDeviceType?.dispose();
+
+    textFieldFocusNodeSIM?.dispose();
+    textControllerSIM?.dispose();
 
     textFieldFocusNodeDate?.dispose();
     textControllerDate?.dispose();

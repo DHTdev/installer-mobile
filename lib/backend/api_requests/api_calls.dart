@@ -818,15 +818,36 @@ class AllUsersCall {
 
 class UpdateTaskTerminedCall {
   Future<ApiCallResponse> call({
-    int? id,
+    int? idTache,
+    String? Description,
+    int? statut,
+    String? matricule,
+    String? IMEI,
+    String? typeRelais,
+    List<Map<String, dynamic>>? imagesTask,
+    String? typeTache,
+    String? madeAt,
   }) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
 
     return ApiManager.instance.makeApiCall(
       callName: 'updateTaskTermined',
-      apiUrl: '${baseUrl}/updateTaskTermined/{id}',
+      apiUrl: '${baseUrl}/updateTaskTermined/${idTache}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
+      body: jsonEncode({
+        "Description": Description,
+        "statut": statut,
+        "matricule": matricule,
+        "IMEI": IMEI,
+        "typeRelais": typeRelais,
+        "imagesTask": imagesTask,
+        "typeTache": typeTache,
+        "madeAt": madeAt,
+      }),
       params: {},
       bodyType: BodyType.JSON,
       returnBody: true,

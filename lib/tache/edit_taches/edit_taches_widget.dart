@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/scheduler.dart';
 import 'package:mobile_installer/backend/api_requests/api_calls.dart';
 import 'package:mobile_installer/backend/schema/structs/index.dart';
+import 'package:mobile_installer/flutter_flow/upload_data.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -46,7 +47,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => EditTachesModel());
-    // getDevicesByTechCall();
+    getDevicesByTechCall();
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       try {
         _model.apiResponseTaskInfo = await TechnicienGroup.getNewTaskInfoCall.call();
@@ -64,14 +65,19 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
         print("error: $e");
       }
     });
+
     _model.textControllerClientName ??= TextEditingController(text: widget.infoTask?.clientName);
     _model.textFieldFocusNodeClientName ??= FocusNode();
 
     _model.textControllerMatricule ??= TextEditingController(text: widget.infoTask?.matricule);
     _model.textFieldFocusNodeMatricule ??= FocusNode();
 
+    _model.dropDownValue ??= widget.infoTask?.catache;
+
     _model.textControllerIMEI ??= TextEditingController(text: (widget.infoTask?.IMEI).toString());
     _model.textFieldFocusNodeIMEI ??= FocusNode();
+    _model.textControllerSIM ??= TextEditingController(text: (widget.infoTask?.SIM).toString());
+    _model.textFieldFocusNodeSIM ??= FocusNode();
 
     _model.textControllerDeviceType ??= TextEditingController(text: widget.infoTask?.nameModeleGPS);
     _model.textFieldFocusNodeDeviceType ??= FocusNode();
@@ -85,7 +91,6 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
 
   Future<DeviceStruct> getDevicesByTechCall() async {
     _model.apiResultGetDevicesByTech = await TechnicienGroup.appareilsCall.call();
-
     if ((_model.apiResultGetDevicesByTech?.succeeded ?? true)) {
       safeSetState(() {
         technicianDevices = DeviceStruct.maybeFromMap(_model.apiResultGetDevicesByTech?.jsonBody) as DeviceStruct;
@@ -94,6 +99,86 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
       });
     }
     return technicianDevices;
+  }
+
+  Future<dynamic> updateTaskSubmit() async {
+    try{
+      _model.apiResultUpdateTask = await TechnicienGroup.updateTaskTerminedCall.call(
+      idTache: widget.infoTask?.id,
+      matricule: _model.textControllerMatricule.text,
+      IMEI: _model.textControllerIMEI.text,
+      statut: int.parse(_model.gPSPositionValue1 ?? '0'),
+      typeRelais: _model.typeRelaisValue,
+      Description: _model.textControllerDescription.text,
+      imagesTask: _model.uploadedLocalFiles,
+      typeTache: _model.dropDownValue,
+      madeAt: _model.textControllerDate.text,
+    );
+    if ((_model.apiResultUpdateTask?.succeeded ?? true)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Tâche mise à jour avec succès',
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  font: GoogleFonts.inter(
+                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                  ),
+                  color: Colors.white,
+                  letterSpacing: 0.0,
+                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                ),
+          ),
+          duration: Duration(milliseconds: 4000),
+          backgroundColor: Color(0xFF4B6868),
+        ),
+      );
+      context.pop();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Échec de la mise à jour de la tâche',
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  font: GoogleFonts.inter(
+                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                  ),
+                  color: Colors.white,
+                  letterSpacing: 0.0,
+                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                ),
+          ),
+          duration: Duration(milliseconds: 4000),
+          backgroundColor: FlutterFlowTheme.of(context).error,
+        ),
+      );
+    }
+    }
+    catch(e){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Opps! Une erreur est survenue.',
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  font: GoogleFonts.inter(
+                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                  ),
+                  color: Colors.white,
+                  letterSpacing: 0.0,
+                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                ),
+          ),
+          duration: Duration(milliseconds: 4000),
+          backgroundColor: FlutterFlowTheme.of(context).error,
+        ),
+      );
+    }
+    return;
   }
 
   @override
@@ -279,7 +364,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 8, 8),
+                                              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 8, 0),
                                               child: Container(
                                                 width: 200,
                                                 child: TextFormField(
@@ -361,15 +446,15 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                                            padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
                                             child: FlutterFlowDropDown<String>(
                                               controller: _model.dropDownValueController ??= FormFieldController<String>(
-                                                widget.infoTask?.catache,
+                                                _model.dropDownValue,
                                               ),
                                               options: taskCategory.map((taskType) => taskType.taskName.toString()).toList(),
                                               onChanged: (val) => safeSetState(() => _model.dropDownValue = val),
                                               width: MediaQuery.of(context).size.width * 0.88,
-                                              height: 41.8,
+                                              height: 50,
                                               textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                                                     font: GoogleFonts.inter(
                                                       fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -389,7 +474,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                               fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                                               elevation: 2,
                                               borderColor: FlutterFlowTheme.of(context).secondaryText,
-                                              borderWidth: 0,
+                                              borderWidth: 1,
                                               borderRadius: 8,
                                               margin: EdgeInsetsDirectional.fromSTEB(10, 0, 12, 0),
                                               hidesUnderline: true,
@@ -402,73 +487,55 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                       ),
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 8, 8),
-                                              child: Autocomplete<GpsStruct>(
-                                                optionsBuilder: (TextEditingValue textEditingValue) {
-                                                  if (textEditingValue.text == "") {
-                                                    return List<GpsStruct>.empty();
-                                                  }
-                                                  return gpdDevicesPreTech.where((imei) => imei.serialNumber.toLowerCase().contains(textEditingValue.text.toLowerCase()));
-                                                },
-                                                fieldViewBuilder: (context, textEditingController, focusNode, onFieldSubmitted) {
-                                                  return TextField(
-                                                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                                                    controller: textEditingController,
-                                                    focusNode: focusNode,
-                                                    decoration: InputDecoration(
-                                                      labelText: 'IMEI',
-                                                      labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                                            font: GoogleFonts.inter(
-                                                              fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                                              fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                                            ),
-                                                            color: Color(0xFF57636C),
-                                                            letterSpacing: 0.0,
-                                                            fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                                            fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                                          ),
-                                                      border: OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color: FlutterFlowTheme.of(context).primary,
-                                                          width: 1,
+                                              padding: EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 8.0, 0.0),
+                                              child: Container(
+                                                  width: 200.0,
+                                                  child: Autocomplete<GpsStruct>(
+                                                    optionsBuilder: (TextEditingValue textEditingValue) {
+                                                      if (textEditingValue.text == "") {
+                                                        return List<GpsStruct>.empty();
+                                                      }
+                                                      return gpdDevicesPreTech.where((imei) => imei.serialNumber.toLowerCase().contains(textEditingValue.text.toLowerCase()));
+                                                    },
+                                                    fieldViewBuilder: (context, textEditingController, focusNode, onFieldSubmitted) {
+                                                      return TextField(
+                                                        controller: textEditingController,
+                                                        focusNode: focusNode,
+                                                        decoration: InputDecoration(
+                                                          labelText: _model.textControllerIMEI.text == "null" ? "IMEI" : _model.textControllerIMEI.text,
+                                                          border: OutlineInputBorder(),
                                                         ),
-                                                        borderRadius: BorderRadius.circular(8),
-                                                      ),
-                                                    ),
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        _model.textControllerIMEI.text = value;
-                                                      });
-                                                    },
-                                                  );
-                                                },
-                                                optionsViewBuilder: ((context, onselected, gpdDevicesPreTech) {
-                                                  return Material(
-                                                      child: ListView.builder(
-                                                    itemCount: gpdDevicesPreTech.length,
-                                                    itemBuilder: (context, index) {
-                                                      final option = gpdDevicesPreTech.elementAt(index);
-                                                      return ListTile(
-                                                          title: Text(option.serialNumber),
-                                                          onTap: () {
-                                                            onselected(option);
-                                                            setState(() {
-                                                              // serial_numberCombination =
-                                                              //     option
-                                                              //         .serialNumberCombination;
-                                                              _model.textControllerIMEI.text = option.serialNumber;
-                                                            });
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            _model.textControllerIMEI.text = value;
                                                           });
+                                                        },
+                                                      );
                                                     },
-                                                  ));
-                                                }),
-                                                displayStringForOption: (gpsIMEI) => gpsIMEI.serialNumber,
-                                              ),
+                                                    optionsViewBuilder: ((context, onselected, gpdDevicesPreTech) {
+                                                      return Material(
+                                                          child: ListView.builder(
+                                                        itemCount: gpdDevicesPreTech.length,
+                                                        itemBuilder: (context, index) {
+                                                          final option = gpdDevicesPreTech.elementAt(index);
+                                                          return ListTile(
+                                                              title: Text(option.serialNumber),
+                                                              onTap: () {
+                                                                onselected(option);
+                                                                setState(() {
+                                                                  // serial_numberCombination = option.serialNumberCombination;
+                                                                  _model.textControllerIMEI.text = option.serialNumber;
+                                                                });
+                                                              });
+                                                        },
+                                                      ));
+                                                    }),
+                                                    displayStringForOption: (gpsIMEI) => gpsIMEI.serialNumber,
+                                                  )),
                                             ),
                                           ),
                                         ],
@@ -479,7 +546,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(16, 0, 8, 8),
+                                              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 8, 0),
                                               child: Container(
                                                 width: 200,
                                                 child: TextFormField(
@@ -557,6 +624,90 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                           ),
                                         ],
                                       ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 8, 0),
+                                              child: Container(
+                                                width: 200,
+                                                child: TextFormField(
+                                                  controller: _model.textControllerSIM,
+                                                  focusNode: _model.textFieldFocusNodeSIM,
+                                                  autofocus: false,
+                                                  obscureText: false,
+                                                  decoration: InputDecoration(
+                                                    isDense: true,
+                                                    labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                                                          font: GoogleFonts.inter(
+                                                            fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                                            fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                                          ),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                                        ),
+                                                    hintText: 'SIM NUMBER',
+                                                    hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                                                          font: GoogleFonts.inter(
+                                                            fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                                            fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                                          ),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                                        ),
+                                                    enabledBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius: BorderRadius.circular(8),
+                                                    ),
+                                                    focusedBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color: FlutterFlowTheme.of(context).primary,
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius: BorderRadius.circular(8),
+                                                    ),
+                                                    errorBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color: FlutterFlowTheme.of(context).error,
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius: BorderRadius.circular(8),
+                                                    ),
+                                                    focusedErrorBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color: FlutterFlowTheme.of(context).error,
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius: BorderRadius.circular(8),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                                                    contentPadding: EdgeInsetsDirectional.fromSTEB(10, 20, 20, 16),
+                                                  ),
+                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                      ),
+                                                  cursorColor: FlutterFlowTheme.of(context).primaryText,
+                                                  validator: _model.textControllerSIMValidator.asValidator(context),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                                         child: Row(
@@ -564,7 +715,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 8),
+                                              padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
                                               child: FlutterFlowDropDown<String>(
                                                 controller: _model.gPSPositionValueController1 ??= FormFieldController<String>(
                                                   _model.gPSPositionValue1 ??= widget.infoTask?.gps_principale.toString(),
@@ -576,7 +727,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                                 optionLabels: ['principale(1er)', 'secondaire(2eme)'],
                                                 onChanged: (val) => safeSetState(() => _model.gPSPositionValue1 = val),
                                                 width: MediaQuery.of(context).size.width * 0.88,
-                                                height: 41.8,
+                                                height: 50,
                                                 textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                                                       font: GoogleFonts.inter(
                                                         fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -596,7 +747,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                                 fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                                                 elevation: 2,
                                                 borderColor: FlutterFlowTheme.of(context).secondaryText,
-                                                borderWidth: 0,
+                                                borderWidth: 1,
                                                 borderRadius: 8,
                                                 margin: EdgeInsetsDirectional.fromSTEB(10, 0, 12, 0),
                                                 hidesUnderline: true,
@@ -615,7 +766,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 8),
+                                              padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
                                               child: FlutterFlowDropDown<String>(
                                                 controller: _model.typeRelaisValueController ??= FormFieldController<String>(
                                                   _model.typeRelaisValue ??= widget.infoTask?.accesoriesModel,
@@ -627,7 +778,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                                 optionLabels: ['Normal', 'Spécial'],
                                                 onChanged: (val) => safeSetState(() => _model.typeRelaisValue = val),
                                                 width: MediaQuery.sizeOf(context).width * 0.88,
-                                                height: 41.8,
+                                                height: 50,
                                                 textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                                                       font: GoogleFonts.inter(
                                                         fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -647,7 +798,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                                 fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                                                 elevation: 2,
                                                 borderColor: FlutterFlowTheme.of(context).secondaryText,
-                                                borderWidth: 0,
+                                                borderWidth: 1,
                                                 borderRadius: 8,
                                                 margin: EdgeInsetsDirectional.fromSTEB(10, 0, 12, 0),
                                                 hidesUnderline: true,
@@ -666,7 +817,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 8),
+                                              padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
                                               child: FlutterFlowDropDown<String>(
                                                 controller: _model.cityValueController ??= FormFieldController<String>(
                                                   _model.cityValue ??= '',
@@ -675,7 +826,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                                 optionLabels: ['principale(1er)', 'GPS Position', 'secondaire(2eme)'],
                                                 onChanged: (val) => safeSetState(() => _model.cityValue = val),
                                                 width: MediaQuery.sizeOf(context).width * 0.88,
-                                                height: 41.8,
+                                                height: 50,
                                                 textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                                                       font: GoogleFonts.inter(
                                                         fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -695,7 +846,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                                 fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                                                 elevation: 2,
                                                 borderColor: FlutterFlowTheme.of(context).secondaryText,
-                                                borderWidth: 0,
+                                                borderWidth: 1,
                                                 borderRadius: 8,
                                                 margin: EdgeInsetsDirectional.fromSTEB(10, 0, 12, 0),
                                                 hidesUnderline: true,
@@ -713,7 +864,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(16, 0, 8, 8),
+                                              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 8, 0),
                                               child: Container(
                                                 width: 200,
                                                 child: TextFormField(
@@ -803,50 +954,96 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 8),
-                                            child: Container(
-                                              width: MediaQuery.of(context).size.width * 0.88,
-                                              height: 41.8,
-                                              decoration: BoxDecoration(
-                                                color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                borderRadius: BorderRadius.circular(8),
-                                                border: Border.all(
-                                                  color: FlutterFlowTheme.of(context).secondaryText,
-                                                ),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsets.all(8),
-                                                child: Row(
-                                                  mainAxisSize: MainAxisSize.max,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.upload_file,
-                                                      color: FlutterFlowTheme.of(context).secondaryText,
-                                                      size: 32,
+                                        padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            final selectedMedia = await selectMedia(
+                                              maxWidth: 960.00,
+                                              maxHeight: 1280.00,
+                                              imageQuality: 80,
+                                              mediaSource: MediaSource.photoGallery,
+                                              multiImage: true,
+                                            );
+                                            if (selectedMedia != null && selectedMedia.every((m) => validateFileFormat(m.storagePath, context))) {
+                                              safeSetState(() => _model.isDataUploading= true);
+                                              var selectedUploadedFiles = <FFUploadedFile>[];
+                                              try {
+                                                for (final media in selectedMedia) {
+                                                  if (media.bytes == null) continue;
+                                                  final compressed = await compressImageBytes(media.bytes);
+                                                  selectedUploadedFiles.add(
+                                                    FFUploadedFile(
+                                                      bytes: compressed,
+                                                      height: media.dimensions?.height,
+                                                      width: media.dimensions?.width,
+                                                      name: media.storagePath.split('/').last,
+                                                      blurHash: media.blurHash,
+                                                      originalFilename: media.originalFilename,
                                                     ),
-                                                    Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
-                                                      child: Text(
-                                                        'Importer permis',
-                                                        textAlign: TextAlign.center,
-                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                              font: GoogleFonts.inter(
-                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                              ),
-                                                              color: Color(0xFF57636C),
-                                                              letterSpacing: 0.0,
+                                                  );
+                                                }
+                                              } finally {
+                                                _model.isDataUploading = false;
+                                              }
+                                              if (selectedUploadedFiles.length == selectedMedia.length) {
+                                                final imagesJson = await prepareImagesForLaravel(selectedUploadedFiles);
+
+                                                safeSetState(() {
+                                                  _model.uploadedLocalFiles = imagesJson;
+                                                });
+                                              } else {
+                                                safeSetState(() {});
+                                                return;
+                                              }
+                                            }
+                                          },
+                                          child: Container(
+                                            width: 315,
+                                            height: 49.8,
+                                            decoration: BoxDecoration(
+                                              color: FlutterFlowTheme.of(context).secondaryBackground,
+                                              borderRadius: BorderRadius.circular(8),
+                                              border: Border.all(
+                                                color: FlutterFlowTheme.of(context).secondaryText,
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(8),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  Icon(
+                                                    Icons.upload_file,
+                                                    color: FlutterFlowTheme.of(context).secondaryText,
+                                                    size: 32,
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                                                    child: Text(
+                                                      'Sélect fichiers',
+                                                      textAlign: TextAlign.center,
+                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                            font: GoogleFonts.inter(
                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                             ),
-                                                      ),
+                                                            letterSpacing: 0.0,
+                                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                          ),
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
+                                        ),
+                                      ),
                                         ],
                                       ),
                                       Row(
@@ -948,9 +1145,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      if (_model.formKey.currentState == null || !_model.formKey.currentState!.validate()) {
-                                        return;
-                                      }
+                                      _isButtonEnabled ? await updateTaskSubmit() : null;
                                     },
                                     text: 'Modifier la tâche',
                                     options: FFButtonOptions(
