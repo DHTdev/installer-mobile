@@ -24,6 +24,8 @@ class EditTachesModel extends FlutterFlowModel<EditTachesWidget> {
   ApiCallResponse? apiResultUpdateTask;
   ApiCallResponse? apiResponseTaskInfo;
   NewTaskInfoStruct? newTaskInfo;
+
+  final Map<String, dynamic> toUpdate = {};
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNodeClientName;
   TextEditingController? textControllerClientName;

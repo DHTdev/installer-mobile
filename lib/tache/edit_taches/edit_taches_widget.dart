@@ -101,18 +101,17 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
     return technicianDevices;
   }
 
+  void trackChange(String key, dynamic value) {
+    setState(() {
+      _model.toUpdate![key] = value;
+    });
+  }
+
   Future<dynamic> updateTaskSubmit() async {
     try{
       _model.apiResultUpdateTask = await TechnicienGroup.updateTaskTerminedCall.call(
       idTache: widget.infoTask?.id,
-      matricule: _model.textControllerMatricule.text,
-      IMEI: _model.textControllerIMEI.text,
-      statut: int.parse(_model.gPSPositionValue1 ?? '0'),
-      typeRelais: _model.typeRelaisValue,
-      Description: _model.textControllerDescription.text,
-      imagesTask: _model.uploadedLocalFiles,
-      typeTache: _model.dropDownValue,
-      madeAt: _model.textControllerDate.text,
+      toUpdate: _model.toUpdate,
     );
     if ((_model.apiResultUpdateTask?.succeeded ?? true)) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -130,8 +129,8 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                 ),
           ),
-          duration: Duration(milliseconds: 4000),
-          backgroundColor: Color(0xFF4B6868),
+          duration: Duration(milliseconds: 6000),
+          backgroundColor: FlutterFlowTheme.of(context).secondary,
         ),
       );
       context.pop();
@@ -151,13 +150,14 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                 ),
           ),
-          duration: Duration(milliseconds: 4000),
+          duration: Duration(milliseconds: 6000),
           backgroundColor: FlutterFlowTheme.of(context).error,
         ),
       );
     }
     }
     catch(e){
+      print("error: $e");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -370,6 +370,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                                 child: TextFormField(
                                                   controller: _model.textControllerMatricule,
                                                   focusNode: _model.textFieldFocusNodeMatricule,
+                                                  onChanged: ((value) => trackChange('matricule', value)),
                                                   autofocus: false,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
@@ -452,7 +453,10 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                                 _model.dropDownValue,
                                               ),
                                               options: taskCategory.map((taskType) => taskType.taskName.toString()).toList(),
-                                              onChanged: (val) => safeSetState(() => _model.dropDownValue = val),
+                                              onChanged: (value) {
+                                                setState(() => _model.dropDownValue = value);
+                                                trackChange('typeTache', value);
+                                              },
                                               width: MediaQuery.of(context).size.width * 0.88,
                                               height: 50,
                                               textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -513,6 +517,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                                           setState(() {
                                                             _model.textControllerIMEI.text = value;
                                                           });
+                                                          trackChange('IMEI', value);
                                                         },
                                                       );
                                                     },
@@ -636,6 +641,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                                 child: TextFormField(
                                                   controller: _model.textControllerSIM,
                                                   focusNode: _model.textFieldFocusNodeSIM,
+                                                  onChanged: ((value) => trackChange('simNumber', value)),
                                                   autofocus: false,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
@@ -725,7 +731,10 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                                   '1',
                                                 ]),
                                                 optionLabels: ['principale(1er)', 'secondaire(2eme)'],
-                                                onChanged: (val) => safeSetState(() => _model.gPSPositionValue1 = val),
+                                                onChanged: (val){
+                                                  safeSetState(() => _model.gPSPositionValue1 = val);
+                                                  trackChange('statut', val);
+                                                },
                                                 width: MediaQuery.of(context).size.width * 0.88,
                                                 height: 50,
                                                 textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -776,7 +785,10 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                                   'Spécial',
                                                 ]),
                                                 optionLabels: ['Normal', 'Spécial'],
-                                                onChanged: (val) => safeSetState(() => _model.typeRelaisValue = val),
+                                                onChanged: (val){
+                                                  safeSetState(() => _model.typeRelaisValue = val);
+                                                  trackChange('typeRelais', val);
+                                                },
                                                 width: MediaQuery.sizeOf(context).width * 0.88,
                                                 height: 50,
                                                 textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -824,7 +836,10 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                                 ),
                                                 options: List<String>.from(['Option 1', 'Option 2', '2']),
                                                 optionLabels: ['principale(1er)', 'GPS Position', 'secondaire(2eme)'],
-                                                onChanged: (val) => safeSetState(() => _model.cityValue = val),
+                                                onChanged: (val){
+                                                  safeSetState(() => _model.cityValue = val);
+                                                  trackChange('madeAt', val);
+                                                },
                                                 width: MediaQuery.sizeOf(context).width * 0.88,
                                                 height: 50,
                                                 textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -995,6 +1010,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                                 safeSetState(() {
                                                   _model.uploadedLocalFiles = imagesJson;
                                                 });
+                                                trackChange('imagesTask', _model.uploadedLocalFiles);
                                               } else {
                                                 safeSetState(() {});
                                                 return;
@@ -1058,6 +1074,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                                 child: TextFormField(
                                                   controller: _model.textControllerDescription,
                                                   focusNode: _model.textFieldFocusNodeDescription,
+                                                  onChanged: (value) => trackChange('Description', value),
                                                   autofocus: false,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
