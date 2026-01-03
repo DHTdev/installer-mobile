@@ -298,7 +298,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 8, 8),
+                                              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
                                               child: Container(
                                                 width: 200,
                                                 child: TextFormField(
@@ -383,7 +383,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 8.0, 0.0),
+                                              padding: EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16, 0.0),
                                               child: Container(
                                                   width: 200.0,
                                                   child: Autocomplete<GpsStruct>(
@@ -440,7 +440,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 8, 8),
+                                              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
                                               child: Container(
                                                 width: 200,
                                                 child: TextFormField(
@@ -523,46 +523,48 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
-                                          Padding(
-                                            padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 8),
-                                            child: FlutterFlowDropDown<bool>(
-                                              controller: _model.dropDownValueControllerGpsPosition ??= FormFieldController<bool>(
-                                                _model.dropDownValueGpsPosition ??= false,
-                                              ),
-                                              options: List<bool>.from([
-                                                false,
-                                                true,
-                                              ]),
-                                              optionLabels: ['principale(1er)', 'secondaire(2eme)'],
-                                              onChanged: (val) => safeSetState(() => _model.dropDownValueGpsPosition = val),
-                                              width: MediaQuery.sizeOf(context).width * 0.88,
-                                              height: 41.8,
-                                              textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                    font: GoogleFonts.inter(
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
+                                              child: FlutterFlowDropDown<bool>(
+                                                controller: _model.dropDownValueControllerGpsPosition ??= FormFieldController<bool>(
+                                                  _model.dropDownValueGpsPosition ??= false,
+                                                ),
+                                                options: List<bool>.from([
+                                                  false,
+                                                  true,
+                                                ]),
+                                                optionLabels: ['principale(1er)', 'secondaire(2eme)'],
+                                                onChanged: (val) => safeSetState(() => _model.dropDownValueGpsPosition = val),
+                                                width: 200,
+                                                height: 41.8,
+                                                textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                      ),
+                                                      color: Color(0xFF57636C),
+                                                      letterSpacing: 0.0,
                                                       fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                     ),
-                                                    color: Color(0xFF57636C),
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                  ),
-                                              hintText: 'Gps principale / secondaire',
-                                              icon: Icon(
-                                                Icons.keyboard_arrow_down_rounded,
-                                                color: FlutterFlowTheme.of(context).secondaryText,
-                                                size: 24,
+                                                hintText: 'Gps principale / secondaire',
+                                                icon: Icon(
+                                                  Icons.keyboard_arrow_down_rounded,
+                                                  color: FlutterFlowTheme.of(context).secondaryText,
+                                                  size: 24,
+                                                ),
+                                                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                                                elevation: 2,
+                                                borderColor: Colors.black,
+                                                borderWidth: 0,
+                                                borderRadius: 8,
+                                                margin: EdgeInsetsDirectional.fromSTEB(10, 0, 12, 0),
+                                                hidesUnderline: true,
+                                                isOverButton: false,
+                                                isSearchable: false,
+                                                isMultiSelect: false,
                                               ),
-                                              fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                              elevation: 2,
-                                              borderColor: Colors.black,
-                                              borderWidth: 0,
-                                              borderRadius: 8,
-                                              margin: EdgeInsetsDirectional.fromSTEB(10, 0, 12, 0),
-                                              hidesUnderline: true,
-                                              isOverButton: false,
-                                              isSearchable: false,
-                                              isMultiSelect: false,
                                             ),
                                           ),
                                         ],
@@ -571,53 +573,55 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
-                                          Padding(
-                                            padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 8),
-                                            child: FlutterFlowDropDown<String>(
-                                              controller: _model.dropDownValueControllerTypeReley ??= FormFieldController<String>(
-                                                _model.dropDownValueTypeReley ??= '',
-                                              ),
-                                              options: List<String>.from([
-                                                'none',
-                                                'normal',
-                                                'spécial',
-                                              ]),
-                                              optionLabels: ['Sans Relais', 'Normal', 'Spécial'],
-                                              onChanged: (val) => safeSetState(() => _model.dropDownValueTypeReley = val),
-                                              width: MediaQuery.sizeOf(context).width * 0.88,
-                                              height: 41.8,
-                                              textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                    font: GoogleFonts.inter(
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
+                                              child: FlutterFlowDropDown<String>(
+                                                controller: _model.dropDownValueControllerTypeReley ??= FormFieldController<String>(
+                                                  _model.dropDownValueTypeReley ??= '',
+                                                ),
+                                                options: List<String>.from([
+                                                  'none',
+                                                  'normal',
+                                                  'spécial',
+                                                ]),
+                                                optionLabels: ['Sans Relais', 'Normal', 'Spécial'],
+                                                onChanged: (val) => safeSetState(() => _model.dropDownValueTypeReley = val),
+                                                width: 200,
+                                                height: 41.8,
+                                                textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                      ),
+                                                      color: Color(0xFF57636C),
+                                                      letterSpacing: 0.0,
                                                       fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                     ),
-                                                    color: Color(0xFF57636C),
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                  ),
-                                              hintText: 'normal / spécial',
-                                              icon: Icon(
-                                                Icons.keyboard_arrow_down_rounded,
-                                                color: FlutterFlowTheme.of(context).secondaryText,
-                                                size: 24,
+                                                hintText: 'normal / spécial',
+                                                icon: Icon(
+                                                  Icons.keyboard_arrow_down_rounded,
+                                                  color: FlutterFlowTheme.of(context).secondaryText,
+                                                  size: 24,
+                                                ),
+                                                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                                                elevation: 2,
+                                                borderColor: Colors.black,
+                                                borderWidth: 0,
+                                                borderRadius: 8,
+                                                margin: EdgeInsetsDirectional.fromSTEB(10, 0, 12, 0),
+                                                hidesUnderline: true,
+                                                isOverButton: false,
+                                                isSearchable: false,
+                                                isMultiSelect: false,
                                               ),
-                                              fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                              elevation: 2,
-                                              borderColor: Colors.black,
-                                              borderWidth: 0,
-                                              borderRadius: 8,
-                                              margin: EdgeInsetsDirectional.fromSTEB(10, 0, 12, 0),
-                                              hidesUnderline: true,
-                                              isOverButton: false,
-                                              isSearchable: false,
-                                              isMultiSelect: false,
                                             ),
                                           ),
                                         ],
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
+                                        padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -686,7 +690,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                                     size: 32,
                                                   ),
                                                   Padding(
-                                                    padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                                                    padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                                                     child: Text(
                                                       'Sélect fichiers',
                                                       textAlign: TextAlign.center,
@@ -713,7 +717,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 8, 0),
+                                              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
                                               child: Container(
                                                 width: 200,
                                                 child: TextFormField(
