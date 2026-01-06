@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 class TechnicianTaskStruct extends BaseStruct {
   TechnicianTaskStruct({
     int? id,
+    int? uti_utilsateur_id,
     int? IMEI,
     String? SIM,
     int? SIM_proprietaire,
@@ -28,7 +29,9 @@ class TechnicianTaskStruct extends BaseStruct {
     String? observation,
     int? proprietaire,
     String? clientPhoneNumber,
+    int? notifificationStatus,
   })  : _id = id,
+        _uti_utilsateur_id = uti_utilsateur_id,
         _IMEI = IMEI,
         _SIM = SIM,
         _SIM_proprietaire = SIM_proprietaire,
@@ -47,7 +50,8 @@ class TechnicianTaskStruct extends BaseStruct {
         _nameModeleSIM = nameModeleSIM,
         _observation = observation,
         _proprietaire = proprietaire,
-        _clientPhoneNumber = clientPhoneNumber;
+        _clientPhoneNumber = clientPhoneNumber,
+        _notifificationStatus = notifificationStatus;
 
   // "id" field.
   int? _id;
@@ -58,17 +62,25 @@ class TechnicianTaskStruct extends BaseStruct {
 
   bool hasId() => _id != null;
 
+  // "uti_utilsateur_id" field.
+  int? _uti_utilsateur_id;
+  int get uti_utilsateur_id => _uti_utilsateur_id ?? 0;
+  set uti_utilsateur_id(int? val) => uti_utilsateur_id = val;
+
+  // void incrementUtiUtilsateurId(int amount) => uti_utilsateur_id = uti_utilsateur_id + amount;
+
+  bool hasUtiUtilsateurId() => _uti_utilsateur_id != null;
+
   // "IMEI" field.
   int? _IMEI;
   int? get IMEI => _IMEI ?? null;
   set IMEI(int? val) => _IMEI = val;
 
-
   bool hasIMEI() => _IMEI != null;
 
   // "SIM" field.
   String? _SIM;
-  String?get SIM => _SIM ?? null;
+  String? get SIM => _SIM ?? null;
   set SIM(String? val) => _SIM = val;
 
   // void incrementSIM(int amount) => SIM = SIM + amount;
@@ -127,8 +139,7 @@ class TechnicianTaskStruct extends BaseStruct {
   // "date_previsionnelle_debut" field.
   DateTime? _date_previsionnelle_debut;
   DateTime? get date_previsionnelle_debut => _date_previsionnelle_debut;
-  set date_previsionnelle_debut(DateTime? val) =>
-      _date_previsionnelle_debut = val;
+  set date_previsionnelle_debut(DateTime? val) => _date_previsionnelle_debut = val;
 
   bool hasdate_previsionnelle_debut() => _date_previsionnelle_debut != null;
 
@@ -195,42 +206,49 @@ class TechnicianTaskStruct extends BaseStruct {
   String get clientPhoneNumber => _clientPhoneNumber ?? "";
   set clientPhoneNumber(String? val) => _clientPhoneNumber = val;
 
-  void incrementClientPhoneNumber(String amount) =>
-      clientPhoneNumber = clientPhoneNumber + amount;
+  void incrementClientPhoneNumber(String amount) => clientPhoneNumber = clientPhoneNumber + amount;
 
   bool hasClientPhoneNumber() => _clientPhoneNumber != null;
 
-  static TechnicianTaskStruct fromMap(Map<String, dynamic> data) =>
-      TechnicianTaskStruct(
+  // "NotifificationStatus" field.
+  int? _notifificationStatus;
+  int get notifificationStatus => _notifificationStatus ?? 0;
+  set notifificationStatus(int? val) => _notifificationStatus = val;
+
+  void incrementNotifificationStatus(int amount) => notifificationStatus = notifificationStatus + amount;
+
+  bool hasNotifificationStatus() => _notifificationStatus != null;
+
+  static TechnicianTaskStruct fromMap(Map<String, dynamic> data) => TechnicianTaskStruct(
         id: castToType<int>(data['id']),
-        IMEI: data['IMEI'] != null ? int.parse(data['IMEI']): null,
+        uti_utilsateur_id: castToType<int>(data['uti_utilsateur_id']),
+        IMEI: data['IMEI'] != null ? int.parse(data['IMEI']) : null,
         SIM: data['SIM'],
-        SIM_proprietaire: data['SIM_proprietaire'] != null ? data['SIM_proprietaire']: null,
+        SIM_proprietaire: data['SIM_proprietaire'] != null ? data['SIM_proprietaire'] : null,
         accesoriesModel: data['accesoriesModel'] as String?,
         catache: data['catache'] as String?,
         cityName: data['cityName'] as String?,
         clientName: data['client_name'] as String?,
         date_affectation: data['date_affectation'] != null ? DateTime.parse(data['date_affectation']) : null,
-        date_debut_realisation: data['date_debut_realisation'] != null ?
-            DateTime.parse(data['date_debut_realisation']) : null,
-        date_previsionnelle_debut:DateFormat('yyyy-MM-dd').parse(data['date_previsionnelle_debut']),
+        date_debut_realisation: data['date_debut_realisation'] != null ? DateTime.parse(data['date_debut_realisation']) : null,
+        date_previsionnelle_debut: DateFormat('yyyy-MM-dd').parse(data['date_previsionnelle_debut']),
         etatTache: castToType<int>(data['etat_tache']),
-        garantie: data['garantie'] != null ? data['garantie']: null,
-        gps_principale: data['gps_principale'] != null ? data['gps_principale']: null,
+        garantie: data['garantie'] != null ? data['garantie'] : null,
+        gps_principale: data['gps_principale'] != null ? data['gps_principale'] : null,
         matricule: data['matricule'] as String?,
         nameModeleGPS: data['nameModeleGPS'] as String?,
         nameModeleSIM: data['nameModeleSIM'] as String?,
         observation: data['observation'] as String?,
-        proprietaire: data['proprietaire'] != null ? data['proprietaire']: null,
+        proprietaire: data['proprietaire'] != null ? data['proprietaire'] : null,
         clientPhoneNumber: data['telephone_client'] as String?,
+        notifificationStatus: castToType<int>(data['NotifificationStatus']),
       );
 
-  static TechnicianTaskStruct? maybeFromMap(dynamic data) => data is Map
-      ? TechnicianTaskStruct.fromMap(data.cast<String, dynamic>())
-      : null;
+  static TechnicianTaskStruct? maybeFromMap(dynamic data) => data is Map ? TechnicianTaskStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
         'id': _id,
+        'uti_utilsateur_id': _uti_utilsateur_id,
         'IMEI': _IMEI,
         'SIM': _SIM,
         'SIM_proprietaire': _SIM_proprietaire,
@@ -250,12 +268,17 @@ class TechnicianTaskStruct extends BaseStruct {
         'observation': _observation,
         'proprietaire': _proprietaire,
         'clientPhoneNumber': _clientPhoneNumber,
+        'NotifificationStatus': _notifificationStatus,
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
         'id': serializeParam(
           _id,
+          ParamType.int,
+        ),
+        'uti_utilsateur_id': serializeParam(
+          _uti_utilsateur_id,
           ParamType.int,
         ),
         'IMEI': serializeParam(
@@ -334,12 +357,20 @@ class TechnicianTaskStruct extends BaseStruct {
           _clientPhoneNumber,
           ParamType.int,
         ),
+        'NotifificationStatus': serializeParam(
+          _notifificationStatus,
+          ParamType.int,
+        ),
       }.withoutNulls;
 
-  static TechnicianTaskStruct fromSerializableMap(Map<String, dynamic> data) =>
-      TechnicianTaskStruct(
+  static TechnicianTaskStruct fromSerializableMap(Map<String, dynamic> data) => TechnicianTaskStruct(
         id: deserializeParam(
           data['id'],
+          ParamType.int,
+          false,
+        ),
+        uti_utilsateur_id: deserializeParam(
+          data['uti_utilsateur_id'],
           ParamType.int,
           false,
         ),
@@ -438,6 +469,11 @@ class TechnicianTaskStruct extends BaseStruct {
           ParamType.int,
           false,
         ),
+        notifificationStatus: deserializeParam(
+          data['NotifificationStatus'],
+          ParamType.int,
+          false,
+        ),
       );
 
   @override
@@ -447,6 +483,7 @@ class TechnicianTaskStruct extends BaseStruct {
   bool operator ==(Object other) {
     return other is TechnicianTaskStruct &&
         id == other.id &&
+        uti_utilsateur_id == other.uti_utilsateur_id &&
         IMEI == other.IMEI &&
         SIM == other.SIM &&
         SIM_proprietaire == other.SIM_proprietaire &&
@@ -465,12 +502,14 @@ class TechnicianTaskStruct extends BaseStruct {
         nameModeleSIM == other.nameModeleSIM &&
         observation == other.observation &&
         proprietaire == other.proprietaire &&
-        clientPhoneNumber == other.clientPhoneNumber;
+        clientPhoneNumber == other.clientPhoneNumber &&
+        notifificationStatus == other.notifificationStatus;
   }
 
   @override
   int get hashCode => const ListEquality().hash([
         id,
+        uti_utilsateur_id,
         IMEI,
         SIM,
         SIM_proprietaire,
@@ -489,12 +528,14 @@ class TechnicianTaskStruct extends BaseStruct {
         nameModeleSIM,
         observation,
         proprietaire,
-        clientPhoneNumber
+        clientPhoneNumber,
+        notifificationStatus
       ]);
 }
 
 TechnicianTaskStruct createTechnicianTaskStruct({
   int? id,
+  uti_utilsateur_id,
   int? IMEI,
   String? SIM,
   int? SIM_proprietaire,
@@ -514,9 +555,11 @@ TechnicianTaskStruct createTechnicianTaskStruct({
   String? observation,
   int? proprietaire,
   String? clientPhoneNumber,
+  int? notifificationStatus,
 }) =>
     TechnicianTaskStruct(
       id: id,
+      uti_utilsateur_id: uti_utilsateur_id,
       IMEI: IMEI,
       SIM: SIM,
       SIM_proprietaire: SIM_proprietaire,
@@ -536,4 +579,5 @@ TechnicianTaskStruct createTechnicianTaskStruct({
       observation: observation,
       proprietaire: proprietaire,
       clientPhoneNumber: clientPhoneNumber,
+      notifificationStatus: notifificationStatus,
     );

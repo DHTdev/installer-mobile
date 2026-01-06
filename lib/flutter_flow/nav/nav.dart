@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mobile_installer/home_page/home_page_widget.dart';
+import 'package:mobile_installer/notifications/notifications_widget.dart';
 import 'package:mobile_installer/tache/tchesreporte/tchesreporte_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -43,16 +44,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => HomePageWidget (),
+          builder: (context, _) => HomePageWidget(),
         ),
         FFRoute(
           name: TachesWidget.routeName,
           path: TachesWidget.routePath,
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'Taches')
-              : TachesWidget(),
+          builder: (context, params) => params.isEmpty ? NavBarPage(initialPage: 'Taches') : TachesWidget(),
         ),
-               FFRoute(
+        FFRoute(
           name: AuthentificationWidget.routeName,
           path: AuthentificationWidget.routePath,
           builder: (context, params) => AuthentificationWidget(
@@ -118,16 +117,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: AppareilsdesintallsWidget.routeName,
           path: AppareilsdesintallsWidget.routePath,
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'Appareilsdesintalls')
-              : AppareilsdesintallsWidget(),
+          builder: (context, params) => params.isEmpty ? NavBarPage(initialPage: 'Appareilsdesintalls') : AppareilsdesintallsWidget(),
         ),
         FFRoute(
           name: TacheconfirmerWidget.routeName,
           path: TacheconfirmerWidget.routePath,
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'Tacheconfirmer')
-              : TacheconfirmerWidget(),
+          builder: (context, params) => params.isEmpty ? NavBarPage(initialPage: 'Tacheconfirmer') : TacheconfirmerWidget(),
         ),
         FFRoute(
           name: NouvelleTachesWidget.routeName,
@@ -142,7 +137,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: TchesreporteWidget.routeName,
           path: TchesreporteWidget.routePath,
-          builder: (context, params) => TchesreporteWidget(id: params.getParam('id', ParamType.int),clientName: params.getParam('clientName', ParamType.String),),
+          builder: (context, params) => TchesreporteWidget(
+            id: params.getParam('id', ParamType.int),
+            clientName: params.getParam('clientName', ParamType.String),
+          ),
         ),
         FFRoute(
           name: DetailstacheWidget.routeName,
@@ -233,15 +231,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.String,
             ),
           ),
+        ),
+        FFRoute(
+          name: NotificationsWidget.routeName,
+          path: NotificationsWidget.routePath,
+          builder: (context, params) => NotificationsWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
 
 extension NavParamExtensions on Map<String, String?> {
   Map<String, String> get withoutNulls => Map.fromEntries(
-        entries
-            .where((e) => e.value != null)
-            .map((e) => MapEntry(e.key, e.value!)),
+        entries.where((e) => e.value != null).map((e) => MapEntry(e.key, e.value!)),
       );
 }
 
@@ -258,15 +259,12 @@ extension NavigationExtensions on BuildContext {
 }
 
 extension _GoRouterStateExtensions on GoRouterState {
-  Map<String, dynamic> get extraMap =>
-      extra != null ? extra as Map<String, dynamic> : {};
+  Map<String, dynamic> get extraMap => extra != null ? extra as Map<String, dynamic> : {};
   Map<String, dynamic> get allParams => <String, dynamic>{}
     ..addAll(pathParameters)
     ..addAll(uri.queryParameters)
     ..addAll(extraMap);
-  TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
-      ? extraMap[kTransitionInfoKey] as TransitionInfo
-      : TransitionInfo.appDefault();
+  TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey) ? extraMap[kTransitionInfoKey] as TransitionInfo : TransitionInfo.appDefault();
 }
 
 class FFParameters {
@@ -279,18 +277,13 @@ class FFParameters {
 
   // Parameters are empty if the params map is empty or if the only parameter
   // present is the special extra parameter reserved for the transition info.
-  bool get isEmpty =>
-      state.allParams.isEmpty ||
-      (state.allParams.length == 1 &&
-          state.extraMap.containsKey(kTransitionInfoKey));
-  bool isAsyncParam(MapEntry<String, dynamic> param) =>
-      asyncParams.containsKey(param.key) && param.value is String;
+  bool get isEmpty => state.allParams.isEmpty || (state.allParams.length == 1 && state.extraMap.containsKey(kTransitionInfoKey));
+  bool isAsyncParam(MapEntry<String, dynamic> param) => asyncParams.containsKey(param.key) && param.value is String;
   bool get hasFutures => state.allParams.entries.any(isAsyncParam);
   Future<bool> completeFutures() => Future.wait(
         state.allParams.entries.where(isAsyncParam).map(
           (param) async {
-            final doc = await asyncParams[param.key]!(param.value)
-                .onError((_, __) => null);
+            final doc = await asyncParams[param.key]!(param.value).onError((_, __) => null);
             if (doc != null) {
               futureParamValues[param.key] = doc;
               return true;
@@ -364,9 +357,7 @@ class FFRoute {
                   key: state.pageKey,
                   child: child,
                   transitionDuration: transitionInfo.duration,
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) =>
-                          PageTransition(
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) => PageTransition(
                     type: transitionInfo.transitionType,
                     duration: transitionInfo.duration,
                     reverseDuration: transitionInfo.duration,
@@ -410,9 +401,7 @@ class RootPageContext {
     final rootPageContext = context.read<RootPageContext?>();
     final isRootPage = rootPageContext?.isRootPage ?? false;
     final location = GoRouterState.of(context).uri.toString();
-    return isRootPage &&
-        location != '/' &&
-        location != rootPageContext?.errorRoute;
+    return isRootPage && location != '/' && location != rootPageContext?.errorRoute;
   }
 
   static Widget wrap(Widget child, {String? errorRoute}) => Provider.value(
@@ -424,9 +413,7 @@ class RootPageContext {
 extension GoRouterLocationExtension on GoRouter {
   String getCurrentLocation() {
     final RouteMatch lastMatch = routerDelegate.currentConfiguration.last;
-    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
-        ? lastMatch.matches
-        : routerDelegate.currentConfiguration;
+    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch ? lastMatch.matches : routerDelegate.currentConfiguration;
     return matchList.uri.toString();
   }
 }

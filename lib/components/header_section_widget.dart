@@ -1,3 +1,5 @@
+import 'package:mobile_installer/notifications/notifications_widget.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
@@ -63,16 +65,12 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
                         style: FlutterFlowTheme.of(context).titleSmall.override(
                               font: GoogleFonts.interTight(
                                 fontWeight: FontWeight.bold,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .fontStyle,
+                                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                               ),
                               fontSize: 18.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .fontStyle,
+                              fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                             ),
                       ),
                       Text(
@@ -80,15 +78,11 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.inter(
                                 fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
+                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                               ),
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
+                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                             ),
                       ),
                     ],
@@ -103,8 +97,7 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
                         width: 36.0,
                         height: 36.0,
                         decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
                           boxShadow: [
                             BoxShadow(
                               blurRadius: 4.0,
@@ -118,18 +111,31 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
                           ],
                           borderRadius: BorderRadius.circular(5.0),
                         ),
-                        child: Icon(
-                          Icons.notifications_active,
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          size: 30.0,
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NotificationsWidget(),
+                              ),
+                            );
+                          },
+                          child: Icon(
+                            Icons.notifications_active,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 30.0,
+                          ),
                         ),
                       ),
                       Container(
                         width: 36.0,
                         height: 36.0,
                         decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
                           boxShadow: [
                             BoxShadow(
                               blurRadius: 4.0,

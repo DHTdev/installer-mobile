@@ -41,7 +41,7 @@ class _AppareilsdesintallsWidgetState extends State<AppareilsdesintallsWidget> {
       });
       _model.apiResultz7r = await TechnicienGroup.returnedDevicesCall.call();
 
-      if ((_model.apiResultz7r?.succeeded ?? true)) {
+      if ((_model.apiResultz7r?.succeeded ?? true)) { 
         _model.returnedDevices = ((_model.apiResultz7r?.jsonBody ?? '').toList().map<ReturnedDevicesStruct?>(ReturnedDevicesStruct.maybeFromMap).toList() as Iterable<ReturnedDevicesStruct?>)
             .withoutNulls
             .toList()
@@ -83,7 +83,6 @@ class _AppareilsdesintallsWidgetState extends State<AppareilsdesintallsWidget> {
     _model.apiResultaf3 = await TechnicienGroup.affectedDevicesCall.call(
       articlesList: _model.selectedDevices,
     );
-    print(_model.apiResultaf3?.jsonBody);
     if ((_model.apiResultaf3?.succeeded ?? true)) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -205,7 +204,6 @@ class _AppareilsdesintallsWidgetState extends State<AppareilsdesintallsWidget> {
                           controller: _model.textController,
                           focusNode: _model.textFieldFocusNode,
                           onChanged: (_) async {
-                            
                             functions.filterDesinstalledDevices(_model.returnedDevices, _model.textController?.text);
                             safeSetState(() {});
                           },
@@ -319,92 +317,89 @@ class _AppareilsdesintallsWidgetState extends State<AppareilsdesintallsWidget> {
               ),
               // if(filterDesinstalledDevices != null && filterDesinstalledDevices.isNotEmpty)
               Expanded(
-                child: Builder(
-                  builder: (context) {
-                    if (_isLoadingList) {
-                      return Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: const [
-                            CircularProgressIndicator(),
-                            SizedBox(height: 10),
-                            Text('Chargement des appareils...'),
-                          ],
-                        ),
-                      );
-                    }
-
-                    if (filterDesinstalledDevices == null ||
-                        filterDesinstalledDevices.isEmpty) {
-                      return Center(
-                        child: Text(
-                          'Aucun appareil trouvé',
-                          style: FlutterFlowTheme.of(context).bodyMedium,
-                        ),
-                      );
-                    }
-                    return SingleChildScrollView(
-                      child: Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        child: Padding(
-                          padding: EdgeInsets.all(12.0),
-                          child: Builder(
-                            builder: (context) {
-                              // final filterDesinstalledDevices = _model.returnedDevices.toList();
-
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                scrollDirection: Axis.vertical,
-                                itemCount: filterDesinstalledDevices.length,
-                                itemBuilder: (context, filterDesinstalledDevicesIndex) {
-                                  final filterDesinstalledDevicesItem = filterDesinstalledDevices[filterDesinstalledDevicesIndex];
-                                  return Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
-                                      child: wrapWithModel(
-                                        model: _model.returnedDevicesModels.getModel(
-                                          filterDesinstalledDevicesItem.id.toString(),
-                                          filterDesinstalledDevicesIndex,
-                                        ),
-                                        updateCallback: () => safeSetState(() {}),
-                                        child: ReturnedDevicesWidget(
-                                          key: Key(
-                                            filterDesinstalledDevicesIndex.toString(),
-                                          ),
-                                          imei: filterDesinstalledDevicesItem.serialNumber,
-                                          nameModele: filterDesinstalledDevicesItem.nameModele,
-                                          nomComplet: filterDesinstalledDevicesItem.nomComplet,
-                                          matricule: filterDesinstalledDevicesItem.matricule,
-                                          dateReturned: filterDesinstalledDevicesItem.dataReturned,
-                                          selected: _model.selected,
-                                          id: filterDesinstalledDevicesItem.id,
-                                          onSelectedChanged: (id, value) async {
-                                            if (value == true) {
-                                              _model.addToSelectedDevices(filterDesinstalledDevicesItem.id);
-                                              _model.selected = true;
-                                              safeSetState(() {});
-                                            } else {
-                                              _model.removeFromSelectedDevices(filterDesinstalledDevicesItem.id);
-                                              _model.selected = false;
-                                              safeSetState(() {});
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ),
+                child: Builder(builder: (context) {
+                  if (_isLoadingList) {
+                    return Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          CircularProgressIndicator(),
+                          SizedBox(height: 10),
+                          Text('Chargement des appareils...'),
+                        ],
                       ),
                     );
                   }
-                ),
+
+                  if (filterDesinstalledDevices == null || filterDesinstalledDevices.isEmpty) {
+                    return Center(
+                      child: Text(
+                        'Aucun appareil trouvé',
+                        style: FlutterFlowTheme.of(context).bodyMedium,
+                      ),
+                    );
+                  }
+                  return SingleChildScrollView(
+                    child: Align(
+                      alignment: AlignmentDirectional(0.0, 0.0),
+                      child: Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: Builder(
+                          builder: (context) {
+                            // final filterDesinstalledDevices = _model.returnedDevices.toList();
+
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              itemCount: filterDesinstalledDevices.length,
+                              itemBuilder: (context, filterDesinstalledDevicesIndex) {
+                                final filterDesinstalledDevicesItem = filterDesinstalledDevices[filterDesinstalledDevicesIndex];
+                                return Align(
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                                    child: wrapWithModel(
+                                      model: _model.returnedDevicesModels.getModel(
+                                        filterDesinstalledDevicesItem.id.toString(),
+                                        filterDesinstalledDevicesIndex,
+                                      ),
+                                      updateCallback: () => safeSetState(() {}),
+                                      child: ReturnedDevicesWidget(
+                                        key: Key(
+                                          filterDesinstalledDevicesIndex.toString(),
+                                        ),
+                                        imei: filterDesinstalledDevicesItem.serialNumber,
+                                        nameModele: filterDesinstalledDevicesItem.nameModele,
+                                        nomComplet: filterDesinstalledDevicesItem.nomComplet,
+                                        matricule: filterDesinstalledDevicesItem.matricule,
+                                        dateReturned: filterDesinstalledDevicesItem.dataReturned,
+                                        selected: _model.selected,
+                                        id: filterDesinstalledDevicesItem.id,
+                                        onSelectedChanged: (id, value) async {
+                                          if (value == true) {
+                                            _model.addToSelectedDevices(filterDesinstalledDevicesItem.id);
+                                            _model.selected = true;
+                                            safeSetState(() {});
+                                          } else {
+                                            _model.removeFromSelectedDevices(filterDesinstalledDevicesItem.id);
+                                            _model.selected = false;
+                                            safeSetState(() {});
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  );
+                }),
               ),
               Align(
                 alignment: AlignmentDirectional(0.0, 0.65),

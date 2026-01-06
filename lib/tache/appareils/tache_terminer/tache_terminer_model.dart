@@ -29,7 +29,7 @@ class TacheTerminerModel extends FlutterFlowModel<TacheTerminerWidget> {
   TextEditingController? textControllerSimCombinat;
   String? Function(BuildContext, String?)? textControllerSimCombinatValidator;
   // State field(s) for DropDown widget.
-  bool?   dropDownValueGpsPosition;
+  bool?     dropDownValueGpsPosition;
   FormFieldController<bool>? dropDownValueControllerGpsPosition;
   // State field(s) for DropDown widget.
   String? dropDownValueTypeReley;

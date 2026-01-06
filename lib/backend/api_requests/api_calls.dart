@@ -968,12 +968,15 @@ class NotificationUpdateCall {
     int? id,
   }) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
-
+    print("Notification Update for id: ${id}");
     return ApiManager.instance.makeApiCall(
       callName: 'NotificationUpdate',
-      apiUrl: '${baseUrl}/NotificationUpdate/{id}',
+      apiUrl: '${baseUrl}/NotificationUpdate/${id}',
       callType: ApiCallType.POST,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       bodyType: BodyType.JSON,
       returnBody: true,

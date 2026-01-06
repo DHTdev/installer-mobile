@@ -1,3 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:mobile_installer/firebase_options.dart';
+import 'package:mobile_installer/notifications/notifications_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +12,16 @@ import 'flutter_flow/flutter_flow_util.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'index.dart';
 
-void main() async {
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+// Handle background message (log, analytics, local DB, etc.)
+  debugPrint('BG message: \\${message.messageId} data=\\${message.data}');
+}
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
 
@@ -54,6 +66,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    firebaseMessaging();
 
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
@@ -63,6 +76,57 @@ class _MyAppState extends State<MyApp> {
         _themeMode = mode;
         FlutterFlowTheme.saveThemeMode(mode);
       });
+
+void firebaseMessaging() async {
+  final _firebaseMessaging = FirebaseMessaging.instance;
+  final fcmToken = await _firebaseMessaging.getToken();
+  print('FCM Token: ${fcmToken}');
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('message: ${message.notification?.title}');
+    final title = message.notification?.title ?? "N/A";
+    final body = message.notification?.body ?? "N/A";
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(
+          body,
+          maxLines: 1,
+          style: TextStyle(overflow: TextOverflow.ellipsis),
+        ),
+      ),
+    );
+  });
+
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    print('message: ${message.notification?.title}');
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => NotificationsWidget()),
+    );
+  });
+
+  FirebaseMessaging.instance.getInitialMessage().then((message) {
+    if(message!=null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => NotificationsWidget()),
+      );
+    }
+  });
+}
+
+Future<void> checkInitialMessage() async {
+  final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+  if (initialMessage != null) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => NotificationsWidget()),
+    );
+  }
+}
 
   @override
   Widget build(BuildContext context) {

@@ -25,7 +25,7 @@ class DetailsWidget extends StatefulWidget {
 
 class _DetailsWidgetState extends State<DetailsWidget> {
   late DetailsModel _model;
-
+  String? positionGps;
   @override
   void setState(VoidCallback callback) {
     super.setState(callback);
@@ -38,6 +38,47 @@ class _DetailsWidgetState extends State<DetailsWidget> {
     _model = createModel(context, () => DetailsModel());
   }
 
+   getPositionGps() {
+    switch (widget.detailsTask.gps_principale) {
+      case 0:
+        positionGps = "1er";
+        break;
+      case 1:
+        positionGps = "2eme";
+        break;
+      default:
+        null;
+    }
+    return positionGps;
+  }
+  
+  getDeviceOwner() {
+    switch (widget.detailsTask.proprietaire) {
+      case 0:
+        positionGps = "1er";
+        break;
+      case 1:
+        positionGps = "2eme";
+        break;
+      default:
+        null;
+    }
+    return positionGps;
+  }
+  getSimOwner() {
+    switch (widget.detailsTask.SIM_proprietaire) {
+      case 0:
+        positionGps = "1er";
+        break;
+      case 1:
+        positionGps = "2eme";
+        break;
+      default:
+        null;
+    }
+    return positionGps;
+  }
+
   @override
   void dispose() {
     _model.maybeDispose();
@@ -46,6 +87,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print("Details Widget for task id: ${widget.detailsTask.gps_principale}");
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0, 44, 0, 0),
       child: Container(
@@ -97,20 +139,12 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                     widget.detailsTask.clientName,
                     style: FlutterFlowTheme.of(context).headlineSmall.override(
                           font: GoogleFonts.interTight(
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .headlineSmall
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .headlineSmall
-                                .fontStyle,
+                            fontWeight: FlutterFlowTheme.of(context).headlineSmall.fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context).headlineSmall.fontStyle,
                           ),
                           letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .headlineSmall
-                              .fontWeight,
-                          fontStyle: FlutterFlowTheme.of(context)
-                              .headlineSmall
-                              .fontStyle,
+                          fontWeight: FlutterFlowTheme.of(context).headlineSmall.fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context).headlineSmall.fontStyle,
                         ),
                   ),
                 ),
@@ -130,8 +164,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
                             color: FlutterFlowTheme.of(context).alternate,
@@ -142,260 +175,136 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
+                              padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Numéro Téléphone :',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyLarge
-                                        .override(
+                                    style: FlutterFlowTheme.of(context).bodyLarge.override(
                                           font: GoogleFonts.inter(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontStyle,
+                                          fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                         ),
                                   ),
                                   Text(
-                                    valueOrDefault(
-                                        widget.detailsTask.clientPhoneNumber,
-                                        '-------------'),
+                                    valueOrDefault(widget.detailsTask.clientPhoneNumber, '-------------'),
                                     textAlign: TextAlign.end,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           font: GoogleFonts.inter(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                         ),
                                   ),
                                 ],
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
+                              padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Type du tâche :',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyLarge
-                                        .override(
+                                    style: FlutterFlowTheme.of(context).bodyLarge.override(
                                           font: GoogleFonts.inter(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontStyle,
+                                          fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                         ),
                                   ),
                                   Text(
                                     widget.detailsTask.catache,
                                     textAlign: TextAlign.end,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           font: GoogleFonts.inter(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                         ),
                                   ),
                                 ],
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
+                              padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Date P. début :',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyLarge
-                                        .override(
+                                    style: FlutterFlowTheme.of(context).bodyLarge.override(
                                           font: GoogleFonts.inter(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontStyle,
+                                          fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                         ),
                                   ),
                                   Text(
-                                    widget.detailsTask.date_previsionnelle_debut
-                                        .toString(),
+                                    widget.detailsTask.date_previsionnelle_debut.toString(),
                                     textAlign: TextAlign.end,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           font: GoogleFonts.inter(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                         ),
                                   ),
                                 ],
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
+                              padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Matricule :',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyLarge
-                                        .override(
+                                    style: FlutterFlowTheme.of(context).bodyLarge.override(
                                           font: GoogleFonts.inter(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontStyle,
+                                          fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                         ),
                                   ),
                                   Text(
-                                    valueOrDefault(widget.detailsTask.matricule,
-                                        '-------------'),
+                                    valueOrDefault(widget.detailsTask.matricule, '-------------'),
                                     textAlign: TextAlign.end,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           font: GoogleFonts.inter(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                         ),
                                   ),
                                 ],
@@ -410,8 +319,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
                             color: FlutterFlowTheme.of(context).alternate,
@@ -423,743 +331,374 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 8, 12, 8),
+                                padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Type d’appareil :',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyLarge.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(
-                                          widget.detailsTask.nameModeleGPS,
-                                          '-------------'),
+                                      valueOrDefault(widget.detailsTask.nameModeleGPS, '-------------'),
                                       textAlign: TextAlign.end,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                     ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 8, 12, 8),
+                                padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'IMEI :',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyLarge.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(widget.detailsTask.IMEI,
-                                              '-------------')
-                                          .toString(),
+                                      valueOrDefault(widget.detailsTask.IMEI, '-------------').toString(),
                                       textAlign: TextAlign.end,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                     ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 8, 12, 8),
+                                padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Position GPS :',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyLarge.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(
-                                              widget.detailsTask
-                                                          .gps_principale ==
-                                                      0
-                                                  ? "1er"
-                                                  : "2nd",
-                                              '-------------')
-                                          .toString(),
+                                      valueOrDefault(getPositionGps(), '-------------').toString(),
                                       textAlign: TextAlign.end,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                     ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 8, 12, 8),
+                                padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Propriétaire GPS :',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyLarge.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(
-                                              widget.detailsTask.proprietaire ==
-                                                      0
-                                                  ? "DHT"
-                                                  : "Client",
-                                              '-------------')
-                                          .toString(),
+                                      valueOrDefault(getDeviceOwner(), '-------------').toString(),
                                       textAlign: TextAlign.end,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                     ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 8, 12, 8),
+                                padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'type Relais :',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyLarge.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(
-                                              widget
-                                                  .detailsTask.accesoriesModel,
-                                              '-------------')
-                                          .toString(),
+                                      valueOrDefault(widget.detailsTask.accesoriesModel, '-------------').toString(),
                                       textAlign: TextAlign.end,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                     ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 8, 12, 8),
+                                padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Type du SIM :',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyLarge.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(
-                                          widget.detailsTask.nameModeleSIM,
-                                          '-------------'),
+                                      valueOrDefault(widget.detailsTask.nameModeleSIM, '-------------'),
                                       textAlign: TextAlign.end,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                     ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 8, 12, 8),
+                                padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Num Sim :',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyLarge.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(widget.detailsTask.SIM,
-                                              '-------------')
-                                          .toString(),
+                                      valueOrDefault(widget.detailsTask.SIM, '-------------').toString(),
                                       textAlign: TextAlign.end,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                     ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 8, 12, 8),
+                                padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Propriétaire SIM :',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyLarge.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(
-                                              widget.detailsTask
-                                                          .SIM_proprietaire ==
-                                                      0
-                                                  ? 'DHT'
-                                                  : "Client",
-                                              '-------------')
-                                          .toString(),
+                                      valueOrDefault(getSimOwner(), '-------------').toString(),
                                       textAlign: TextAlign.end,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                     ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 8, 12, 8),
+                                padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Accessoires :',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyLarge.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                           ),
                                     ),
                                     Text(
                                       '-------------',
                                       textAlign: TextAlign.end,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                     ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 8, 12, 8),
+                                padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Date début :',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyLarge.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(
-                                          widget.detailsTask
-                                              .date_debut_realisation
-                                              .toString(),
-                                          '-------------'),
+                                      valueOrDefault(widget.detailsTask.date_debut_realisation.toString(), '-------------'),
                                       textAlign: TextAlign.end,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                     ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 8, 12, 8),
+                                padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Obsirvation :',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyLarge.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                           ),
                                     ),
                                     Text(
-                                      valueOrDefault(
-                                          widget.detailsTask.observation
-                                              .toString(),
-                                          '-------------'),
+                                      valueOrDefault(widget.detailsTask.observation.toString(), '-------------'),
                                       textAlign: TextAlign.end,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                     ),
                                   ],
@@ -1186,28 +725,18 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                           width: double.infinity,
                           height: 50,
                           padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                          iconPadding:
-                              EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                           color: FlutterFlowTheme.of(context).secondary,
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    font: GoogleFonts.interTight(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
-                                    ),
-                                    color: Colors.white,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontStyle,
-                                  ),
+                          textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                font: GoogleFonts.interTight(
+                                  fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                ),
+                                color: Colors.white,
+                                letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                              ),
                           elevation: 2,
                           borderRadius: BorderRadius.circular(8),
                         ),

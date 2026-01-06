@@ -389,8 +389,6 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                                   child: Autocomplete<GpsStruct>(
                                                     optionsBuilder: (TextEditingValue textEditingValue) {
                                                       if (textEditingValue.text == "") {
-                                                        print("list empty");
-
                                                         return List<GpsStruct>.empty();
                                                       }
                                                       return gpdDevicesPreTech.where((imei) => imei.serialNumber.toLowerCase().contains(textEditingValue.text.toLowerCase()));
