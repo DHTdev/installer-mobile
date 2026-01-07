@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mobile_installer/tache/taches/taches_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
+import 'package:mobile_installer/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -50,12 +53,13 @@ class _AuthentificationWidgetState extends State<AuthentificationWidget> {
       _errorMessage = null;
     });
     try {
+      final baseUrl = AuthentificationGroup.getBaseUrl();
       final dio = Dio();
       final cookieJar = CookieJar();
       dio.interceptors.add(CookieManager(cookieJar));
-      await dio.get("https://d3instal.com/sanctum/csrf-cookie");
+      await dio.get('${baseUrl}/sanctum/csrf-cookie');
       final cookies =
-          await cookieJar.loadForRequest(Uri.parse("https://d3instal.com/"));
+          await cookieJar.loadForRequest(Uri.parse('${baseUrl}/'));
       final csrfToken =
           cookies.firstWhere((cookie) => cookie.name == "XSRF-TOKEN").value;
       final decodeToken = Uri.decodeComponent(Uri.decodeComponent(csrfToken));
@@ -65,7 +69,7 @@ class _AuthentificationWidgetState extends State<AuthentificationWidget> {
         "X-XSRF-TOKEN": decodeToken,
       };
       final loggedUser = await dio.post(
-        "https://d3instal.com/login",
+        '${baseUrl}/login',
         data: {"email": _model.userName, "password": _model.password},
       );
       debugPrint(
@@ -74,7 +78,13 @@ class _AuthentificationWidgetState extends State<AuthentificationWidget> {
       if (loggedUser.statusCode == 200) {
         final token = loggedUser.data["token"];
         if (token != null && token is String) {
-          appState.authToken = loggedUser.data["token"];
+          appState.authToken = token;
+
+          await saveFcmToken(
+            authToken: token,
+            baseUrl: baseUrl,
+          );
+
           if (mounted) {
              context.pushReplacementNamed(TachesWidget.routeName);
           }
@@ -96,7 +106,6 @@ class _AuthentificationWidgetState extends State<AuthentificationWidget> {
         final message = data is Map && data['message'] != null
             ? data['message']
             : 'Erreur de connexion';
-
         _showError(message);
       }else{
         debugPrint('Erreur de login: $e');
@@ -136,35 +145,6 @@ class _AuthentificationWidgetState extends State<AuthentificationWidget> {
   bool _isValidUsername(String username) {
     return username.length >= 3 && RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(username);
   }
-
-
-  void _handleLoginError(DioException e) {
-    String errorMessage = 'Erreur de connexion';
-
-    if (e.response != null) {
-      switch (e.response?.statusCode) {
-        case 401:
-          errorMessage = 'Identifiants incorrects';
-          break;
-        case 422:
-          errorMessage = 'Données de connexion invalides';
-          break;
-        case 500:
-          errorMessage = 'Erreur interne du serveur';
-          break;
-        default:
-          errorMessage = 'Erreur ${e.response?.statusCode}';
-      }
-    } else if (e.type == DioExceptionType.connectionTimeout ||
-        e.type == DioExceptionType.receiveTimeout) {
-      errorMessage = 'Timeout de connexion. Veuillez réessayer';
-    } else if (e.type == DioExceptionType.connectionError) {
-      errorMessage = 'Problème de connexion réseau';
-    }
-
-    _showError(errorMessage);
-  }
-
   void _showError(String message) {
     if (mounted) {
       setState(() => _errorMessage = message);
@@ -175,6 +155,63 @@ class _AuthentificationWidgetState extends State<AuthentificationWidget> {
           duration: const Duration(seconds: 3),
         ),
       );
+    }
+  }
+  Future<Map<String, String?>> getDeviceInfos() async {
+    final deviceInfo = DeviceInfoPlugin();
+    String? platform;
+    String? deviceName;
+
+    if (Platform.isAndroid) {
+      final android = await deviceInfo.androidInfo;
+      platform = 'android';
+      deviceName = '${android.brand} ${android.model}';
+    } else if (Platform.isIOS) {
+      final ios = await deviceInfo.iosInfo;
+      platform = 'ios';
+      deviceName = ios.name;
+    }
+
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+
+    return {
+      'token': fcmToken,
+      'platform': platform,
+      'device_name': deviceName,
+    };
+  }
+
+  Future<void> saveFcmToken({
+    required String authToken,
+    required String baseUrl,
+  }) async {
+    try {
+      final deviceData = await getDeviceInfos();
+
+      if (deviceData['token'] == null) {
+        debugPrint('FCM token null, skip saveToken');
+        return;
+      }
+
+      final dio = Dio();
+      await dio.post(
+        '$baseUrl/api/fcm/save-token',
+        data: {
+          'token': deviceData['token'],
+          'platform': deviceData['platform'],
+          'device_name': deviceData['device_name'],
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $authToken',
+            'Accept': 'application/json',
+          },
+        ),
+      );
+
+      debugPrint('FCM token enregistré');
+    } catch (e) {
+      debugPrint('Erreur saveToken: $e');
     }
   }
 
