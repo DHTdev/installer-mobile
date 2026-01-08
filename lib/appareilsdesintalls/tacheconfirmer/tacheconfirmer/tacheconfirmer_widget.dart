@@ -119,6 +119,11 @@ class _TacheconfirmerWidgetState extends State<TacheconfirmerWidget> {
                         });
                       },
                       text: 'Nouvelle tâche',
+                      icon: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 20,
+                      ),
                       options: FFButtonOptions(
                         width: 179.7,
                         height: 40,
@@ -150,7 +155,7 @@ class _TacheconfirmerWidgetState extends State<TacheconfirmerWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 0.0, 0.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                             child: Text(
                               'Clients  | ',
                               style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -186,7 +191,7 @@ class _TacheconfirmerWidgetState extends State<TacheconfirmerWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                         child: Container(
-                          width: 342.2,
+                          width: double.infinity,
                           child: TextFormField(
                             controller: _model.textController,
                             focusNode: _model.textFieldFocusNode,

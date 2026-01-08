@@ -49,7 +49,7 @@ class _TaskToConfirmedItemWidgetState extends State<TaskToConfirmedItemWidget> {
     return Align(
       alignment: AlignmentDirectional(-1, 0),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
+        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
         child: InkWell(
           splashColor: Colors.transparent,
           focusColor: Colors.transparent,
