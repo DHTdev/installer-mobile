@@ -65,6 +65,7 @@ class _GpsDeviceItemWidgetState extends State<GpsDeviceItemWidget> {
                 ),
               )
             ],
+            borderRadius: BorderRadius.circular(10.0),
           ),
           alignment: AlignmentDirectional(0, -1),
           child: Column(

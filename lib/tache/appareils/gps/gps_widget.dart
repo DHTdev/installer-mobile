@@ -92,10 +92,13 @@ class _GpsWidgetState extends State<GpsWidget> {
               Align(
                 alignment: AlignmentDirectional(0.0, 0.0),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
                   child: Container(
-                    width: 377.0,
-                    height: 55.12,
+                    width: double.infinity,
+                    constraints: const BoxConstraints(
+                      minHeight: 50,
+                      maxHeight: 60,
+                    ),
                     decoration: BoxDecoration(
                       color: Color(0xFF1CC88A),
                       boxShadow: [
@@ -157,9 +160,9 @@ class _GpsWidgetState extends State<GpsWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
                 child: Container(
-                  width: 377.0,
+                  width: double.infinity,
                   child: TextFormField(
                     controller: _model.textController,
                     focusNode: _model.textFieldFocusNode,
