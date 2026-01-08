@@ -197,9 +197,9 @@ class _AppareilsdesintallsWidgetState extends State<AppareilsdesintallsWidget> {
                 children: [
                   Container(
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
+                      padding: EdgeInsetsDirectional.fromSTEB(12.0, 10.0, 12.0, 10.0),
                       child: Container(
-                        width: 342.2,
+                        width: double.infinity,
                         child: TextFormField(
                           controller: _model.textController,
                           focusNode: _model.textFieldFocusNode,
@@ -280,7 +280,7 @@ class _AppareilsdesintallsWidgetState extends State<AppareilsdesintallsWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 0.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                         child: Text(
                           'GPS retournées   | ',
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
