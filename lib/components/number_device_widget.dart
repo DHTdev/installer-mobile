@@ -92,8 +92,11 @@ class _NumberDeviceWidgetState extends State<NumberDeviceWidget> {
           }
         },
         child: Container(
-          width: 369.8,
-          height: 80.4,
+          width: double.infinity,
+          constraints: const BoxConstraints(
+            minHeight: 70,
+            maxHeight: 90,
+          ),
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).secondaryBackground,
             boxShadow: [
