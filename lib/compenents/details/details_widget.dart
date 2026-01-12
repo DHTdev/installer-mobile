@@ -1,5 +1,6 @@
 import 'package:mobile_installer/backend/schema/structs/index.dart';
 
+`import '../../notifications/notifications_provider.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -36,6 +37,11 @@ class _DetailsWidgetState extends State<DetailsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DetailsModel());
+    Future.microtask(() {
+      context
+          .read<NotificationProvider>()
+          .markAsRead(widget.detailsTask.id);
+    });
   }
 
    getPositionGps() {
