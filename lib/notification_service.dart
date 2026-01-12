@@ -2,10 +2,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/nav/nav.dart';
 
 import 'firebase_options.dart';
+import 'notifications/notifications_widget.dart';
 
 class NotificationService {
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   static final  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
@@ -57,7 +61,8 @@ class NotificationService {
         DateTime.now().millisecondsSinceEpoch ~/ 1000,
         title,
         body,
-        notificationDetails
+        notificationDetails,
+        payload: 'open_notifications',
     );
   }
 
@@ -74,9 +79,11 @@ class NotificationService {
 
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      onDidReceiveNotificationResponse: (NotificationResponse response){
-      print (response.payload);
-      }
+      onDidReceiveNotificationResponse: (NotificationResponse response) {
+        if (response.payload == 'open_notifications') {
+          _goToNotifications();
+        }
+      },
     );
   }
 
@@ -94,6 +101,7 @@ class NotificationService {
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('app open from background notification: ${message.notification?.title}');
+      _goToNotifications();
     });
 
     await _getFcmToken();
@@ -112,6 +120,16 @@ class NotificationService {
       
     if(message!=null){
       print('App launched from terminated');
+
+    }
+  }
+
+  static void _goToNotifications() {
+    final context = appNavigatorKey.currentContext;
+    if (context != null) {
+      GoRouter.of(context).pushNamed(
+        NotificationsWidget.routeName,
+      );
     }
   }
 
