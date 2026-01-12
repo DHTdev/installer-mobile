@@ -1,6 +1,6 @@
 import 'package:mobile_installer/backend/schema/structs/index.dart';
 
-`import '../../notifications/notifications_provider.dart';
+import '../../notifications/notifications_provider.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
