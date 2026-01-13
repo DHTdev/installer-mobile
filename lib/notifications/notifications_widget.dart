@@ -193,7 +193,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
       );
     }
 
-    final notificationsTasks = notificationProvider.notifications.take(20).toList();
+    final notificationsTasks = notificationProvider.notifications;
 
     return RefreshIndicator(
       onRefresh: () async {

@@ -1,5 +1,7 @@
 import 'package:mobile_installer/notifications/notifications_widget.dart';
+import 'package:provider/provider.dart'; // Ajout de l'import Provider
 
+import '../notifications/notifications_provider.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
@@ -39,6 +41,9 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final notificationProvider = Provider.of<NotificationProvider>(context);
+    final unreadCount = notificationProvider.unreadCount;
+
     return Container(
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -61,29 +66,29 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Bonjour Hamza TOUIL',
+                        'Bonjour Hamza TOUIL',
                         style: FlutterFlowTheme.of(context).titleSmall.override(
-                              font: GoogleFonts.interTight(
-                                fontWeight: FontWeight.bold,
-                                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                              ),
-                              fontSize: 18.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                            ),
+                          font: GoogleFonts.interTight(
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                          ),
+                          fontSize: 18.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                        ),
                       ),
                       Text(
-                        '21:51 Fri Jul 04 2025',
+                        '21:51 Fri Jul 04 2025',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                              ),
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                            ),
+                          font: GoogleFonts.inter(
+                            fontWeight: FontWeight.w600,
+                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                          ),
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w600,
+                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
                       ),
                     ],
                   ),
@@ -93,43 +98,80 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Container(
-                        width: 36.0,
-                        height: 36.0,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).secondaryBackground,
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 4.0,
-                              color: Color(0x33000000),
-                              offset: Offset(
-                                0.0,
-                                2.0,
+                      // Badge avec notification
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Container(
+                            width: 36.0,
+                            height: 36.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).secondaryBackground,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 4.0,
+                                  color: Color(0x33000000),
+                                  offset: Offset(
+                                    0.0,
+                                    2.0,
+                                  ),
+                                  spreadRadius: 2.0,
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: (){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NotificationsWidget(),
+                                  ),
+                                );
+                              },
+                              child: Icon(
+                                Icons.notifications_active,
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                size: 30.0,
                               ),
-                              spreadRadius: 2.0,
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: (){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => NotificationsWidget(),
-                              ),
-                            );
-                          },
-                          child: Icon(
-                            Icons.notifications_active,
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            size: 30.0,
+                            ),
                           ),
-                        ),
+                          // Badge du nombre de notifications
+                          if (unreadCount > 0)
+                            Positioned(
+                              right: -6,
+                              top: -6,
+                              child: Container(
+                                padding: EdgeInsets.all(4.0),
+                                constraints: BoxConstraints(
+                                  minWidth: 20.0,
+                                  minHeight: 20.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                                    width: 2.0,
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    unreadCount > 300 ? '98+' : unreadCount.toString(),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
                       Container(
                         width: 36.0,
