@@ -77,8 +77,16 @@ class _AuthentificationWidgetState extends State<AuthentificationWidget> {
       );
       if (loggedUser.statusCode == 200) {
         final token = loggedUser.data["token"];
+        final user = loggedUser.data["user"];
         if (token != null && token is String) {
           appState.authToken = token;
+          appState.userId = user["id"] ?? 0;
+          appState.userName = user["name"] ?? '';
+          appState.userEmail = user["email"] ?? '';
+          appState.userTelephone = user["telephone"] ?? '';
+          appState.userProfilId = user["profil_id"] ?? 0;
+          appState.userIsActive = (user["is_active"] == 1 || user["is_active"] == true);
+
 
           await saveFcmToken(
             authToken: token,

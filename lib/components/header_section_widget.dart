@@ -83,6 +83,7 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
 
       print('✅ Logout API réussi - Status: ${response.statusCode}');
 
+      appState.clearUserData();
       // Nettoyage local
       appState.authToken = '';
       appState.update(() {});
@@ -114,7 +115,7 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
       // Dans tous les cas, déconnexion locale
       appState.authToken = '';
       appState.update(() {});
-
+      appState.clearUserData();
       if (mounted) {
         context.read<NotificationProvider>().clearNotifications();
         context.goNamed(
@@ -131,6 +132,7 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
       print('❌ Exception: $e');
       appState.authToken = '';
       appState.update(() {});
+      appState.clearUserData();
 
       if (mounted) {
         context.read<NotificationProvider>().clearNotifications();
@@ -156,7 +158,6 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
   @override
   void dispose() {
     _model.maybeDispose();
-
     super.dispose();
   }
 
@@ -187,7 +188,7 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Bonjour Hamza TOUIL',
+                        'Bonjour ${appState.displayName}',
                         style: FlutterFlowTheme.of(context).titleSmall.override(
                           font: GoogleFonts.interTight(
                             fontWeight: FontWeight.bold,
@@ -200,7 +201,7 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
                         ),
                       ),
                       Text(
-                        '21:51 Fri Jul 04 2025',
+                          DateFormat('HH:mm EEE MMM dd yyyy').format(DateTime.now()),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.inter(
                             fontWeight: FontWeight.w600,
