@@ -1,6 +1,11 @@
+import 'package:cookie_jar/cookie_jar.dart';
+import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:mobile_installer/notifications/notifications_widget.dart';
 import 'package:provider/provider.dart'; // Ajout de l'import Provider
 
+import '../backend/api_requests/api_calls.dart';
 import '../notifications/notifications_provider.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -19,6 +24,8 @@ class HeaderSectionWidget extends StatefulWidget {
 
 class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
   late HeaderSectionModel _model;
+  bool _isLoggingOut = false;
+  FFAppState appState = FFAppState();
 
   @override
   void setState(VoidCallback callback) {
@@ -30,8 +37,122 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HeaderSectionModel());
+
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      final provider = context.read<NotificationProvider>();
+      final appState = FFAppState();
+
+      if (provider.notifications.isEmpty) {
+        await provider.loadNotifications(appState.authToken);
+      }
+    });
   }
 
+  Future<void> _handleLogout() async {
+    if (_isLoggingOut) return;
+
+    setState(() {
+      _isLoggingOut = true;
+    });
+
+    try {
+      print('Début du logout...');
+
+      final baseUrl = AuthentificationGroup.getBaseUrl();
+      final dio = Dio();
+      final cookieJar = CookieJar();
+      dio.interceptors.add(CookieManager(cookieJar));
+
+      // Récupérer le CSRF token
+      await dio.get('${baseUrl}/sanctum/csrf-cookie');
+
+      final cookies = await cookieJar.loadForRequest(Uri.parse('${baseUrl}/'));
+      final csrfToken = cookies.firstWhere((cookie) => cookie.name == "XSRF-TOKEN").value;
+      final decodeToken = Uri.decodeComponent(Uri.decodeComponent(csrfToken));
+
+      // Configurer les headers
+      dio.options.headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "X-XSRF-TOKEN": decodeToken,
+        "Authorization": "Bearer ${appState.authToken}",
+      };
+
+      // Appeler l'API logout
+      final response = await dio.post('${baseUrl}/logout');
+
+      print('✅ Logout API réussi - Status: ${response.statusCode}');
+
+      // Nettoyage local
+      appState.authToken = '';
+      appState.update(() {});
+
+      if (mounted) {
+        context.read<NotificationProvider>().clearNotifications();
+      }
+
+      // Navigation
+      if (mounted) {
+        context.goNamed(
+          AuthentificationWidget.routeName,
+          extra: <String, dynamic>{
+            kTransitionInfoKey: TransitionInfo(
+              hasTransition: true,
+              transitionType: PageTransitionType.fade,
+            ),
+          },
+        );
+      }
+
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        print('✅ Token révoqué avec succès (401)');
+      } else {
+        print('⚠️ Erreur API: ${e.response?.statusCode}');
+      }
+
+      // Dans tous les cas, déconnexion locale
+      appState.authToken = '';
+      appState.update(() {});
+
+      if (mounted) {
+        context.read<NotificationProvider>().clearNotifications();
+        context.goNamed(
+          AuthentificationWidget.routeName,
+          extra: <String, dynamic>{
+            kTransitionInfoKey: TransitionInfo(
+              hasTransition: true,
+              transitionType: PageTransitionType.fade,
+            ),
+          },
+        );
+      }
+    } catch (e) {
+      print('❌ Exception: $e');
+      appState.authToken = '';
+      appState.update(() {});
+
+      if (mounted) {
+        context.read<NotificationProvider>().clearNotifications();
+
+        context.goNamed(
+          AuthentificationWidget.routeName,
+          extra: <String, dynamic>{
+            kTransitionInfoKey: TransitionInfo(
+              hasTransition: true,
+              transitionType: PageTransitionType.fade,
+            ),
+          },
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoggingOut = false;
+        });
+      }
+    }
+  }
   @override
   void dispose() {
     _model.maybeDispose();
@@ -196,17 +317,7 @@ class _HeaderSectionWidgetState extends State<HeaderSectionWidget> {
                           focusColor: Colors.transparent,
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
-                          onTap: () async {
-                            context.pushNamed(
-                              AuthentificationWidget.routeName,
-                              queryParameters: {
-                                'token': serializeParam(
-                                  'tesst',
-                                  ParamType.String,
-                                ),
-                              }.withoutNulls,
-                            );
-                          },
+                          onTap: _isLoggingOut ? null : _handleLogout,
                           child: Icon(
                             Icons.exit_to_app_rounded,
                             color: FlutterFlowTheme.of(context).primaryText,
