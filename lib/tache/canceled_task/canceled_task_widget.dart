@@ -1,4 +1,5 @@
 import 'package:mobile_installer/backend/schema/structs/index.dart';
+import 'package:mobile_installer/tache/taches/taches_provider.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -275,6 +276,7 @@ class _CanceledTaskWidgetState extends State<CanceledTaskWidget> {
                           );
 
                           if ((_model.apiResult4wc?.succeeded ?? true)) {
+                            context.read<TachesProvider>().updateTaskFromTechnicianTasks(widget.infoTask!.id, 4);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(

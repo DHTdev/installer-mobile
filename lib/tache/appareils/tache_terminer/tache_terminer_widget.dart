@@ -110,7 +110,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
     try {
       _model.apiResultInstallationSubmit = await TechnicienGroup.updateTaskCall.call(widget.infoTask?.id, endInstallationTalsData, "installation");
       if ((_model.apiResultInstallationSubmit?.succeeded ?? true)) {
-        context.read<TachesProvider>().updateTaskFromTechnicianTasks(widget.infoTask!.id,endInstallationTalsData,2 );
+        context.read<TachesProvider>().updateTaskFromTechnicianTasks(widget.infoTask!.id,2 );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
