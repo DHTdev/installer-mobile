@@ -405,13 +405,14 @@ class _TchesreporteWidgetState extends State<TchesreporteWidget> {
                                   if (_model.formKey.currentState == null || !_model.formKey.currentState!.validate()) {
                                     return;
                                   }
-                                  _model.actionTP = await context.read<TachesProvider>().callPostponed(
-                                        widget.id,
-                                        _model.dateSitterTextController.text,
-                                        _model.observationTextController.text,
-                                      );
+                                  _model.actionTP = await TechnicienGroup.postponeTaskCall.call(
+                                    id: widget.id,
+                                    NouvelleDate: DateFormat('yyyy-MM-dd').format(_model.datePicked),
+                                    observation: _model.observation,
+                                  );
 
                                   if ((_model.actionTP?.succeeded ?? true)) {
+                                    context.read<TachesProvider>().updateTaskFromTechnicianTasks(widget.id!, 3);
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(

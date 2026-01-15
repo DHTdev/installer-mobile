@@ -315,7 +315,7 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                                 } else if (widget.TechnicianTask.etatTache == 2) {
                                   return FlutterFlowTheme.of(context).secondary;
                                 } else if (widget.TechnicianTask.etatTache == 3) {
-                                  return FlutterFlowTheme.of(context).error;
+                                  return FlutterFlowTheme.of(context).warning;
                                 } else {
                                   return FlutterFlowTheme.of(context).error;
                                 }
@@ -360,7 +360,7 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                   ),
                 ),
                 if (_model.showMenu)
-                       AnimatedOpacity(
+                  AnimatedOpacity(
                     opacity: 0.9,
                     duration: 300.0.ms,
                     curve: Curves.easeInOut,
@@ -372,7 +372,6 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                         child: ManageTachesWidget(
                           task: widget.TechnicianTask,
                           taskType: widget.taskType,
-                          
                           onCloseMenu: () async {
                             _model.showMenu = false;
                             safeSetState(() {});

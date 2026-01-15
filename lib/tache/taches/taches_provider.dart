@@ -98,20 +98,20 @@ class TachesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // api call postponed function
+  // // api call postponed function
 
-  Future<ApiCallResponse> callPostponed(taskId, newDate, obsirvation) async {
-    final response = await await TechnicienGroup.postponeTaskCall.call(
-      id: taskId,
-      NouvelleDate: newDate,
-      observation: obsirvation,
-    );
-    notifyListeners();
-    return response;
-  }
-  // end of call postponed function
+  // Future<ApiCallResponse> callPostponed(taskId, newDate, obsirvation) async {
+  //   final response = await await TechnicienGroup.postponeTaskCall.call(
+  //     id: taskId,
+  //     NouvelleDate: newDate,
+  //     observation: obsirvation,
+  //   );
+  //   notifyListeners();
+  //   return response;
+  // }
+  // // end of call postponed function
 
-  void updateTaskFromTechnicianTasks(int index, InstallationSubmitStruct item, int etatTask) {
+  void updateTaskFromTechnicianTasks(int index, int etatTask) {
     _technicianTasks.where((task) => task.id == index).toList()[0].etatTache = etatTask;
     loadTasks(FFAppState().authToken);
     notifyListeners();
@@ -129,5 +129,5 @@ class TachesProvider extends ChangeNotifier {
       return false;
     }
   }
-  
+
 }
