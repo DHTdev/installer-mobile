@@ -1,3 +1,5 @@
+import 'package:mobile_installer/tache/taches/taches_provider_old.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/compenents/technicien_tasks/technicien_tasks_widget.dart';
@@ -9,7 +11,7 @@ import 'dart:async';
 import 'taches_widget.dart' show TachesWidget;
 import 'package:flutter/material.dart';
 
-class TachesModel extends FlutterFlowModel<TachesWidget> {
+class TachesModel extends FlutterFlowModel<TachesWidget> with ChangeNotifier {
   ///  Local state fields for this page.
 
   bool isShowFullList = true;
@@ -18,18 +20,19 @@ class TachesModel extends FlutterFlowModel<TachesWidget> {
 
   String selectedStatus = '\"\"';
 
-  List<TechnicianTaskStruct> technicianTask = [];
-  void addToTechnicianTask(TechnicianTaskStruct item) => technicianTask.add(item);
-  void removeFromTechnicianTask(TechnicianTaskStruct item) => technicianTask.remove(item);
-  void removeAtIndexFromTechnicianTask(int index) => technicianTask.removeAt(index);
-  void insertAtIndexInTechnicianTask(int index, TechnicianTaskStruct item) => technicianTask.insert(index, item);
-  void updateTechnicianTaskAtIndex(int index, Function(TechnicianTaskStruct) updateFn) => technicianTask[index] = updateFn(technicianTask[index]);
+  // List of TechnicianTaskStruct for technicianTask.
+  void addToTechnicianTask(TechnicianTaskStruct item) => TachesProvider().technicianTasks.add(item);
+  void removeFromTechnicianTask(TechnicianTaskStruct item) => TachesProvider().technicianTasks.remove(item);
+
+
+  void insertAtIndexInTechnicianTask(int index, TechnicianTaskStruct item) => TachesProvider().technicianTasks.insert(index, item);
+  void updateTechnicianTaskAtIndex(int index, Function(TechnicianTaskStruct) updateFn) => TachesProvider().technicianTasks[index] = updateFn(TachesProvider().technicianTasks[index]);
 
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (Tasks)] action in Taches widget.
   ApiCallResponse? apiResultTechnianTasks;
-  List<CityStruct> citiesResponse =[];
+  List<CityStruct> citiesResponse = [];
   // State field(s) for DropDown widget.
   String? dropDownValue1;
   FormFieldController<String>? dropDownValueController1;

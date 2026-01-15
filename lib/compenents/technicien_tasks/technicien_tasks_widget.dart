@@ -360,17 +360,24 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                   ),
                 ),
                 if (_model.showMenu)
-                  AnimatedOpacity(
+                       AnimatedOpacity(
                     opacity: 0.9,
-                    duration: 300.ms,
+                    duration: 300.0.ms,
                     curve: Curves.easeInOut,
                     child: Align(
-                      alignment: AlignmentDirectional(0.83, 0),
+                      alignment: AlignmentDirectional(0.73, -0.26),
                       child: wrapWithModel(
                         model: _model.manageTachesModel,
                         updateCallback: () => safeSetState(() {}),
                         child: ManageTachesWidget(
                           task: widget.TechnicianTask,
+                          taskType: widget.taskType,
+                          
+                          onCloseMenu: () async {
+                            _model.showMenu = false;
+                            safeSetState(() {});
+                            safeSetState(() {});
+                          },
                         ),
                       ),
                     ),

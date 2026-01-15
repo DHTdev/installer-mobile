@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mobile_installer/firebase_options.dart';
 import 'package:mobile_installer/notification_service.dart';
 import 'package:mobile_installer/notifications/notifications_widget.dart';
+import 'package:mobile_installer/tache/taches/taches_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +34,7 @@ Future<void> main() async {
     providers: [
       ChangeNotifierProvider(create: (context) => appState),
       ChangeNotifierProvider(create: (context) => NotificationProvider()),
+      ChangeNotifierProvider(create: (context) => TachesProvider()),
     ],
     child: MyApp(),
   ),

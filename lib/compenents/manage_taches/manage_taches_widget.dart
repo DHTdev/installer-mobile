@@ -20,10 +20,14 @@ class ManageTachesWidget extends StatefulWidget {
   const ManageTachesWidget({
     super.key,
     required this.task,
+    required this.taskType,
+    this.onCloseMenu,
   });
 
   /// the selected task to end
   final TechnicianTaskStruct? task;
+  final String? taskType;
+  final Future Function()? onCloseMenu;
 
   @override
   State<ManageTachesWidget> createState() => _ManageTachesWidgetState();
@@ -45,7 +49,7 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
   }
 
   void navigateTo() {
-    switch (widget.task?.catache) {
+    switch (widget.taskType) {
       case "installation" || "installation gasoil":
         Navigator.push(
           context,
@@ -99,7 +103,6 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
   @override
   void dispose() {
     _model.maybeDispose();
-
     super.dispose();
   }
 
@@ -134,6 +137,7 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
+                await widget.onCloseMenu?.call();
                 Navigator.push(
                   context,
                   MaterialPageRoute<void>(
@@ -187,6 +191,7 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
+                await widget.onCloseMenu?.call();
                 navigateTo();
               },
               child: Container(
@@ -235,6 +240,8 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
+                await widget.onCloseMenu?.call();
+
                 Navigator.push(
                     context,
                     MaterialPageRoute<void>(
@@ -287,6 +294,8 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
+                await widget.onCloseMenu?.call();
+
                 Navigator.push(
                     context,
                     MaterialPageRoute<void>(

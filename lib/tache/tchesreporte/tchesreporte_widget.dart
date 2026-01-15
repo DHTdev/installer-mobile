@@ -1,3 +1,5 @@
+import 'package:mobile_installer/tache/taches/taches_provider.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -403,11 +405,11 @@ class _TchesreporteWidgetState extends State<TchesreporteWidget> {
                                   if (_model.formKey.currentState == null || !_model.formKey.currentState!.validate()) {
                                     return;
                                   }
-                                  _model.actionTP = await TechnicienGroup.postponeTaskCall.call(
-                                    id: widget.id,
-                                    NouvelleDate: DateFormat('yyyy-MM-dd').format(_model.datePicked),
-                                    observation: _model.observation,
-                                  );
+                                  _model.actionTP = await context.read<TachesProvider>().callPostponed(
+                                        widget.id,
+                                        _model.dateSitterTextController.text,
+                                        _model.observationTextController.text,
+                                      );
 
                                   if ((_model.actionTP?.succeeded ?? true)) {
                                     ScaffoldMessenger.of(context).showSnackBar(

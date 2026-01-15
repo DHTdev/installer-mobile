@@ -45,7 +45,6 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TcheexceptionnelModel());
-    print("typeTask:${widget.typeTask}");
     _model.textControllerClientName ??= TextEditingController();
     _model.textFieldFocusClientName ??= FocusNode();
 
@@ -66,7 +65,7 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       try {
         _model.apiResponseNewTaskInfo = await TechnicienGroup.getNewTaskInfoCall.call();
-
+        
         if ((_model.apiResponseNewTaskInfo?.succeeded ?? true)) {
           _model.newTaskInfo = NewTaskInfoStruct.maybeFromMap(
             _model.apiResponseNewTaskInfo?.jsonBody,

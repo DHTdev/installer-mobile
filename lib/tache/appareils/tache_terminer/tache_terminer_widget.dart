@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:flutter_cache_manager/file.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:mobile_installer/backend/schema/structs/device_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/gps_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/installation_submit_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/technician_task_struct.dart';
 import 'package:mobile_installer/flutter_flow/upload_data.dart';
+import 'package:mobile_installer/tache/taches/taches_provider.dart';
+import 'package:provider/provider.dart';
 
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -82,7 +81,6 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
 
     for (var file in files) {
       if (file.bytes == null) continue;
-
       final compressed = await compressImageBytes(file.bytes!);
       final base64String = base64Encode(compressed);
       out.add({
@@ -112,6 +110,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
     try {
       _model.apiResultInstallationSubmit = await TechnicienGroup.updateTaskCall.call(widget.infoTask?.id, endInstallationTalsData, "installation");
       if ((_model.apiResultInstallationSubmit?.succeeded ?? true)) {
+        context.read<TachesProvider>().updateTaskFromTechnicianTasks(widget.infoTask!.id,endInstallationTalsData,2 );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
