@@ -117,5 +117,17 @@ class TachesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<bool> addNewTask(TechnicianTaskStruct newTask) async {
+    try {
+      _technicianTasks.insert(0, newTask);
+      notifyListeners();
+      return true;
+    } catch (e) {
+      debugPrint('Erreur lors de l\'ajout de la tâche: $e');
+      _error = 'Erreur lors de l\'ajout de la tâche';
+      notifyListeners();
+      return false;
+    }
+  }
 
 }

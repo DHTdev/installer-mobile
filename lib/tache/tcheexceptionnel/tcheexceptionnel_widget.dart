@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:provider/provider.dart';
 import 'package:mobile_installer/backend/api_requests/api_calls.dart';
 import 'package:mobile_installer/backend/schema/structs/client_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/exception_task_form_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/index.dart';
 import 'package:mobile_installer/backend/schema/structs/new_task_info_struct.dart';
 
+import '../taches/taches_provider.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -99,6 +101,22 @@ class _TcheexceptionnelWidgetState extends State<TcheexceptionnelWidget> {
     await TechnicienGroup.taskConfirmedCall.call(
       newTaskData,
     );
+    final city =clientCity.firstWhere((city)=>city.id == int.parse(_model.dropDownCityValue.toString())).cityName.toString();
+
+    final newTask = TechnicianTaskStruct(
+      id: DateTime.now().millisecondsSinceEpoch, // ID temporaire unique
+      clientName: newTaskData.nomComplet,
+      clientPhoneNumber: newTaskData.telephone,
+      catache: newTaskData.typeTache,
+      cityName:  city,
+      date_previsionnelle_debut: DateTime.tryParse(newTaskData.date!),
+      etatTache: 0,
+      observation: newTaskData.description,
+    );
+
+    // Ajouter au Provider
+    final tachesProvider = context.read<TachesProvider>();
+    await tachesProvider.addNewTask(newTask);
     Navigator.pop(context);
   }
 
