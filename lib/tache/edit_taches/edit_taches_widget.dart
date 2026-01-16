@@ -464,7 +464,7 @@ class _EditTachesWidgetState extends State<EditTachesWidget> {
                                         width:
                                             MediaQuery.sizeOf(context).width *
                                                 0.88,
-                                        height: 41.8,
+                                        height: 50.38,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(

@@ -470,11 +470,11 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                                 Text(
                                   () {
                                     if (widget.stateTask == 0) {
-                                      return 'en attendant';
+                                      return 'en attente';
                                     } else if (widget.stateTask == 1) {
-                                      return 'en coure ';
+                                      return 'en cours';
                                     } else if (widget.stateTask == 2) {
-                                      return 'terminé';
+                                      return 'terminée';
                                     } else if (widget.stateTask == 3) {
                                       return 'reporter';
                                     } else {
@@ -522,6 +522,11 @@ class _TechnicienTasksWidgetState extends State<TechnicienTasksWidget> {
                         child: ManageTachesWidget(
                           task: TechnicianTaskStruct(),
                           taskType: widget.taskType,
+                          onCloseMenu: () async {
+                            _model.showMenu = false;
+                            safeSetState(() {});
+                            safeSetState(() {});
+                          },
                         ),
                       ),
                     ),

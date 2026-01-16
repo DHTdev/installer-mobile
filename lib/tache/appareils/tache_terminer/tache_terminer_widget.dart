@@ -930,7 +930,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                       },
                                       child: Container(
                                         width: 345.9,
-                                        height: 49.81,
+                                        height: 49.8,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
@@ -999,6 +999,50 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                     ),
                                   ),
                                 ],
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 0.0, 16.0, 0.0),
+                                  child: Builder(
+                                    builder: (context) {
+                                      final selectedImages = _model
+                                          .uploadedLocalFiles_tacheInstallation
+                                          .toList();
+
+                                      return SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: List.generate(
+                                              selectedImages.length,
+                                              (selectedImagesIndex) {
+                                            final selectedImagesItem =
+                                                selectedImages[
+                                                    selectedImagesIndex];
+                                            return Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 8.0, 0.0),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                                child: Image.memory(
+                                                  selectedImagesItem.bytes ??
+                                                      Uint8List.fromList([]),
+                                                  width: 100.0,
+                                                  height: 100.0,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            );
+                                          }),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,

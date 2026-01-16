@@ -3,7 +3,6 @@ import '/backend/schema/structs/index.dart';
 import '/compenents/technicien_tasks/technicien_tasks_widget.dart';
 import '/components/header_section_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/index.dart';
 import 'dart:async';
 import 'taches_widget.dart' show TachesWidget;
@@ -44,6 +43,10 @@ class TachesModel extends FlutterFlowModel<TachesWidget> {
 
   String? selectedDateFilter;
 
+  String? selectedTaskCategory;
+
+  String? selectedTaskStatus;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (Tasks)] action in Taches widget.
@@ -52,12 +55,6 @@ class TachesModel extends FlutterFlowModel<TachesWidget> {
   late HeaderSectionModel headerSectionModel;
   // Stores action output result for [Backend Call - API (getInfo)] action in Container widget.
   ApiCallResponse? citiesResp;
-  // State field(s) for SelectCitiesDD widget.
-  String? selectCitiesDDValue;
-  FormFieldController<String>? selectCitiesDDValueController;
-  // State field(s) for SelectDateDD widget.
-  String? selectDateDDValue;
-  FormFieldController<String>? selectDateDDValueController;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;

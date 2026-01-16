@@ -12,12 +12,14 @@ class ManageTachesWidget extends StatefulWidget {
     super.key,
     required this.task,
     required this.taskType,
+    this.onCloseMenu,
   });
 
   /// the selected task to end
   final TechnicianTaskStruct? task;
 
   final String? taskType;
+  final Future Function()? onCloseMenu;
 
   @override
   State<ManageTachesWidget> createState() => _ManageTachesWidgetState();
@@ -76,6 +78,8 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
+                await widget.onCloseMenu?.call();
+
                 context.pushNamed(EditTachesWidget.routeName);
               },
               child: Container(
@@ -136,6 +140,7 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
+                await widget.onCloseMenu?.call();
                 if ((widget.taskType == 'installation gasoil') ||
                     (widget.taskType == 'installation')) {
                   context.pushNamed(TacheTerminerWidget.routeName);
@@ -253,6 +258,8 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
+                await widget.onCloseMenu?.call();
+
                 context.pushNamed(
                   TchesreporteWidget.routeName,
                   queryParameters: {
@@ -325,6 +332,8 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
+                await widget.onCloseMenu?.call();
+
                 context.pushNamed(
                   CanceledTaskWidget.routeName,
                   queryParameters: {

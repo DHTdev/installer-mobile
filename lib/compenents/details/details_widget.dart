@@ -1071,6 +1071,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                     child: FFButtonWidget(
                       onPressed: () async {
                         context.safePop();
+                        safeSetState(() {});
                       },
                       text: 'Fermer',
                       options: FFButtonOptions(

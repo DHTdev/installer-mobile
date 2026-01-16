@@ -15,6 +15,8 @@ List<TechnicianTaskStruct>? filterTasks(
   String? cityFilter,
   String? dateFilter,
   String? searchText,
+  String? categoryFilter,
+  String? statusFilter,
 ) {
   if (tasks == null) return [];
 
@@ -55,6 +57,28 @@ List<TechnicianTaskStruct>? filterTasks(
       final category = (task.catache ?? '').toLowerCase();
 
       if (!clientName.contains(text) && !category.contains(text)) {
+        return false;
+      }
+    }
+
+    // ===== CATEGORY FILTER =====
+    if (categoryFilter != null &&
+        categoryFilter.isNotEmpty &&
+        categoryFilter != "ALL") {
+      if ((task.catache ?? '').toLowerCase().trim() !=
+          categoryFilter.toLowerCase().trim()) {
+        return false;
+      }
+    }
+
+    // ===== STATUS FILTER =====
+    if (statusFilter != null &&
+        statusFilter.isNotEmpty &&
+        statusFilter != "ALL") {
+      final selectedStatus = int.tryParse(statusFilter);
+      if (selectedStatus == null) return false;
+
+      if (task.etatTache != selectedStatus) {
         return false;
       }
     }

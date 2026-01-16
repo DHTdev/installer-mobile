@@ -4,6 +4,21 @@ import 'tache_terminer_widget.dart' show TacheTerminerWidget;
 import 'package:flutter/material.dart';
 
 class TacheTerminerModel extends FlutterFlowModel<TacheTerminerWidget> {
+  ///  Local state fields for this page.
+
+  List<FFUploadedFile> uploadedImagesURL = [];
+  void addToUploadedImagesURL(FFUploadedFile item) =>
+      uploadedImagesURL.add(item);
+  void removeFromUploadedImagesURL(FFUploadedFile item) =>
+      uploadedImagesURL.remove(item);
+  void removeAtIndexFromUploadedImagesURL(int index) =>
+      uploadedImagesURL.removeAt(index);
+  void insertAtIndexInUploadedImagesURL(int index, FFUploadedFile item) =>
+      uploadedImagesURL.insert(index, item);
+  void updateUploadedImagesURLAtIndex(
+          int index, Function(FFUploadedFile) updateFn) =>
+      uploadedImagesURL[index] = updateFn(uploadedImagesURL[index]);
+
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();

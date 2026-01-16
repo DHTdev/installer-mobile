@@ -818,7 +818,11 @@ class GetTasksCall {
       callName: 'getTasks',
       apiUrl: '${baseUrl}/getTasksDataForReparation/{id}',
       callType: ApiCallType.GET,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1311,7 +1315,11 @@ class GetNewTaskInfoCall {
       callName: 'getNewTaskInfo',
       apiUrl: '${baseUrl}/newTask',
       callType: ApiCallType.GET,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1573,6 +1581,56 @@ class GetInfoCall {
   static List<int>? id(dynamic response) => (getJsonField(
         response,
         r'''$.Cities[:].id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? catache(dynamic response) => (getJsonField(
+        response,
+        r'''$.TypesTasks[:].catache''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+}
+
+class GetAllCitiesCall {
+  static Future<ApiCallResponse> call() async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getAllCities',
+      apiUrl: 'https://d3instal.com/api/comptable/allCities',
+      callType: ApiCallType.GET,
+      headers: {
+        'content-type': 'application/json',
+        'Authorization':
+            'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static List<String>? cityName(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].cityName''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<int>? id(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].id''',
         true,
       ) as List?)
           ?.withoutNulls
