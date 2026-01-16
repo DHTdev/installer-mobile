@@ -5,6 +5,8 @@ import 'package:mobile_installer/backend/schema/structs/panne_gps_submit_struct.
 import 'package:mobile_installer/backend/schema/structs/reparation_info_struct.dart';
 import 'package:mobile_installer/compenents/listOfSelection/list_of_Selection_widget.dart';
 import 'package:mobile_installer/flutter_flow/upload_data.dart';
+import 'package:mobile_installer/tache/taches/taches_provider.dart';
+import 'package:provider/provider.dart';
 
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
@@ -96,22 +98,40 @@ class _PanneGPSWidgetState extends State<PanneGPSWidget> {
     return previousTaskInfo;
   }
 
-  Future<void> endPnneGPS() async {
+  bool checkValidateForm() {
     setState(() {
       _isButtonEnabled = !_isButtonEnabled;
     });
-    if (_model.formKey.currentState == null ||
-        !_model.formKey.currentState!.validate() ||
-        _model.uploadedLocalFiles_gPSPanneTaskMedia.isEmpty ||
-        _model.dropDownValueGpsPosition == null ||
-        _model.typeRelaisValue == null) {
-      setState(() {
-        _model.textControllerImagesValidator = "Veuillez choisir au moins une image";
-        _model.dropDownValueGpsPositionValidator = "Veuillez choisir une position GPS";
-        _model.dropDownValueTypeReleyValidator = "Veuillez choisir un type de relais";
-      });
-      return;
+    bool is_validate = true;
+    if (_model.formKey.currentState == null || !_model.formKey.currentState!.validate()) {
+      is_validate = false;
     }
+    if (_model.uploadedLocalFiles_gPSPanneTaskMedia.isEmpty) {
+      is_validate = false;
+      setState(() => _model.textControllerImagesValidator = "Veuillez choisir au moins 3 images");
+    }
+    if (_model.dropDownValueGpsPosition == null) {
+      is_validate = false;
+      setState(() => _model.dropDownValueGpsPositionValidator = "Veuillez choisir une option");
+    }
+    if (_model.typeRelaisValue == null) {
+      is_validate = false;
+      setState(() => _model.dropDownValueTypeReleyValidator = "Veuillez choisir une option");
+    }
+    switch (is_validate) {
+      case false:
+        setState(() {
+          _isButtonEnabled = !_isButtonEnabled;
+        });
+        return false;
+      case true:
+    }
+    return true;
+  }
+
+  Future<void> endPnneGPS() async {
+    final result = checkValidateForm();
+    if (result == false) return;
     final panneGPSData = PanneGpsSubmitStruct(
       imei: _model.newIMEISelectedOption.toString(),
       matricule: _model.matriculeTextController.text,
@@ -129,6 +149,7 @@ class _PanneGPSWidgetState extends State<PanneGPSWidget> {
         panneGPSData,
       );
       if ((_model.apiResultPanneGPSSubmit?.succeeded ?? true)) {
+        context.read<TachesProvider>().updateTaskFromTechnicianTasks(widget.infoTask!.id, 2);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(

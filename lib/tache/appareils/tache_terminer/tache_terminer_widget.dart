@@ -91,10 +91,40 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
     return out;
   }
 
-  Future<void> sendTask() async {
+  bool checkValidateForm() {
     setState(() {
       _isButtonEnabled = !_isButtonEnabled;
     });
+    bool is_validate = true;
+    if (_model.formKey.currentState == null || !_model.formKey.currentState!.validate()) {
+      is_validate = false;
+    }
+    if (_model.uploadedLocalFiles_tacheInstallation.isEmpty) {
+      is_validate = false;
+      setState(() => _model.textControllerImagesValidator = "Veuillez choisir au moins 3 images");
+    }
+    if (_model.dropDownValueGpsPositionValidator == null) {
+      is_validate = false;
+      setState(() => _model.dropDownValueGpsPositionValidator = "Veuillez choisir une option");
+    }
+    if (_model.dropDownValueTypeReleyValidator == null) {
+      is_validate = false;
+      setState(() => _model.dropDownValueTypeReleyValidator = "Veuillez choisir une option");
+    }
+    switch (is_validate) {
+      case false:
+        setState(() {
+          _isButtonEnabled = !_isButtonEnabled;
+        });
+        return false;
+      case true:
+    }
+    return true;
+  }
+
+  Future<void> sendTask() async {
+    final result = checkValidateForm();
+    if (result == false) return;
     final endInstallationTalsData = InstallationSubmitStruct(
       nomComplet: widget.infoTask?.clientName,
       matricule: _model.textControllerMatricule.text,
@@ -110,7 +140,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
     try {
       _model.apiResultInstallationSubmit = await TechnicienGroup.updateTaskCall.call(widget.infoTask?.id, endInstallationTalsData, "installation");
       if ((_model.apiResultInstallationSubmit?.succeeded ?? true)) {
-        context.read<TachesProvider>().updateTaskFromTechnicianTasks(widget.infoTask!.id,2 );
+        context.read<TachesProvider>().updateTaskFromTechnicianTasks(widget.infoTask!.id, 2);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
@@ -160,7 +190,6 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 
@@ -369,7 +398,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                                       ),
                                                   keyboardType: TextInputType.name,
                                                   cursorColor: FlutterFlowTheme.of(context).primaryText,
-                                                  validator: _model.textControllerMatriculeValidator.asValidator(context),
+                                                  validator: _model.matriculeTextControllerValidator.asValidator(context),
                                                 ),
                                               ),
                                             ),
@@ -509,7 +538,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                                       ),
                                                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
                                                   cursorColor: FlutterFlowTheme.of(context).primaryText,
-                                                  validator: _model.textControllerSimCombinatValidator.asValidator(context),
+                                                  validator: _model.nSimTextControllerValidator.asValidator(context),
                                                 ),
                                               ),
                                             ),
@@ -657,6 +686,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                                 final imagesJson = await prepareImagesForLaravel(selectedUploadedFiles);
 
                                                 safeSetState(() {
+                                                  _model.uploadedImagesURLs = selectedUploadedFiles;
                                                   _model.uploadedLocalFiles_tacheInstallation = imagesJson;
                                                 });
                                               } else {
@@ -672,7 +702,7 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                               color: FlutterFlowTheme.of(context).secondaryBackground,
                                               borderRadius: BorderRadius.circular(8),
                                               border: Border.all(
-                                                color: FlutterFlowTheme.of(context).secondaryText,
+                                                color: _model.textControllerImagesValidator == null ? FlutterFlowTheme.of(context).secondaryText : FlutterFlowTheme.of(context).error,
                                               ),
                                             ),
                                             child: Padding(
@@ -708,6 +738,84 @@ class _TacheTerminerWidgetState extends State<TacheTerminerWidget> {
                                           ),
                                         ),
                                       ),
+                                      Builder(
+                                        builder: (context) {
+                                          final selectedImages = _model.uploadedImagesURLs.toList();
+
+                                          return SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: List.generate(selectedImages.length, (selectedImagesIndex) {
+                                                final selectedImagesItem = selectedImages[selectedImagesIndex];
+                                                return Padding(
+                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                                                  child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(8.0),
+                                                    child: Image.memory(
+                                                      selectedImagesItem.bytes ?? Uint8List.fromList([]),
+                                                      width: 100,
+                                                      height: 100,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                );
+                                              }),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      if (_model.textControllerImagesValidator != null)
+                                        Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 0.0),
+                                          child: Text(
+                                            _model.textControllerImagesValidator!,
+                                            style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                    fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                  ),
+                                                  color: FlutterFlowTheme.of(context).error,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                  fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                ),
+                                          ),
+                                        ),
+
+                                      // Generated code for this Row Widget...
+                                      // Expanded(
+                                      //   child: Padding(
+                                      //     padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                                      //     child: Builder(
+                                      //       builder: (context) {
+                                      //         final selectedImages = _model.uploadedLocalFiles_tacheInstallation.toList();
+                                      //         return SingleChildScrollView(
+                                      //           scrollDirection: Axis.horizontal,
+                                      //           child: Row(
+                                      //             mainAxisSize: MainAxisSize.max,
+                                      //             mainAxisAlignment: MainAxisAlignment.start,
+                                      //             children: List.generate(selectedImages.length, (selectedImagesIndex) {
+                                      //               final selectedImagesItem = selectedImages[selectedImagesIndex];
+                                      //               return Padding(
+                                      //                 padding: EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
+                                      //                 child: ClipRRect(
+                                      //                   borderRadius: BorderRadius.circular(8),
+                                      //                   child: Image.memory(
+                                      //                     selectedImagesItem.bytes ?? Uint8List.fromList([]),
+                                      //                     width: 100,
+                                      //                     height: 100,
+                                      //                     fit: BoxFit.cover,
+                                      //                   ),
+                                      //                 ),
+                                      //               );
+                                      //             }),
+                                      //           ),
+                                      //         );
+                                      //       },
+                                      //     ),
+                                      //   ),
+                                      // ),
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment: MainAxisAlignment.start,

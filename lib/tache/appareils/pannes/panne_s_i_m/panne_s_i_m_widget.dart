@@ -83,18 +83,34 @@ class _PanneSIMWidgetState extends State<PanneSIMWidget> with TickerProviderStat
     _model.onUpdate();
   }
 
-  Future<void> endPanneSim() async {
-    if (_model.formKey.currentState == null || !_model.formKey.currentState!.validate() || _model.isDataUploading_panneSimTask.isEmpty || _model.newSimSelected == null) {
-      setState() {
-        _model.textControllerImagesValidator = "Veuillez choisir au moins une image";
-        _model.textControllerSimValidator = "Veuillez choisir une nouvelle SIM";
-      }
-
-      return;
+  bool checkValidateForm() {
+    bool is_validate = true;
+    if (_model.formKey.currentState == null || !_model.formKey.currentState!.validate()) {
+      is_validate = false;
     }
-    setState(() {
-      _isButtonEnabled = false;
-    });
+    if (_model.isDataUploading_panneSimTask.isEmpty) {
+      is_validate = false;
+      setState(() => _model.textControllerSimValidator = "Veuillez choisir une image");
+    }
+    if (_model.newSimSelected == null) {
+      is_validate = false;
+      setState(() => _model.textControllerSimValidator = "Veuillez choisir une nouvelle SIM");
+    }
+
+    switch (is_validate) {
+      case false:
+        setState(() {
+          _isButtonEnabled = !_isButtonEnabled;
+        });
+        return false;
+      case true:
+    }
+    return true;
+  }
+
+  Future<void> endPanneSim() async {
+    final result = checkValidateForm();
+    if (result == false) return;
     final panneSimSubmitData = PanneSimSubmitStruct(
       imei: _model.textControllerIMEI.text,
       observation: _model.textControllerObsirvation.text,

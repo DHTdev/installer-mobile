@@ -106,7 +106,7 @@ class _DesinstallationWidgetState extends State<DesinstallationWidget> with Tick
 
   Future<void> submitUninstallTask() async {
     if (_model.formKey.currentState == null || !_model.formKey.currentState!.validate() || _model.isDataUploading_unistallationTask.isEmpty) {
-      setState(() => _model.textControllerImagesValidator = "Veuillez choisir au moins une image");
+      setState(() => _model.textControllerImagesValidator = "Veuillez choisir au moins 3 images");
       return;
     }
     setState(() => _isButtonEnabled = false);

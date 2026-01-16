@@ -19,7 +19,16 @@ class TacheTerminerModel extends FlutterFlowModel<TacheTerminerWidget> {
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNodeMatricule;
   TextEditingController? textControllerMatricule;
-  String? Function(BuildContext, String?)? textControllerMatriculeValidator;
+  String? Function(BuildContext, String?)? matriculeTextControllerValidator;
+
+  String? _matriculeTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Matricule is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for TextField widget.
   FocusNode? textControllerIMEIFocus;
   TextEditingController? textControllerIMEI;
@@ -27,13 +36,24 @@ class TacheTerminerModel extends FlutterFlowModel<TacheTerminerWidget> {
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNodeSimCombinat;
   TextEditingController? textControllerSimCombinat;
-  String? Function(BuildContext, String?)? textControllerSimCombinatValidator;
+  String? Function(BuildContext, String?)? nSimTextControllerValidator;
+
+  String? _nSimTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'N Sim is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for DropDown widget.
-  bool?     dropDownValueGpsPosition;
+  bool? dropDownValueGpsPosition;
   FormFieldController<bool>? dropDownValueControllerGpsPosition;
+  String? dropDownValueGpsPositionValidator;
   // State field(s) for DropDown widget.
   String? dropDownValueTypeReley;
   FormFieldController<String>? dropDownValueControllerTypeReley;
+  String? dropDownValueTypeReleyValidator;
   // State field(s) for DropDown widget.
   String? dropDownValueAccessories;
   FormFieldController<String>? dropDownValueControllerAccessories;
@@ -44,11 +64,15 @@ class TacheTerminerModel extends FlutterFlowModel<TacheTerminerWidget> {
   // State field(s) for TextField widget.
 
   bool isDataUploading_tacheInstallation = false;
+  List<FFUploadedFile> uploadedImagesURLs = [];
   List<Map<String, dynamic>> uploadedLocalFiles_tacheInstallation = [];
-
+  String? textControllerImagesValidator;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    nSimTextControllerValidator = _nSimTextControllerValidator;
+    matriculeTextControllerValidator = _matriculeTextControllerValidator;
+  }
 
   @override
   void dispose() {
