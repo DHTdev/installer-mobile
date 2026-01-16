@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '/components/multi_filter_widget.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '../tcheexceptionnel/tcheexceptionnel_widget.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
@@ -52,6 +54,16 @@ class _TachesWidgetState extends State<TachesWidget> {
     _model.dispose();
     super.dispose();
   }
+  @override
+  void deactivate() {
+    try {
+      final provider = context.read<TachesProvider>();
+      provider.reset();
+    } catch (e) {
+      debugPrint('Erreur lors du reset: $e');
+    }
+    super.deactivate();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +74,7 @@ class _TachesWidgetState extends State<TachesWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
+        backgroundColor: Color(0xFFEAEDF7),
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(100.0),
           child: AppBar(
@@ -144,13 +157,14 @@ class _TachesWidgetState extends State<TachesWidget> {
       padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
       child: Container(
         width: double.infinity,
+        height: MediaQuery.sizeOf(context).height * 0.125,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            // En-tête avec compteur
             Row(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -159,10 +173,10 @@ class _TachesWidgetState extends State<TachesWidget> {
                   child: Text(
                     'List Des Tâches   |  ',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          font: GoogleFonts.inter(fontWeight: FontWeight.w600),
-                          fontSize: 16,
-                          letterSpacing: 0.0,
-                        ),
+                      font: GoogleFonts.inter(fontWeight: FontWeight.w600),
+                      fontSize: 16,
+                      letterSpacing: 0.0,
+                    ),
                   ),
                 ),
                 Padding(
@@ -170,147 +184,138 @@ class _TachesWidgetState extends State<TachesWidget> {
                   child: Text(
                     '${provider.filteredTasks.length} tâches',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          font: GoogleFonts.inter(fontWeight: FontWeight.w600),
-                          fontSize: 16,
-                          letterSpacing: 0.0,
-                        ),
+                      font: GoogleFonts.inter(fontWeight: FontWeight.w600),
+                      fontSize: 16,
+                      letterSpacing: 0.0,
+                    ),
                   ),
                 ),
               ],
             ),
-
-            // Dropdown villes
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-              child: FlutterFlowDropDown<String>(
-                controller: _model.dropDownValueController1 ??= FormFieldController<String>(null),
-                options: provider.cityNames,
-                onChanged: (val) => provider.setSelectedCity(val),
-                width: MediaQuery.sizeOf(context).width * 0.9,
-                height: 40,
-                textStyle: FlutterFlowTheme.of(context).bodyMedium,
-                hintText: 'Toutes les villes',
-                icon: Icon(
-                  Icons.keyboard_arrow_down_rounded,
-                  color: FlutterFlowTheme.of(context).secondaryText,
-                  size: 24,
-                ),
-                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                elevation: 2,
-                borderColor: Color(0x4C000000),
-                borderWidth: 0,
-                borderRadius: 8,
-                margin: EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
-                hidesUnderline: true,
-              ),
-            ),
-
-            // Dropdown dates
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-              child: FlutterFlowDropDown<String>(
-                controller: _model.dropDownValueController2 ??= FormFieldController<String>(null),
-                options: ["aujourd'hui", 'hier', 'demain'],
-                onChanged: (val) => provider.setSelectedDateFilter(val),
-                width: MediaQuery.sizeOf(context).width * 0.9,
-                height: 40,
-                textStyle: FlutterFlowTheme.of(context).bodyMedium,
-                hintText: "Aujourd'hui",
-                icon: Icon(
-                  Icons.keyboard_arrow_down_rounded,
-                  color: FlutterFlowTheme.of(context).secondaryText,
-                  size: 24,
-                ),
-                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                elevation: 2,
-                borderColor: Color(0x4C000000),
-                borderWidth: 0,
-                borderRadius: 8,
-                margin: EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
-                hidesUnderline: true,
-              ),
-            ),
-
-            // Champ de recherche
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 5),
-              child: Container(
-                width: MediaQuery.sizeOf(context).width * 0.9,
-                child: TextFormField(
-                  onChanged: (_) => EasyDebounce.debounce(
-                    '_model.textController',
-                    Duration(milliseconds: 500),
-                    () => provider.setSearchText(_model.textController.text),
-                  ),
-                  autofocus: false,
-                  controller: _model.textController,
-                  focusNode: _model.textFieldFocusNode,
-                  decoration: InputDecoration(
-                    isDense: true,
-                    labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+            Expanded(
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width * 0.75,
+                      child: TextFormField(
+                        controller: _model.textController,
+                        focusNode: _model.textFieldFocusNode,
+                        onChanged: (_) => EasyDebounce.debounce(
+                          '_model.textController',
+                          Duration(milliseconds: 500),
+                              () => provider.setSearchText(_model.textController.text),
+                        ),
+                        autofocus: false,
+                        decoration: InputDecoration(
+                          isDense: true,
+                          labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                            font: GoogleFonts.inter(
+                              fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                            ),
+                            letterSpacing: 0.0,
+                          ),
+                          alignLabelWithHint: false,
+                          hintText: 'Rechercher par Nom Client',
+                          hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                            font: GoogleFonts.inter(
+                              fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                            ),
+                            letterSpacing: 0.0,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF15284C),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                          suffixIcon: Icon(Icons.search),
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.inter(
-                            fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                           ),
                           letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
                         ),
-                    alignLabelWithHint: false,
-                    hintText: 'Rechercher par Nom Client',
-                    hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                          font: GoogleFonts.inter(
-                            fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                          ),
-                          letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                        ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).alternate,
-                        width: 1,
                       ),
-                      borderRadius: BorderRadius.circular(24),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFF15284C),
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    filled: true,
-                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.inter(
-                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                        ),
-                        letterSpacing: 0.0,
-                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                      ),
-                ),
+                  FlutterFlowIconButton(
+                    borderRadius: 8,
+                    buttonSize: 40,
+                    fillColor: Color(0x8357636C),
+                    icon: Icon(
+                      Icons.tune,
+                      color: FlutterFlowTheme.of(context).info,
+                      size: 24,
+                    ),
+                    onPressed: () async {
+                      await showModalBottomSheet(
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        enableDrag: false,
+                        context: context,
+                        builder: (context) {
+                          return GestureDetector(
+                            onTap: () {
+                              FocusScope.of(context).unfocus();
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                            child: Padding(
+                              padding: MediaQuery.viewInsetsOf(context),
+                              child: MultiFilterWidget(
+                                applyAction: (city, date, type, etat) async {
+                                  provider.setSelectedCity(city);
+                                  provider.setSelectedDateFilter(date);
+                                  provider.setSelectedTaskCategory(type);
+                                  provider.setSelectedTaskStatus(etat);
+                                  print('city ${city}');
+                                  setState(() {});
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                      ).then((value) => setState(() {}));
+                    },
+                  ),
+                ],
               ),
             ),
-          ],
+          ]
+              .divide(SizedBox(height: 5))
+              .around(SizedBox(height: 5)),
         ),
       ),
     );
