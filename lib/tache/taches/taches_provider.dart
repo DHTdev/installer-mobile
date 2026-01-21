@@ -14,6 +14,10 @@ class TachesProvider extends ChangeNotifier {
   String _searchText = '';
   bool _isLoading = false;
   String? _error;
+  String? _selectedTaskCategory;
+  int? _selectedTaskStatus;
+
+
 
   // Getters
   List<TechnicianTaskStruct> get technicianTasks => _technicianTasks;
@@ -23,6 +27,9 @@ class TachesProvider extends ChangeNotifier {
   String get searchText => _searchText;
   bool get isLoading => _isLoading;
   String? get error => _error;
+  String? get selectedTaskCategory => _selectedTaskCategory;
+  int? get selectedTaskStatus => _selectedTaskStatus;
+
 
   // Tâches filtrées
   List<TechnicianTaskStruct> get filteredTasks {
@@ -31,6 +38,8 @@ class TachesProvider extends ChangeNotifier {
       _selectedCity,
       _selectedDateFilter,
       _searchText,
+      _selectedTaskCategory,
+      _selectedTaskStatus,
     );
     return filtered ?? [];
   }
@@ -48,6 +57,16 @@ class TachesProvider extends ChangeNotifier {
 
   void setSearchText(String text) {
     _searchText = text;
+    notifyListeners();
+  }
+
+  void setSelectedTaskCategory(String? taskCategory) {
+    _selectedTaskCategory = taskCategory;
+    notifyListeners();
+  }
+
+  void setSelectedTaskStatus(int? selectedTaskStatus) {
+    _selectedTaskStatus = selectedTaskStatus;
     notifyListeners();
   }
 
@@ -95,7 +114,9 @@ class TachesProvider extends ChangeNotifier {
     _selectedCity = null;
     _selectedDateFilter = null;
     _searchText = '';
-    notifyListeners();
+    _selectedTaskCategory = null;
+    _selectedTaskStatus = null;
+    // notifyListeners();
   }
 
   // // api call postponed function
