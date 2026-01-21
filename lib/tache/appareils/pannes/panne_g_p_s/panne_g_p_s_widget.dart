@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:mobile_installer/backend/schema/structs/installed_device_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/panne_gps_submit_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/reparation_info_struct.dart';
@@ -7,7 +6,6 @@ import 'package:mobile_installer/compenents/listOfSelection/list_of_Selection_wi
 import 'package:mobile_installer/flutter_flow/upload_data.dart';
 import 'package:mobile_installer/tache/taches/taches_provider.dart';
 import 'package:provider/provider.dart';
-
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
@@ -29,7 +27,6 @@ class PanneGPSWidget extends StatefulWidget {
   });
 
   final TechnicianTaskStruct? infoTask;
-
   static String routeName = 'PanneGPS';
   static String routePath = '/panneGPS';
 
@@ -382,7 +379,7 @@ class _PanneGPSWidgetState extends State<PanneGPSWidget> {
                                         keyboardType: TextInputType.number,
                                         controller: textEditingController,
                                         focusNode: focusNode,
-                                        autofocus: true,
+                                        autofocus: false,
                                         obscureText: false,
                                         onChanged: ((value) {
                                           setState(() {
@@ -1080,7 +1077,7 @@ class _PanneGPSWidgetState extends State<PanneGPSWidget> {
                                   TextFormField(
                                     controller: _model.textController6,
                                     focusNode: _model.textFieldFocusNode,
-                                    autofocus: true,
+                                    autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       labelStyle: FlutterFlowTheme.of(context).labelMedium.override(

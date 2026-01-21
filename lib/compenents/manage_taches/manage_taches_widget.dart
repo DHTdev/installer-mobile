@@ -88,13 +88,13 @@ class _ManageTachesWidgetState extends State<ManageTachesWidget> {
         Navigator.push(
             context,
             MaterialPageRoute<void>(
-              builder: (context) => PanneRelaisWidget(clientName: widget.task?.clientName),
+              builder: (context) => PanneRelaisWidget(infoTask: widget.task),
             ));
       case "Panne":
         Navigator.push(
             context,
             MaterialPageRoute<void>(
-              builder: (context) => PanneWidget(clientName: widget.task?.clientName),
+              builder: (context) => PanneWidget(infoTask: widget.task),
             ));
         ;
     }

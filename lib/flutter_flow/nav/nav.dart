@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobile_installer/home_page/home_page_widget.dart';
 import 'package:mobile_installer/notifications/notifications_widget.dart';
+import 'package:mobile_installer/tache/appareils/pannes/panne_g_p_s/panne_g_p_s_widget.dart';
+import 'package:mobile_installer/tache/appareils/pannes/panne_relais/panne_relais_widget.dart';
+import 'package:mobile_installer/tache/appareils/pannes/panne_s_i_m/panne_s_i_m_widget.dart';
 import 'package:mobile_installer/tache/tchesreporte/tchesreporte_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -225,18 +228,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: PanneWidget.routeName,
           path: PanneWidget.routePath,
-          builder: (context, params) => PanneWidget(
-            clientName: params.getParam(
-              'clientName',
-              ParamType.String,
-            ),
-          ),
+          builder: (context, params) => PanneWidget(),
         ),
         FFRoute(
           name: NotificationsWidget.routeName,
           path: NotificationsWidget.routePath,
           builder: (context, params) => NotificationsWidget(),
-        )
+        ),
+        FFRoute(
+          name: PanneGPSWidget.routeName,
+          path: PanneGPSWidget.routePath,
+          builder: (context, params) => PanneGPSWidget(infoTask: params.getParam('infoTask', ParamType.DataStruct)),
+        ),
+        FFRoute(
+          name: PanneSIMWidget.routeName,
+          path: PanneSIMWidget.routePath,
+          builder: (context, params) => PanneSIMWidget(infoTask: params.getParam('infoTask', ParamType.DataStruct)),
+        ),
+        FFRoute(
+          name: PanneRelaisWidget.routeName,
+          path: PanneRelaisWidget.routePath,
+          builder: (context, params) => PanneRelaisWidget(infoTask: params.getParam('infoTask', ParamType.DataStruct)),
+        ),
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
 

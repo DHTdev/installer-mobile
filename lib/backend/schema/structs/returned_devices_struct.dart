@@ -15,6 +15,7 @@ class ReturnedDevicesStruct extends BaseStruct {
     String? endroits,
     String? dataReturned,
     String? matricule,
+    bool is_selected = false,
   })  : _id = id,
         _catacheId = catacheId,
         _serialNumber = serialNumber,
@@ -22,7 +23,9 @@ class ReturnedDevicesStruct extends BaseStruct {
         _nomComplet = nomComplet,
         _endroits = endroits,
         _dataReturned = dataReturned,
+        _is_selected = is_selected,
         _matricule = matricule;
+
 
   // "id" field.
   int? _id;
@@ -84,6 +87,12 @@ class ReturnedDevicesStruct extends BaseStruct {
 
   bool hasMatricule() => _matricule != null;
 
+  // "is_selected" field.
+  bool _is_selected = false;
+  bool get is_selected => _is_selected;
+  set is_selected(bool val) => _is_selected = val;
+  bool hasIs_selected() => true;
+
   static ReturnedDevicesStruct fromMap(Map<String, dynamic> data) =>
       ReturnedDevicesStruct(
         id: castToType<int>(data['id']),
@@ -94,6 +103,7 @@ class ReturnedDevicesStruct extends BaseStruct {
         endroits: data['endroits'] as String?,
         dataReturned: data['dataReturned'] as String?,
         matricule: data['matricule'] as String?,
+        is_selected: false,
       );
 
   static ReturnedDevicesStruct? maybeFromMap(dynamic data) => data is Map

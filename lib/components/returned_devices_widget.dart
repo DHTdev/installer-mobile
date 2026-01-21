@@ -13,7 +13,7 @@ class ReturnedDevicesWidget extends StatefulWidget {
     this.nomComplet,
     this.matricule,
     this.dateReturned,
-    this.selected,
+    // required this.selected,
     this.onSelectedChanged,
     this.id,
   });
@@ -23,7 +23,7 @@ class ReturnedDevicesWidget extends StatefulWidget {
   final String? nomComplet;
   final String? matricule;
   final String? dateReturned;
-  final bool? selected;
+  // final bool selected;
   final Future Function(int id, bool value)? onSelectedChanged;
   final int? id;
 
@@ -90,84 +90,59 @@ class _ReturnedDevicesWidgetState extends State<ReturnedDevicesWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 2.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 2.0),
                           child: Text(
                             valueOrDefault<String>(
                               widget.nomComplet,
                               '------------',
                             ),
-                            style: FlutterFlowTheme.of(context)
-                                .titleMedium
-                                .override(
+                            style: FlutterFlowTheme.of(context).titleMedium.override(
                                   font: GoogleFonts.interTight(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .titleMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleMedium
-                                        .fontStyle,
+                                    fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
                                   ),
                                   color: Color(0xFF15284C),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .titleMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleMedium
-                                      .fontStyle,
+                                  fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
                                 ),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 2.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 2.0),
                           child: Text(
                             valueOrDefault<String>(
                               widget.matricule,
                               '------------',
                             ),
-                            style: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
+                            style: FlutterFlowTheme.of(context).titleSmall.override(
                                   font: GoogleFonts.interTight(
                                     fontWeight: FontWeight.normal,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontStyle,
+                                    fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                                   ),
                                   color: Color(0xFF414141),
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontStyle,
+                                  fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                                 ),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 2.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 2.0),
                           child: Text(
                             valueOrDefault<String>(
                               widget.imei,
                               '------------',
                             ),
-                            style: FlutterFlowTheme.of(context)
-                                .titleMedium
-                                .override(
+                            style: FlutterFlowTheme.of(context).titleMedium.override(
                                   font: GoogleFonts.interTight(
                                     fontWeight: FontWeight.normal,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleMedium
-                                        .fontStyle,
+                                    fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
                                   ),
                                   color: Color(0xFF848A8F),
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleMedium
-                                      .fontStyle,
+                                  fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
                                 ),
                           ),
                         ),
@@ -190,8 +165,7 @@ class _ReturnedDevicesWidgetState extends State<ReturnedDevicesWidget> {
                                   children: [
                                     Icon(
                                       Icons.settings_sharp,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: FlutterFlowTheme.of(context).secondaryText,
                                       size: 14.0,
                                     ),
                                     Text(
@@ -199,38 +173,26 @@ class _ReturnedDevicesWidgetState extends State<ReturnedDevicesWidget> {
                                         widget.nameModele,
                                         '------------',
                                       ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.inter(
                                               fontWeight: FontWeight.w300,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                             ),
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
+                                            color: FlutterFlowTheme.of(context).secondaryText,
                                             fontSize: 12.0,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w300,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                     ),
-                                  ]
-                                      .divide(SizedBox(width: 6.0))
-                                      .around(SizedBox(width: 6.0)),
+                                  ].divide(SizedBox(width: 6.0)).around(SizedBox(width: 6.0)),
                                 ),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Icon(
                                       Icons.calendar_month,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: FlutterFlowTheme.of(context).secondaryText,
                                       size: 14.0,
                                     ),
                                     Text(
@@ -238,30 +200,19 @@ class _ReturnedDevicesWidgetState extends State<ReturnedDevicesWidget> {
                                         widget.dateReturned,
                                         '------------',
                                       ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             font: GoogleFonts.inter(
                                               fontWeight: FontWeight.w300,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                             ),
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
+                                            color: FlutterFlowTheme.of(context).secondaryText,
                                             fontSize: 12.0,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w300,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
                                     ),
-                                  ]
-                                      .divide(SizedBox(width: 6.0))
-                                      .around(SizedBox(width: 6.0)),
+                                  ].divide(SizedBox(width: 6.0)).around(SizedBox(width: 6.0)),
                                 ),
                               ],
                             ),
@@ -272,22 +223,17 @@ class _ReturnedDevicesWidgetState extends State<ReturnedDevicesWidget> {
                                   data: ThemeData(
                                     checkboxTheme: CheckboxThemeData(
                                       visualDensity: VisualDensity.compact,
-                                      materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
+                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(4.0),
+                                        borderRadius: BorderRadius.circular(4.0),
                                       ),
                                     ),
-                                    unselectedWidgetColor:
-                                        FlutterFlowTheme.of(context).alternate,
+                                    unselectedWidgetColor: FlutterFlowTheme.of(context).alternate,
                                   ),
                                   child: Checkbox(
-                                    value: _model.checkboxValue ??=
-                                        widget.selected!,
+                                    value: _model.checkboxValue ??= false,
                                     onChanged: (newValue) async {
-                                      safeSetState(() =>
-                                          _model.checkboxValue = newValue!);
+                                      safeSetState(() => _model.checkboxValue = newValue!);
                                       if (newValue!) {
                                         await widget.onSelectedChanged?.call(
                                           widget.id!,
@@ -300,19 +246,14 @@ class _ReturnedDevicesWidgetState extends State<ReturnedDevicesWidget> {
                                         );
                                       }
                                     },
-                                    side: (FlutterFlowTheme.of(context)
-                                                .alternate !=
-                                            null)
+                                    side: (FlutterFlowTheme.of(context).alternate != null)
                                         ? BorderSide(
                                             width: 2,
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
+                                            color: FlutterFlowTheme.of(context).alternate,
                                           )
                                         : null,
-                                    activeColor:
-                                        FlutterFlowTheme.of(context).secondary,
-                                    checkColor:
-                                        FlutterFlowTheme.of(context).info,
+                                    activeColor: FlutterFlowTheme.of(context).secondary,
+                                    checkColor: FlutterFlowTheme.of(context).info,
                                   ),
                                 ),
                               ],

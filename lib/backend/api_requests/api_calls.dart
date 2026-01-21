@@ -4,7 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:mobile_installer/backend/schema/structs/exception_task_form_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/installation_submit_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/panne_gps_submit_struct.dart';
+import 'package:mobile_installer/backend/schema/structs/panne_relais_submit_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/panne_sim_struct.dart';
+import 'package:mobile_installer/backend/schema/structs/panne_submit_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/reinstallation_task_struct.dart';
 import 'package:mobile_installer/backend/schema/structs/unistall_task_struct.dart';
 
@@ -775,8 +777,8 @@ class CancelTaskCall {
 
 class GetTasksCall {
   Future<ApiCallResponse> call(int? id) async {
+    print("get tasks for reparartion id: ${id}");
     final baseUrl = TechnicienGroup.getBaseUrl();
-
     return ApiManager.instance.makeApiCall(
       callName: 'getTasks',
       apiUrl: '${baseUrl}/getTasksDataForReparation/${id}',
@@ -1063,16 +1065,21 @@ class ChangeDeviceCall {
 }
 
 class ChangeRelaiCall {
-  Future<ApiCallResponse> call({
+  Future<ApiCallResponse> call(
     int? id,
-  }) async {
+    PanneRelaisSubmitStruct? panneRelaiSubmit,
+  ) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
 
     return ApiManager.instance.makeApiCall(
       callName: 'changeRelai',
-      apiUrl: '${baseUrl}/changeRelai/{id}',
+      apiUrl: '${baseUrl}/changeRelai/${id}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
+      body: jsonEncode(panneRelaiSubmit?.toMap()),
       params: {},
       bodyType: BodyType.JSON,
       returnBody: true,
@@ -1135,17 +1142,19 @@ class ReinstallationTaskCall {
 }
 
 class PanneTaskCall {
-  Future<ApiCallResponse> call({
-    int? id,
-  }) async {
+  Future<ApiCallResponse> call({int? id, PanneSubmitStruct? panneData}) async {
     final baseUrl = TechnicienGroup.getBaseUrl();
 
     return ApiManager.instance.makeApiCall(
       callName: 'panneTask',
-      apiUrl: '${baseUrl}/panneTask/{id}',
+      apiUrl: '${baseUrl}/panneTask/${id}',
       callType: ApiCallType.PUT,
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer 4356|3qnEpkUNGM4qCAPaCz87rT6DbmmKKRhf352176zL05237f92',
+      },
       params: {},
+      body: jsonEncode(panneData!.toMap()),
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,

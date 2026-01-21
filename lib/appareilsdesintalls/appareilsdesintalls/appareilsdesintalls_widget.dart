@@ -1,3 +1,6 @@
+import 'package:mobile_installer/appareilsdesintalls/appareilsdesintalls/appareils_desinstalled_provider.dart';
+import 'package:provider/provider.dart';
+
 import '../../flutter_flow/custom_functions.dart' as functions;
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
@@ -36,33 +39,35 @@ class _AppareilsdesintallsWidgetState extends State<AppareilsdesintallsWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        _isLoadingList = true;
-      });
-      _model.apiResultz7r = await TechnicienGroup.returnedDevicesCall.call();
+      final provider = context.read<AppareilsDesinstalledProvider>();
+      await provider.loadReturnedDevices();
+      // setState(() {
+      //   _isLoadingList = true;
+      // });
+      // _model.apiResultz7r = await TechnicienGroup.returnedDevicesCall.call();
 
-      if ((_model.apiResultz7r?.succeeded ?? true)) { 
-        _model.returnedDevices = ((_model.apiResultz7r?.jsonBody ?? '').toList().map<ReturnedDevicesStruct?>(ReturnedDevicesStruct.maybeFromMap).toList() as Iterable<ReturnedDevicesStruct?>)
-            .withoutNulls
-            .toList()
-            .cast<ReturnedDevicesStruct>();
-        safeSetState(() {});
-      }
+      // if ((_model.apiResultz7r?.succeeded ?? true)) {
+      //   _model.returnedDevices = ((_model.apiResultz7r?.jsonBody ?? '').toList().map<ReturnedDevicesStruct?>(ReturnedDevicesStruct.maybeFromMap).toList() as Iterable<ReturnedDevicesStruct?>)
+      //       .withoutNulls
+      //       .toList()
+      //       .cast<ReturnedDevicesStruct>();
+      //   safeSetState(() {});
+      // }
 
-      setState(() {
-        _isLoadingList = false;
-      });
+      // setState(() {
+      //   _isLoadingList = false;
+      // });
     });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
   }
 
-  Future<void> returnDevicesToST() async {
+  Future<void> returnDevicesToST(AppareilsDesinstalledProvider provider) async {
     setState(() {
       _isButtonEnabled = false;
     });
-    if (_model.selectedDevices.isEmpty) {
+    if (provider.selectedDevices.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -80,9 +85,10 @@ class _AppareilsdesintallsWidgetState extends State<AppareilsdesintallsWidget> {
       });
       return;
     }
-    _model.apiResultaf3 = await TechnicienGroup.affectedDevicesCall.call(
-      articlesList: _model.selectedDevices,
-    );
+    // _model.apiResultaf3 = await TechnicienGroup.affectedDevicesCall.call(
+    //   articlesList: provider.selectedDevices,
+    // );
+      provider.removeAtIndexFromSelectedDevices();
     if ((_model.apiResultaf3?.succeeded ?? true)) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -148,7 +154,6 @@ class _AppareilsdesintallsWidgetState extends State<AppareilsdesintallsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final filterDesinstalledDevices = functions.filterDesinstalledDevices(_model.returnedDevices, _model.textController?.text);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -186,262 +191,271 @@ class _AppareilsdesintallsWidgetState extends State<AppareilsdesintallsWidget> {
           ),
         ),
         body: SafeArea(
-          top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12.0, 10.0, 12.0, 10.0),
-                      child: Container(
-                        width: double.infinity,
-                        child: TextFormField(
-                          controller: _model.textController,
-                          focusNode: _model.textFieldFocusNode,
-                          onChanged: (_) async {
-                            functions.filterDesinstalledDevices(_model.returnedDevices, _model.textController?.text);
-                            safeSetState(() {});
-                          },
-                          autofocus: false,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            isDense: true,
-                            labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                  ),
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                ),
-                            hintText: 'Rechercher...',
-                            hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                  ),
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x4C000000),
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).error,
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).error,
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            filled: true,
-                            fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                          ),
-                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                ),
-                                letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                              ),
-                          cursorColor: FlutterFlowTheme.of(context).primaryText,
-                          validator: _model.textControllerValidator.asValidator(context),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                        child: Text(
-                          'GPS retournées   | ',
-                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                ),
-                                fontSize: 16.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                              ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                        child: Text(
-                          ' ${filterDesinstalledDevices!.length}  appareils',
-                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                ),
-                                fontSize: 16.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                              ),
-                        ),
-                      ),
-                    ].divide(SizedBox(width: 15.0)).around(SizedBox(width: 15.0)),
-                  ),
-                ],
-              ),
-              // if(filterDesinstalledDevices != null && filterDesinstalledDevices.isNotEmpty)
-              Expanded(
-                child: Builder(builder: (context) {
-                  if (_isLoadingList) {
-                    return Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          CircularProgressIndicator(),
-                          SizedBox(height: 10),
-                          Text('Chargement des appareils...'),
-                        ],
-                      ),
-                    );
-                  }
-
-                  if (filterDesinstalledDevices == null || filterDesinstalledDevices.isEmpty) {
-                    return Center(
-                      child: Text(
-                        'Aucun appareil trouvé',
-                        style: FlutterFlowTheme.of(context).bodyMedium,
-                      ),
-                    );
-                  }
-                  return SingleChildScrollView(
-                    child: Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Padding(
-                        padding: EdgeInsets.all(12.0),
-                        child: Builder(
-                          builder: (context) {
-                            // final filterDesinstalledDevices = _model.returnedDevices.toList();
-
-                            return ListView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              scrollDirection: Axis.vertical,
-                              itemCount: filterDesinstalledDevices.length,
-                              itemBuilder: (context, filterDesinstalledDevicesIndex) {
-                                final filterDesinstalledDevicesItem = filterDesinstalledDevices[filterDesinstalledDevicesIndex];
-                                return Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
-                                    child: wrapWithModel(
-                                      model: _model.returnedDevicesModels.getModel(
-                                        filterDesinstalledDevicesItem.id.toString(),
-                                        filterDesinstalledDevicesIndex,
-                                      ),
-                                      updateCallback: () => safeSetState(() {}),
-                                      child: ReturnedDevicesWidget(
-                                        key: Key(
-                                          filterDesinstalledDevicesIndex.toString(),
+            top: true,
+            child: Consumer<AppareilsDesinstalledProvider>(builder: (context, provider, child) {
+              if (provider.isLoading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (provider.errorMessage != null) {
+                return Center(
+                  child: Text(provider.errorMessage!),
+                );
+              } else {
+                final filterDesinstalledDevices = functions.filterDesinstalledDevices(provider.returnedDevices, _model.textController?.text);
+                return Column(
+                  mainAxisSize: MainAxisSize.max,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(12.0, 10.0, 12.0, 10.0),
+                            child: Container(
+                              width: double.infinity,
+                              child: TextFormField(
+                                controller: _model.textController,
+                                focusNode: _model.textFieldFocusNode,
+                                onChanged: (_) async {
+                                  functions.filterDesinstalledDevices(provider.returnedDevices, _model.textController?.text);
+                                  safeSetState(() {});
+                                },
+                                autofocus: false,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
                                         ),
-                                        imei: filterDesinstalledDevicesItem.serialNumber,
-                                        nameModele: filterDesinstalledDevicesItem.nameModele,
-                                        nomComplet: filterDesinstalledDevicesItem.nomComplet,
-                                        matricule: filterDesinstalledDevicesItem.matricule,
-                                        dateReturned: filterDesinstalledDevicesItem.dataReturned,
-                                        selected: _model.selected,
-                                        id: filterDesinstalledDevicesItem.id,
-                                        onSelectedChanged: (id, value) async {
-                                          if (value == true) {
-                                            _model.addToSelectedDevices(filterDesinstalledDevicesItem.id);
-                                            _model.selected = true;
-                                            safeSetState(() {});
-                                          } else {
-                                            _model.removeFromSelectedDevices(filterDesinstalledDevicesItem.id);
-                                            _model.selected = false;
-                                            safeSetState(() {});
-                                          }
-                                        },
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
                                       ),
+                                  hintText: 'Rechercher...',
+                                  hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                      ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x4C000000),
+                                      width: 1.0,
                                     ),
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
-                                );
-                              },
-                            );
-                          },
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  filled: true,
+                                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                                ),
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    ),
+                                cursorColor: FlutterFlowTheme.of(context).primaryText,
+                                validator: _model.textControllerValidator.asValidator(context),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                              child: Text(
+                                'GPS retournées   | ',
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                      ),
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                              child: Text(
+                                ' ${filterDesinstalledDevices!.length}  appareils',
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                      ),
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    ),
+                              ),
+                            ),
+                          ].divide(SizedBox(width: 15.0)).around(SizedBox(width: 15.0)),
+                        ),
+                      ],
+                    ),
+                    // if(filterDesinstalledDevices != null && filterDesinstalledDevices.isNotEmpty)
+                    Expanded(
+                      child: Builder(builder: (context) {
+                        if (provider.isLoading) {
+                          return Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: const [
+                                CircularProgressIndicator(),
+                                SizedBox(height: 10),
+                                Text('Chargement des appareils...'),
+                              ],
+                            ),
+                          );
+                        }
+
+                        if (filterDesinstalledDevices == null || filterDesinstalledDevices.isEmpty) {
+                          return Center(
+                            child: Text(
+                              'Aucun appareil trouvé',
+                              style: FlutterFlowTheme.of(context).bodyMedium,
+                            ),
+                          );
+                        }
+                        print("filterDesinstalledDevices: $filterDesinstalledDevices");
+                        return SingleChildScrollView(
+                          child: Align(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: Builder(
+                                builder: (context) {
+                                  // final filterDesinstalledDevices = _model.returnedDevices.toList();
+
+                                  return ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: filterDesinstalledDevices.length,
+                                    itemBuilder: (context, filterDesinstalledDevicesIndex) {
+                                      final filterDesinstalledDevicesItem = filterDesinstalledDevices[filterDesinstalledDevicesIndex];
+                                      print("filterDesinstalledDevicesItem: ${filterDesinstalledDevicesItem.id} = ${filterDesinstalledDevicesItem.is_selected}");
+                                      return Align(
+                                        alignment: AlignmentDirectional(0.0, 0.0),
+                                        child: Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                                          child: wrapWithModel(
+                                            model: _model.returnedDevicesModels.getModel(
+                                              filterDesinstalledDevicesItem.id.toString(),
+                                              filterDesinstalledDevicesIndex,
+                                            ),
+                                            updateCallback: () => safeSetState(() {}),
+                                            child: ReturnedDevicesWidget(
+                                              key: Key(
+                                                filterDesinstalledDevicesIndex.toString(),
+                                              ),
+                                              imei: filterDesinstalledDevicesItem.serialNumber,
+                                              nameModele: filterDesinstalledDevicesItem.nameModele,
+                                              nomComplet: filterDesinstalledDevicesItem.nomComplet,
+                                              matricule: filterDesinstalledDevicesItem.matricule,
+                                              dateReturned: filterDesinstalledDevicesItem.dataReturned,
+                                              id: filterDesinstalledDevicesItem.id,
+                                              onSelectedChanged: (id, value) async {
+                                                if (value == true) {
+                                                  provider.addToSelectedDevices(filterDesinstalledDevicesItem.id);
+                                                } else {
+                                                  provider.removeFromSelectedDevices(filterDesinstalledDevicesItem.id);
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                    Align(
+                      alignment: AlignmentDirectional(0.0, 0.65),
+                      child: Container(
+                        width: 392.7,
+                        height: 65.2,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                        ),
+                        child: Align(
+                          alignment: AlignmentDirectional(-0.11, 0.45),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              _isButtonEnabled ? await returnDevicesToST(provider) : null;
+                            },
+                            text: 'Retourner à ST',
+                            options: FFButtonOptions(
+                              width: 159.1,
+                              height: 35.5,
+                              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                              color: FlutterFlowTheme.of(context).secondary,
+                              textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                    font: GoogleFonts.interTight(
+                                      fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                    ),
+                                    color: Colors.white,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                  ),
+                              elevation: 0.0,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  );
-                }),
-              ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 0.65),
-                child: Container(
-                  width: 392.7,
-                  height: 65.2,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                  ),
-                  child: Align(
-                    alignment: AlignmentDirectional(-0.11, 0.45),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        _isButtonEnabled ? await returnDevicesToST() : null;
-                      },
-                      text: 'Retourner à ST',
-                      options: FFButtonOptions(
-                        width: 159.1,
-                        height: 35.5,
-                        padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                        iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).secondary,
-                        textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                              font: GoogleFonts.interTight(
-                                fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                              ),
-                              color: Colors.white,
-                              letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                            ),
-                        elevation: 0.0,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ].divide(SizedBox(height: 10.0)),
-          ),
-        ),
+                  ].divide(SizedBox(height: 10.0)),
+                );
+              }
+            })),
       ),
     );
   }
