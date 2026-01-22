@@ -20,7 +20,7 @@ class MultiFilterWidget extends StatefulWidget {
     required this.applyAction,
   });
 
-  final Future Function(String? city, String? date, String? type, int etat)?
+  final Future Function(String? city, String? date, String? type, int? etat)?
   applyAction;
 
   @override
@@ -384,7 +384,7 @@ class _MultiFilterWidgetState extends State<MultiFilterWidget> {
                                   _model.selectedCity,
                                   _model.selectedDateFilter,
                                   _model.selectedTaskCategory,
-                                  _model.selectedTaskStatus ?? 0,
+                                  _model.selectedTaskStatus,
                                 );
                                 Navigator.pop(context);
                               },
